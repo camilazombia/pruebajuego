@@ -10,7 +10,7 @@ import { Button } from '../../shared/ui/Button/Button';
 
 // Config
 const STORAGE_KEY = 'family_access_code';
-const CODE_MIN = 6;   // ajusta si quieres otra longitud mínima
+const CODE_MIN = 1;   // ajusta si quieres otra longitud mínima
 const CODE_MAX = 12;  // y máxima
 const pattern = /^[a-zA-Z0-9]+$/; // solo letras/números (cámbialo si quieres solo números)
 
@@ -23,13 +23,8 @@ export default function LoginPage() {
 
   // Autologin si ya hay un código guardado
   useEffect(() => {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved && pattern.test(saved)) {
-      navigate('/play', { replace: true });
-    } else {
-      inputRef.current?.focus();
-    }
-  }, [navigate]);
+    inputRef.current?.focus();
+  }, []);
 
   const isReady = useMemo(() => {
     if (!code) return false;
@@ -55,7 +50,7 @@ export default function LoginPage() {
         return;
       }
       localStorage.setItem(STORAGE_KEY, code);
-      navigate('/play', { replace: true });
+      navigate('/family-access', { replace: true });
     } catch {
       setErr('Ocurrió un problema al validar el código.');
       setLoading(false);

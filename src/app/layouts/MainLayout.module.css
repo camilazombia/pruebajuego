@@ -1,0 +1,12 @@
+.layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100dvh;
+  background: #0b1220; /* darker background so sidebar stands out */
+}
+
+.main {
+  flex: 1;
+  padding: 20px 20px 20px 140px; /* leave space for fixed sidebar */
+  overflow-y: auto;
+}
