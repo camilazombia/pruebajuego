@@ -1,0 +1,56 @@
+:root {
+  --mm-blue: #304CD4;
+  --mm-shadow: #1A5EDB;
+  --mm-bg-light: #D5DCFF;
+}
+
+/* --- Botón circular con efecto de profundidad --- */
+.soundButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1.7px solid var(--mm-blue);
+  background: var(--mm-bg-light);
+  box-shadow: -6px 6px 0 0 var(--mm-shadow);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* --- Hover --- */
+.soundButton:hover {
+  transform: translate(-2px, 2px);
+  box-shadow: -4px 4px 0 0 var(--mm-shadow);
+}
+
+/* --- Active --- */
+.soundButton:active {
+  transform: translate(-1px, 1px);
+  box-shadow: -2px 2px 0 0 var(--mm-shadow);
+}
+
+/* --- Icono central --- */
+.icon {
+  color: var(--mm-blue);
+  font-size: 26px !important;
+  transition: transform 0.3s ease;
+}
+
+.soundButton:hover .icon {
+  transform: scale(1.1);
+}
+
+/* --- Tamaños responsivos --- */
+@media (max-width: 480px) {
+  .soundButton {
+    width: 56px;
+    height: 56px;
+    box-shadow: -4px 4px 0 0 var(--mm-shadow);
+  }
+
+  .icon {
+    font-size: 22px !important;
+  }
+}

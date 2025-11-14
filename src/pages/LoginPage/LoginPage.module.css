@@ -1,0 +1,87 @@
+:root {
+  --mm-blue: #2c47d5;
+  --mm-blue-2: #304cd4;
+  --mm-yellow: #f7c62f;
+  --mm-white: #ffffff;
+  --ink: #0b0b1a;
+
+  --radius: 16px;
+  --shadow: 0 10px 24px rgba(0,0,0,0.18);
+}
+
+.page {
+  min-height: 100dvh;
+  background: var(--mm-blue);
+  color: var(--mm-white);
+  display: flex;
+  flex-direction: column;
+}
+
+/* HEADER centrado con logo */
+.navbar {
+  height: 72px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-bottom: 2px solid rgba(255,255,255,.2);
+  background: var(--mm-blue);
+}
+.navCenter {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+.logoSvg {
+  height: 44px;
+  width: auto;
+  display: block;
+}
+
+/* MAIN */
+.main {
+  display: grid;
+  place-items: center;
+  padding: clamp(24px, 6vw, 48px);
+  flex: 1;
+}
+
+/* CARD */
+.card {
+  width: min(560px, 92vw);
+  background: var(--mm-white);
+  color: var(--ink);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  padding: 28px 28px 24px;
+}
+
+.title {
+  margin: 0 0 6px;
+  text-align: center;
+  font-size: clamp(22px, 3.2vw, 28px);
+  font-weight: 800;
+  color: var(--ink);
+}
+.subtitle {
+  margin: 0 0 18px;
+  text-align: center;
+  color: #5d6a8b;
+  font-size: 14px;
+}
+
+/* Actions */
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 14px;
+}
+.cta {
+  min-width: 160px;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .card { padding: 22px 18px 18px; }
+  .logoSvg { height: 40px; }
+}

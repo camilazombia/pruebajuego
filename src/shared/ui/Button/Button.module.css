@@ -1,0 +1,73 @@
+:root {
+  --mm-blue: #304ADA;
+  --mm-yellow: #F7D84C;
+  --mm-white: #ffffff;
+}
+
+/* --- Base --- */
+.button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8.367px;
+
+  padding: 16px 32px;
+  border-radius: 33.466px;
+  border: 1.673px solid var(--mm-yellow);
+  background: var(--mm-blue);
+
+  box-shadow: -5.857px 5.857px 0 0 var(--mm-yellow);
+
+  font-weight: 900;
+  font-size: 1rem;
+  text-transform: uppercase;
+  color: var(--mm-yellow);
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+/* --- Hover / Active --- */
+.button:hover {
+  transform: translate(-2px, 2px);
+  box-shadow: -4px 4px 0 0 var(--mm-yellow);
+}
+
+.button:active {
+  transform: translate(-1px, 1px);
+  box-shadow: -2px 2px 0 0 var(--mm-yellow);
+}
+
+/* --- Icono circular --- */
+.iconCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--mm-yellow);
+  color: var(--mm-blue);
+  flex-shrink: 0;
+}
+
+/* --- Texto --- */
+.text {
+  font-weight: 900;
+  letter-spacing: 0.5px;
+  color: var(--mm-yellow);
+}
+
+/* --- Responsive --- */
+@media (max-width: 480px) {
+  .button {
+    padding: 12px 24px;
+    font-size: 0.9rem;
+  }
+
+  .iconCircle {
+    width: 24px;
+    height: 24px;
+  }
+}
