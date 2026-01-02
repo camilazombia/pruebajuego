@@ -1,0 +1,15 @@
+<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+  <!-- Top - Sweater -->
+  
+  <path d="M 70 100 L 68 150 Q 68 155 72 155 L 128 155 Q 132 155 132 150 L 130 100 Z" fill="#f39c12"/>
+  
+  <!-- Sleeve left -->
+  <ellipse cx="65" cy="115" rx="14" ry="25" fill="#f39c12"/>
+  
+  <!-- Sleeve right -->
+  <ellipse cx="135" cy="115" rx="14" ry="25" fill="#f39c12"/>
+  
+  <!-- Collar -->
+  <ellipse cx="100" cy="95" rx="16" ry="8" fill="#d68910"/>
+  
+</svg>

@@ -1,0 +1,165 @@
+.page {
+	min-height: 100vh;
+	background-color: #0b1220;
+	color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	overflow: hidden;
+}
+
+.background {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
+	opacity: 0.15;
+	z-index: 0;
+}
+
+/* Fondos específicos para cada mundo */
+.background.bg-w1 {
+	background-image: url('/assets/images/backgrounds/world1.jpg');
+}
+
+.background.bg-w2 {
+	background-image: url('/assets/images/backgrounds/world2.jpg');
+}
+
+.background.bg-w3 {
+	background-image: url('/assets/images/backgrounds/world3.jpg');
+}
+
+.background.bg-w4 {
+	background-image: url('/assets/images/backgrounds/world4.jpg');
+}
+
+.background.bg-w5 {
+	background-image: url('/assets/images/backgrounds/world5.jpg');
+}
+
+.background.bg-w6 {
+	background-image: url('/assets/images/backgrounds/world6.jpg');
+}
+
+.background.bg-w7 {
+	background-image: url('/assets/images/backgrounds/world7.jpg');
+}
+
+.background.bg-w8 {
+	background-image: url('/assets/images/backgrounds/world8.jpg');
+}
+
+.background.bg-w9 {
+	background-image: url('/assets/images/backgrounds/world9.jpg');
+}
+
+.background.bg-w10 {
+	background-image: url('/assets/images/backgrounds/world10.jpg');
+}
+
+.header {
+	position: relative;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 1.5rem 2rem;
+	border-bottom: 1px solid rgba(255, 63, 161, 0.3);
+}
+
+.backButton {
+	background-color: #1a2d4d;
+	color: #ffffff;
+	border: none;
+	padding: 0.75rem 1.5rem;
+	border-radius: 0.5rem;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.backButton:hover {
+	background-color: #2a3d5d;
+}
+
+.title {
+	font-size: 2rem;
+	font-weight: bold;
+	margin: 0;
+	flex: 1;
+	color: #ff3fa1;
+}
+
+.content {
+	position: relative;
+	z-index: 5;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+}
+
+.activityContainer {
+	width: 100%;
+	max-width: 800px;
+	background-color: rgba(26, 45, 77, 0.9);
+	border: 2px solid #ff3fa1;
+	border-radius: 1rem;
+	padding: 2rem;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+}
+
+.activityPlaceholder {
+	text-align: center;
+	padding: 2rem;
+}
+
+.activityPlaceholder h2 {
+	font-size: 1.5rem;
+	margin-bottom: 1rem;
+	color: #ff3fa1;
+}
+
+.activityPlaceholder p {
+	font-size: 1rem;
+	margin: 0.5rem 0;
+	color: #cbd5e1;
+}
+
+.footer {
+	position: relative;
+	z-index: 10;
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+	padding: 2rem;
+	border-top: 1px solid rgba(255, 63, 161, 0.3);
+}
+
+.completeButton {
+	background-color: #ff3fa1;
+	color: #ffffff;
+	border: none;
+	padding: 1rem 2rem;
+	border-radius: 0.5rem;
+	font-size: 1.1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.completeButton:hover {
+	background-color: #ff1493;
+	transform: translateY(-2px);
+	box-shadow: 0 8px 16px rgba(255, 63, 161, 0.4);
+}
+
+.completeButton:active {
+	transform: translateY(0);
+}

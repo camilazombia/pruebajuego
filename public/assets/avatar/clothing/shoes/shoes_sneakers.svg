@@ -1,0 +1,12 @@
+<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+  <!-- Shoes - Sneakers -->
+  
+  <!-- Left shoe -->
+  <ellipse cx="87" cy="198" rx="10" ry="8" fill="#2c3e50"/>
+  <ellipse cx="87" cy="197" rx="8" ry="6" fill="#34495e"/>
+  
+  <!-- Right shoe -->
+  <ellipse cx="113" cy="198" rx="10" ry="8" fill="#2c3e50"/>
+  <ellipse cx="113" cy="197" rx="8" ry="6" fill="#34495e"/>
+  
+</svg>

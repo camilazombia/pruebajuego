@@ -1,12 +1,17 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
+import { Button } from '../../shared/ui/Button/Button';
+import { Input } from '../../shared/ui/Input/Input';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './FamilyAccessPage.module.css';
+import { useChild } from '../../features/child/context/ChildContext';
 
-// UI
+// SVG Icons for ages
+import Age34Svg from '../../assets/svg/age3-4.svg';
+import Age56Svg from '../../assets/svg/age5-6.svg';
+import Age78Svg from '../../assets/svg/age7-8.svg';
 import Logo from '../../assets/svg/logo.svg';
-import { Input } from '../../shared/ui/Input/Input';
-import { Button } from '../../shared/ui/Button/Button';
 
 // Avatar options
 const AVATAR_OPTIONS = [
@@ -20,15 +25,16 @@ const AVATAR_OPTIONS = [
   { id: 8, emoji: '🐶', label: 'Perro' },
 ];
 
-// Age options with icons
+// Age options with SVG icons
 const AGE_OPTIONS = [
-  { id: 1, emoji: '🧒', label: '3–6 años', range: '3-6' },
-  { id: 2, emoji: '👦', label: '7–10 años', range: '7-10' },
-  { id: 3, emoji: '👨‍🎓', label: '11+ años', range: '11+' },
+  { id: 1, icon: Age34Svg, label: '3–6 años', range: '3-6' },
+  { id: 2, icon: Age56Svg, label: '7–10 años', range: '7-10' },
+  { id: 3, icon: Age78Svg, label: '11+ años', range: '11+' },
 ];
 
 export default function FamilyAccessPage() {
   const navigate = useNavigate();
+  const { setAgeRange } = useChild();
   const [childName, setChildName] = useState('');
   const [childAge, setChildAge] = useState('');
   const [selectedAvatar, setSelectedAvatar] = useState(AVATAR_OPTIONS[0]);
@@ -43,6 +49,10 @@ export default function FamilyAccessPage() {
   const handleSubmit = async () => {
     if (!isReady || loading) return;
     setLoading(true);
+    
+    // Guardar el rango de edad en el contexto
+    setAgeRange(childAge);
+    
     // Simulamos validación
     await new Promise((r) => setTimeout(r, 500));
     // Aquí guardarías los datos del menor
@@ -63,6 +73,8 @@ export default function FamilyAccessPage() {
   };
 
   return (
+    <>
+    <OrientationAlert />
     <div className={styles.page}>
       {/* HEADER con logo centrado */}
       <header className={styles.navbar}>
@@ -85,83 +97,89 @@ export default function FamilyAccessPage() {
             Lorem ipsum dolor sit amet consectetur. Nulla cursus magna aliquam quam ac dui hac tellus. Egestas molestie non vulputate sed mauris platea est dignissim.
           </p>
 
-          {/* Avatar Selector */}
-          <div className={styles.avatarContainer}>
-            <motion.button
-              className={styles.avatarButton}
-              onClick={() => setShowAvatarModal(true)}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              aria-label="Seleccionar avatar"
-            >
-              <span className={styles.avatarEmoji}>{selectedAvatar.emoji}</span>
-              <span className={styles.avatarPlus}>+</span>
-            </motion.button>
-          </div>
-
-          {/* Nombre del Menor */}
-          <Input
-            id="child-name"
-            label="Nombre del Menor*"
-            placeholder="Nombre"
-            value={childName}
-            onChange={(e) => setChildName(e.target.value)}
-            helperText="* Campo obligatorio"
-            type="text"
-          />
-
-          {/* Selecciona la edad */}
-          <div className={styles.formGroup}>
-            <label className={styles.ageLabel}>Selecciona la edad*</label>
-            <div className={styles.ageChipsContainer}>
-              {AGE_OPTIONS.map((age) => (
-                <motion.button
-                  key={age.id}
-                  className={`${styles.ageChip} ${
-                    childAge === age.range ? styles.selected : ''
-                  }`}
-                  onClick={() => setChildAge(age.range)}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  <span className={styles.chipEmoji}>{age.emoji}</span>
-                  <span className={styles.chipLabel}>{age.label}</span>
-                </motion.button>
-              ))}
+          {/* Content Container - Avatar on left, Form on right */}
+          <div className={styles.contentContainer}>
+            {/* Avatar Section */}
+            <div className={styles.avatarSection}>
+              <motion.button
+                className={styles.avatarButton}
+                onClick={() => setShowAvatarModal(true)}
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                aria-label="Seleccionar avatar"
+              >
+                <span className={styles.avatarEmoji}>{selectedAvatar.emoji}</span>
+                <span className={styles.avatarPlus}>+</span>
+              </motion.button>
             </div>
-          </div>
 
-          {/* Checkboxes */}
-          <div className={styles.checkboxGroup}>
-            <label className={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                checked={dataPolicy}
-                onChange={(e) => setDataPolicy(e.target.checked)}
-                className={styles.checkbox}
+            {/* Form Section */}
+            <div className={styles.formSection}>
+              {/* Nombre del Menor */}
+              <Input
+                id="child-name"
+                label="Nombre del Menor*"
+                placeholder="Nombre"
+                value={childName}
+                onChange={(e) => setChildName(e.target.value)}
+                helperText="* Campo obligatorio"
+                type="text"
               />
-              <span>
-                Acepto{' '}
-                <a href="#" className={styles.policyLink}>
-                  política de datos infantil
-                </a>
-              </span>
-            </label>
 
-            <label className={styles.checkboxLabel}>
-              <input
-                type="checkbox"
-                checked={progressStorage}
-                onChange={(e) => setProgressStorage(e.target.checked)}
-                className={styles.checkbox}
-              />
-              <span>
-                Autorizo el{' '}
-                <a href="#" className={styles.policyLink}>
-                  almacenamiento local del progreso
-                </a>
-              </span>
-            </label>
+              {/* Selecciona la edad - Inside form section */}
+              <div className={styles.formGroup}>
+                <label className={styles.ageLabel}>Selecciona la edad*</label>
+                <div className={styles.ageChipsContainer}>
+                  {AGE_OPTIONS.map((age) => (
+                    <motion.button
+                      key={age.id}
+                      className={`${styles.ageChip} ${
+                        childAge === age.range ? styles.selected : ''
+                      }`}
+                      onClick={() => setChildAge(age.range)}
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                    >
+                      <img src={age.icon} alt={age.label} className={styles.chipIcon} />
+                      <span className={styles.chipLabel}>{age.range}</span>
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Checkboxes */}
+              <div className={styles.checkboxGroup}>
+                <label className={styles.checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    checked={dataPolicy}
+                    onChange={(e) => setDataPolicy(e.target.checked)}
+                    className={styles.checkbox}
+                  />
+                  <span>
+                    Acepto{' '}
+                    <a href="#" className={styles.policyLink}>
+                      política de datos infantil
+                    </a>
+                  </span>
+                </label>
+
+                <label className={styles.checkboxLabel}>
+                  <input
+                    type="checkbox"
+                    checked={progressStorage}
+                    onChange={(e) => setProgressStorage(e.target.checked)}
+                    className={styles.checkbox}
+                  />
+                  <span>
+                    Autorizo el{' '}
+                    <a href="#" className={styles.policyLink}>
+                      almacenamiento local del progreso
+                    </a>
+                  </span>
+                </label>
+              </div>
+            </div>
           </div>
 
           {/* Button */}
@@ -237,5 +255,6 @@ export default function FamilyAccessPage() {
         )}
       </AnimatePresence>
     </div>
+    </>
   );
 }

@@ -1,0 +1,160 @@
+.page {
+	min-height: 100vh;
+	background-color: #0b1220;
+	color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	overflow: hidden;
+}
+
+.header {
+	position: relative;
+	z-index: 10;
+	display: flex;
+	align-items: flex-start;
+	gap: 1.5rem;
+	padding: 1.5rem 2rem;
+	border-bottom: 1px solid rgba(255, 63, 161, 0.3);
+}
+
+.backButton {
+	background-color: #1a2d4d;
+	color: #ffffff;
+	border: none;
+	padding: 0.75rem 1.5rem;
+	border-radius: 0.5rem;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	margin-top: 0.25rem;
+	flex-shrink: 0;
+}
+
+.backButton:hover {
+	background-color: #2a3d5d;
+}
+
+.chapterName {
+	font-size: 0.9rem;
+	color: #cbd5e1;
+	margin: 0 0 0.25rem 0;
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font-weight: 600;
+}
+
+.levelTitle {
+	font-size: 2rem;
+	font-weight: bold;
+	margin: 0;
+	color: #ff3fa1;
+}
+
+.content {
+	position: relative;
+	z-index: 5;
+	flex: 1;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 2rem;
+}
+
+.activityContainer {
+	width: 100%;
+	max-width: 900px;
+	background-color: rgba(26, 45, 77, 0.9);
+	border: 2px solid #ff3fa1;
+	border-radius: 1rem;
+	padding: 2rem;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+}
+
+.activityPlaceholder {
+	text-align: center;
+	padding: 2rem;
+}
+
+.levelInfo {
+	margin-bottom: 2rem;
+}
+
+.levelNumber {
+	font-size: 2.5rem;
+	font-weight: 900;
+	color: #ff3fa1;
+	margin-bottom: 1rem;
+}
+
+.levelStats {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	align-items: center;
+}
+
+.stars {
+	display: flex;
+	gap: 0.5rem;
+	justify-content: center;
+	font-size: 2rem;
+}
+
+.star.filled {
+	color: #fbbf24;
+	text-shadow: 0 0 12px rgba(251, 191, 36, 0.6);
+}
+
+.star.empty {
+	color: rgba(148, 163, 184, 0.4);
+}
+
+.status {
+	font-size: 1.1rem;
+	font-weight: 600;
+	color: #4ade80;
+	padding: 0.5rem 1rem;
+	background-color: rgba(74, 222, 128, 0.1);
+	border-radius: 0.5rem;
+	display: inline-block;
+}
+
+.description {
+	font-size: 1rem;
+	color: #cbd5e1;
+	margin: 0;
+}
+
+.footer {
+	position: relative;
+	z-index: 10;
+	display: flex;
+	justify-content: center;
+	gap: 1rem;
+	padding: 2rem;
+	border-top: 1px solid rgba(255, 63, 161, 0.3);
+}
+
+.completeButton {
+	background-color: #ff3fa1;
+	color: #ffffff;
+	border: none;
+	padding: 1rem 2rem;
+	border-radius: 0.5rem;
+	font-size: 1.1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.3s ease;
+}
+
+.completeButton:hover {
+	background-color: #ff1493;
+	transform: translateY(-2px);
+	box-shadow: 0 8px 16px rgba(255, 63, 161, 0.4);
+}
+
+.completeButton:active {
+	transform: translateY(0);
+}

@@ -1,34 +1,408 @@
 :root {
-  --mm-blue: #2c47d5;
-  --mm-white: #ffffff;
-  --ink: #0b0b1a;
-  --shadow: 0 10px 24px rgba(0,0,0,0.12);
+  --color-bg-light: #A8D8F0;
+  --color-bg-dark: #5B8DBE;
+  --color-green-hill: #7EC850;
+  --color-yellow: #FFD93D;
+  --color-white: #FFFFFF;
+  --color-purple: #9B59B6;
+  --color-shadow: rgba(0, 0, 0, 0.15);
 }
 
 .page {
-  min-height: 100dvh;
-  display: grid;
-  place-items: center;
-  padding: 24px;
-}
-
-.card {
-  width: min(900px, 96vw);
-  background: var(--mm-white);
-  color: var(--ink);
-  border-radius: 12px;
-  box-shadow: var(--shadow);
-  padding: 28px;
-  text-align: center;
-}
-
-.title {
-  margin: 0 0 8px;
-  font-size: 28px;
-  font-weight: 800;
-}
-
-.subtitle {
+  width: 100%;
+  height: 100dvh;
   margin: 0;
-  color: #5d6a8b;
+  padding: 0;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  font-family: 'Arial', sans-serif;
 }
+
+/* ===== FONDO CON DECORACIONES ===== */
+.backgroundContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.decorativeCurves {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 40%;
+}
+
+.hill {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: var(--color-green-hill);
+  border-radius: 50% 50% 0 0;
+  box-shadow: inset 0 -2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* ===== INDICADORES SUPERIORES ===== */
+.topIndicators {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  gap: 3rem;
+  margin-top: 1.5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.indicatorBlock {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  background: rgba(255, 255, 255, 0.8);
+  padding: 0.8rem 1.2rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px var(--color-shadow);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+}
+
+.indicatorIcon {
+  font-size: 1.8rem;
+  min-width: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #F7D84C;
+}
+
+.indicatorIcon.worldIcon {
+  color: #304ADA;
+}
+
+.indicatorText {
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: var(--color-white);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* ===== PERSONAJE PRINCIPAL Y BOTONES LATERALES ===== */
+.centerSection {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+  gap: 3rem;
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.sideButton {
+  flex-shrink: 0;
+}
+
+.characterContainer {
+  position: relative;
+  z-index: 5;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+}
+
+.sapitContainer {
+  width: 250px;
+  height: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.2));
+}
+
+.sapito {
+  width: 100%;
+  height: auto;
+  max-width: 350px;
+}
+
+.characterShadow {
+  width: 180px;
+  height: 50px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.25) 0%, rgba(0, 0, 0, 0) 70%);
+  border-radius: 50%;
+  margin-top: -20px;
+  animation: shadowPulse 3s ease-in-out infinite;
+}
+
+@keyframes shadowPulse {
+  0%, 100% {
+    transform: scaleX(1);
+  }
+  50% {
+    transform: scaleX(0.95);
+  }
+}
+
+/* ===== BOTONES CIRCULARES INFERIORES ===== */
+.controlButtonsContainer {
+  position: relative;
+  z-index: 8;
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  align-items: flex-end;
+  margin-bottom: 3rem;
+  margin-top: -5.5rem;
+  flex-wrap: wrap;
+}
+
+.controlButtonsContainer > button:first-child {
+  transform: translateY(-15px) !important;
+}
+
+.controlButtonsContainer > button:last-child {
+  transform: translateY(-15px) !important;
+}
+
+.controlButtonsContainer > button:nth-child(2) {
+  transform: translateY(0) !important;
+}
+
+.controlButtonsContainer > button:first-child:hover {
+  transform: translateY(-15px) !important;
+}
+
+.controlButtonsContainer > button:last-child:hover {
+  transform: translateY(-15px) !important;
+}
+
+.controlButtonsContainer > button:nth-child(2):hover {
+  transform: translateY(0) !important;
+}
+
+.controlButtonStyle {
+  background: var(--color-white) !important;
+  border-color: #304ADA !important;
+  color: #304ADA !important;
+  box-shadow: -5.857px 5.857px 0 0 #304ADA !important;
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.controlButtonStyle:hover {
+  box-shadow: -4px 4px 0 0 #304ADA !important;
+}
+
+.controlButtonStyle:active {
+  box-shadow: -2px 2px 0 0 #304ADA !important;
+}
+
+.controlButtonStyle {
+  background: var(--color-white) !important;
+  border-color: #304ADA !important;
+  color: #304ADA !important;
+  box-shadow: -5.857px 5.857px 0 0 #304ADA !important;
+  width: 70px !important;
+  height: 70px !important;
+  border-radius: 50% !important;
+  padding: 0 !important;
+  aspect-ratio: 1 / 1 !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+.controlButtonStyle span {
+  color: #304ADA !important;
+}
+
+.controlButtonStyle .iconOnly {
+  color: #304ADA !important;
+  font-size: 2.5rem !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.controlButtonStyle .material-symbols-outlined {
+  color: #304ADA !important;
+  font-size: 2.5rem !important;
+}
+
+/* Tablet */
+@media (max-width: 1024px) {
+  .page {
+    height: auto;
+    min-height: 100dvh;
+  }
+
+  .centerSection {
+    gap: 2rem;
+  }
+
+  .frogCharacter {
+    font-size: 10rem;
+  }
+
+  .controlButtonsContainer {
+    gap: 1.2rem;
+  }
+
+  .topIndicators {
+    gap: 2rem;
+    margin-top: 1.2rem;
+  }
+}
+
+/* Mobile - 768px and below */
+@media (max-width: 768px) {
+  .page {
+    height: auto;
+    min-height: 100dvh;
+    padding: 0.5rem;
+  }
+
+  .centerSection {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .topIndicators {
+    gap: 1.5rem;
+    margin-top: 1rem;
+  }
+
+  .indicatorBlock {
+    padding: 0.6rem 1rem;
+    gap: 0.6rem;
+    border-radius: 16px;
+  }
+
+  .indicatorIcon {
+    font-size: 1.5rem;
+    min-width: 1.5rem;
+  }
+
+  .indicatorText {
+    font-size: 1rem;
+  }
+
+  .frogCharacter {
+    font-size: 8rem;
+  }
+
+  .sapitContainer {
+    width: 180px;
+  }
+
+  .characterShadow {
+    width: 140px;
+    height: 40px;
+    margin-top: -15px;
+  }
+
+  .controlButtonsContainer {
+    gap: 1rem;
+    margin-bottom: 1.2rem;
+  }
+
+  .hill {
+    height: 120px;
+  }
+}
+
+/* Small Mobile - 480px and below */
+@media (max-width: 480px) {
+  .page {
+    height: auto;
+    min-height: 100dvh;
+    padding: 0.25rem;
+  }
+
+  .centerSection {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+
+  .topIndicators {
+    gap: 1rem;
+    margin-top: 0.8rem;
+  }
+
+  .indicatorBlock {
+    padding: 0.5rem 0.8rem;
+    gap: 0.5rem;
+    border-radius: 14px;
+    font-size: 0.9rem;
+  }
+
+  .indicatorIcon {
+    font-size: 1.3rem;
+    min-width: 1.3rem;
+  }
+
+  .indicatorText {
+    font-size: 0.9rem;
+  }
+
+  .frogCharacter {
+    font-size: 6rem;
+  }
+
+  .sapitContainer {
+    width: 140px;
+  }
+
+  .characterShadow {
+    width: 100px;
+    height: 30px;
+    margin-top: -10px;
+  }
+
+  .controlButtonsContainer {
+    gap: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+
+  .hill {
+    height: 100px;
+  }
+
+  .decorativeCurves {
+    height: 35%;
+  }
+}
+
+/* ===== UTILITIES ===== */
+button {
+  font-family: inherit;
+}
+
+button:focus {
+  outline: none;
+}
+
+button:focus-visible {
+  outline: 2px solid var(--color-bg-dark);
+  outline-offset: 2px;
+}
+

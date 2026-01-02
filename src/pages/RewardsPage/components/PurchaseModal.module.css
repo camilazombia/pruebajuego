@@ -1,0 +1,222 @@
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  -webkit-backdrop-filter: blur(4px);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modalContainer {
+  position: relative;
+  z-index: 101;
+  pointer-events: auto;
+}
+
+.closeButton {
+  position: absolute;
+  top: -20px;
+  right: -20px;
+  width: 48px;
+  height: 48px;
+  background: #2c47d5;
+  color: #f7c62f;
+  border: 2px solid #f7c62f;
+  border-radius: 50%;
+  font-size: 24px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: -5px 5px 0 0 #f7c62f;
+  outline: none;
+  z-index: 102;
+  -webkit-user-select: none;
+  user-select: none;
+  padding: 0;
+}
+
+.closeButton:hover {
+  transform: translate(-2px, 2px);
+  box-shadow: -4px 4px 0 0 #f7c62f;
+}
+
+.closeButton:active {
+  transform: translate(-1px, 1px);
+  box-shadow: -2px 2px 0 0 #f7c62f;
+}
+
+.modal {
+  background: white;
+  border-radius: 24px;
+  padding: 32px;
+  max-width: 450px;
+  width: 90vw;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: stretch;
+  text-align: center;
+}
+
+/* Image Section */
+.imageSection {
+  width: 150px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+.imagePlaceholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #f0f4ff 0%, #e0e7ff 100%);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 60px;
+}
+
+/* Info Section */
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f1720;
+}
+
+/* Price Section */
+.priceSection {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  font-size: 32px;
+  font-weight: 700;
+  color: #f7c62f;
+}
+
+.priceIcon {
+  font-size: 28px;
+}
+
+.priceAmount {
+  color: #2c47d5;
+}
+
+/* Insufficient Balance */
+.insufficientBalance {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  padding: 12px 16px;
+  background: #fee2e2;
+  border-radius: 12px;
+  font-size: 14px;
+  color: #ef4444;
+  font-weight: 600;
+}
+
+.balanceText {
+  font-size: 12px;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+/* Buy Button */
+.buyButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px 32px;
+  background: #2c47d5;
+  color: #f7c62f;
+  border: 2px solid #f7c62f;
+  border-radius: 33px;
+  font-size: 16px;
+  font-weight: 900;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-transform: uppercase;
+  box-shadow: -5px 5px 0 0 #f7c62f;
+  outline: none;
+  width: 100%;
+}
+
+.buyIcon {
+  font-size: 20px;
+}
+
+.buyButton:hover:not(.disabled) {
+  transform: translate(-2px, 2px);
+  box-shadow: -4px 4px 0 0 #f7c62f;
+}
+
+.buyButton:active:not(.disabled) {
+  transform: translate(-1px, 1px);
+  box-shadow: -2px 2px 0 0 #f7c62f;
+}
+
+.buyButton.disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .modal {
+    padding: 24px 20px;
+    gap: 16px;
+  }
+
+  .imageSection {
+    width: 120px;
+    height: 120px;
+  }
+
+  .imagePlaceholder {
+    font-size: 48px;
+  }
+
+  .title {
+    font-size: 20px;
+  }
+
+  .priceSection {
+    font-size: 28px;
+  }
+
+  .buyButton {
+    padding: 14px 24px;
+    font-size: 14px;
+  }
+
+  .closeButton {
+    width: 44px;
+    height: 44px;
+    font-size: 20px;
+    top: -18px;
+    right: -18px;
+  }
+}

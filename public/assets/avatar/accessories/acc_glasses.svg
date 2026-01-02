@@ -1,0 +1,13 @@
+<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+  <!-- Accessory - Glasses -->
+  
+  <!-- Left lens -->
+  <rect x="75" y="48" width="12" height="10" rx="2" fill="none" stroke="#2c3e50" stroke-width="1.5"/>
+  
+  <!-- Right lens -->
+  <rect x="113" y="48" width="12" height="10" rx="2" fill="none" stroke="#2c3e50" stroke-width="1.5"/>
+  
+  <!-- Bridge -->
+  <line x1="87" y1="53" x2="113" y2="53" stroke="#2c3e50" stroke-width="1.5"/>
+  
+</svg>

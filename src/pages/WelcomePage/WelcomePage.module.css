@@ -99,6 +99,24 @@
   display: block;
 }
 
+/* Video Section */
+.videoSection {
+  width: 100%;
+  margin-bottom: 24px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: #f0f0f0;
+  aspect-ratio: 16 / 9;
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  display: block;
+  object-fit: contain;
+  background: #000;
+}
+
 /* Sound Button Container */
 .soundButtonContainer {
   display: flex;

@@ -1,0 +1,9 @@
+<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+  <!-- Accessory - Beanie Hat -->
+  
+  <path d="M 70 30 Q 100 5 130 30 Q 128 25 100 15 Q 72 25 70 30" fill="#9b59b6"/>
+  
+  <!-- Pom pom -->
+  <circle cx="100" cy="12" r="5" fill="#f39c12"/>
+  
+</svg>

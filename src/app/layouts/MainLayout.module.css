@@ -3,10 +3,71 @@
   flex-direction: column;
   min-height: 100dvh;
   background: #0b1220; /* darker background so sidebar stands out */
+  width: 100%;
+  overflow-x: hidden;
 }
 
 .main {
   flex: 1;
   padding: 20px 20px 20px 140px; /* leave space for fixed sidebar */
   overflow-y: auto;
+  overflow-x: hidden;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  height: 100%;
+}
+
+/* Background Classes for Different Pages */
+.bgHome {
+  background: transparent;
+}
+
+.bgWorlds {
+  background: url('/assets/images/backgrounds/background-worlds.jpg') center/cover no-repeat fixed;
+}
+
+.bgRewards {
+  background: url('/assets/images/backgrounds/background-rewards.jpg') center/cover no-repeat fixed;
+}
+
+.bgReview {
+  background: url('/assets/images/backgrounds/background-review.jpg') center/cover no-repeat fixed;
+}
+
+.bgHelp {
+  background: url('/assets/images/backgrounds/background-help.jpg') center/cover no-repeat fixed;
+}
+
+.bgChapters {
+  background: url('/assets/images/backgrounds/background-chapters.jpg') center/cover no-repeat fixed;
+}
+
+/* Responsive para tablets - reduce padding */
+@media (max-width: 1024px) {
+  .main {
+    padding: 0 !important;
+    width: 100%;
+    overflow-x: hidden;
+  }
+}
+
+/* Responsive para mobile - remove all padding */
+@media (max-width: 768px) {
+  .main {
+    padding: 0 !important;
+    width: 100%;
+    overflow-x: hidden;
+    height: auto;
+  }
+}
+
+/* Responsive para mobile pequeño */
+@media (max-width: 480px) {
+  .main {
+    padding: 0 !important;
+    width: 100%;
+    overflow-x: hidden;
+    height: auto;
+  }
 }

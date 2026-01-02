@@ -1,10 +1,6 @@
-@font-face {
-  font-family: 'MiFuente';
-  src: url('./assets/fonts/mi-fuente.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
-}
+/* Fuentes web - BN Dime Display, Comic Neue y Nunito */
+@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Nunito:wght@400;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=BN+Dime+Display&display=swap');
 
 :root {
   /* Colores primarios */
@@ -35,7 +31,7 @@
   --gradient-sunset: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
   
   /* Tipografía */
-  --font-family-primary: 'MiFuente', sans-serif;;
+  --font-family-primary: 'BN Dime Display', sans-serif;
   --font-family-secondary: 'Nunito', -apple-system, sans-serif;
   
   /* Tamaños de fuente (más grandes para niños) */
@@ -74,9 +70,6 @@
   --transition-slow: 500ms ease-in-out;
 }
 
-/* Fuentes web - Comic Neue y Nunito */
-@import url('https://fonts.googleapis.com/css2?family=Comic+Neue:wght@300;400;700&family=Nunito:wght@400;600;700;800&display=swap');
-
 body {
   font-family: var(--font-family-secondary);
   color: var(--color-text-primary);
@@ -87,6 +80,12 @@ h1, h2, h3, h4, h5, h6 {
   font-family: var(--font-family-primary);
   font-weight: 700;
   line-height: 1.2;
+}
+
+button {
+  font-family: 'Archivo', sans-serif;
+  font-size: 22px;
+  letter-spacing: -0.5px;
 }
 
 /* Utilidades globales */

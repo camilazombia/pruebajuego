@@ -12,6 +12,7 @@ import Logo from '../../assets/svg/logo.svg'; // ✅ Nuevo logo importado
 // Botones reutilizables
 import { Button } from '../../shared/ui/Button/Button';
 import { SoundButton } from '../../shared/ui/SoundButton/SoundButton';
+import { WhatsAppButton } from '../../shared/ui/WhatsAppButton/WhatsAppButton';
 
 export const LandingPage: React.FC = () => {
   const navigate = useNavigate();
@@ -64,15 +65,13 @@ export const LandingPage: React.FC = () => {
 
         <div className={styles.heroActions}>
           <Button
-            variant="primary"
-            size="md"
             className={styles.ctaPrimary}
             onClick={() => navigate('/login')}
           >
             <span className={styles.bullet}>●</span> COMENZAR
           </Button>
 
-          <SoundButton size="md" soundSrc="/sounds/hero-intro.mp3" />
+          <SoundButton size={70} />
         </div>
       </motion.div>
     </div>
@@ -103,7 +102,7 @@ export const LandingPage: React.FC = () => {
                   <br />
                   mientras aprendes inglés.
                 </p>
-                <SoundButton size="sm" soundSrc="/sounds/adventure.mp3" />
+                <SoundButton size={45} />
               </div>
 
               <div className={styles.item}>
@@ -117,7 +116,7 @@ export const LandingPage: React.FC = () => {
                   <br />
                   y mide tu avance.
                 </p>
-                <SoundButton size="sm" soundSrc="/sounds/progress.mp3" />
+                <SoundButton size={45} />
               </div>
             </div>
 
@@ -145,7 +144,7 @@ export const LandingPage: React.FC = () => {
                   <br />
                   artículos especiales.
                 </p>
-                <SoundButton size="sm" soundSrc="/sounds/reward.mp3" />
+                <SoundButton size={45} />
               </div>
 
               <div className={styles.item}>
@@ -159,7 +158,7 @@ export const LandingPage: React.FC = () => {
                   <br />
                   diseñadas para niños.
                 </p>
-                <SoundButton size="sm" soundSrc="/sounds/learn.mp3" />
+                <SoundButton size={45} />
               </div>
             </div>
           </div>
@@ -174,19 +173,22 @@ export const LandingPage: React.FC = () => {
           </p>
 
           <ul className={styles.links}>
-            <li><a href="#">Política de Privacidad</a></li>
-            <li><a href="#">Términos y Condiciones de Uso</a></li>
-            <li><a href="#">Política de Cookies</a></li>
-            <li><a href="#">Aviso Legal</a></li>
-            <li><a href="#">Política de Protección Infantil</a></li>
-            <li><a href="#">Política de Contenidos Educativos</a></li>
-            <li><a href="#">Accesibilidad Digital</a></li>
-            <li><a href="#">Contacto / Soporte</a></li>
-            <li><a href="#">Acerca de / Sobre Nosotros</a></li>
-            <li><a href="#">Preguntas Frecuentes (FAQ)</a></li>
+            <li><a href="/policies?page=privacy">Política de Privacidad</a></li>
+            <li><a href="/policies?page=terms">Términos y Condiciones de Uso</a></li>
+            <li><a href="/policies?page=cookies">Política de Cookies</a></li>
+            <li><a href="/policies?page=legal">Aviso Legal</a></li>
+            <li><a href="/policies?page=child-protection">Política de Protección Infantil</a></li>
+            <li><a href="/policies?page=educational">Política de Contenidos Educativos</a></li>
+            <li><a href="/policies?page=accessibility">Accesibilidad Digital</a></li>
+            <li><a href="/policies?page=contact">Contacto / Soporte</a></li>
+            <li><a href="/policies?page=about">Acerca de / Sobre Nosotros</a></li>
+            <li><a href="/policies?page=faq">Preguntas Frecuentes (FAQ)</a></li>
           </ul>
         </div>
       </footer>
+
+      {/* WhatsApp Button */}
+      <WhatsAppButton phoneNumber="34XXXXXXXXX" />
     </div>
   );
 };

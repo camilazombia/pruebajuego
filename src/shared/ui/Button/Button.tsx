@@ -1,16 +1,19 @@
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Play } from 'lucide-react';
 import { cn } from '../../utils/cn';
 import styles from './Button.module.css';
 
 export interface ButtonProps
   extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   text?: string;
+  icon?: string; // Material Symbols icon name
+  showIconCircle?: boolean; // Whether to show the yellow circle background
 }
 
 export const Button: React.FC<ButtonProps> = ({
   text = 'COMENZAR',
+  icon = 'play_arrow',
+  showIconCircle = false,
   className,
   ...props
 }) => {
@@ -22,10 +25,16 @@ export const Button: React.FC<ButtonProps> = ({
       transition={{ duration: 0.2 }}
       {...props}
     >
-      <span className={styles.iconCircle}>
-        <Play size={18} fill="var(--mm-blue)" />
-      </span>
-      <span className={styles.text}>{text}</span>
+      {showIconCircle ? (
+        <span className={styles.iconCircle}>
+          <span className="material-symbols-outlined">{icon}</span>
+        </span>
+      ) : (
+        <span className={styles.iconOnly}>
+          <span className="material-symbols-outlined">{icon}</span>
+        </span>
+      )}
+      {text && <span className={styles.text}>{text}</span>}
     </motion.button>
   );
 };

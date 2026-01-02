@@ -1,0 +1,130 @@
+:root {
+  --mm-blue: #304CD4;
+  --mm-shadow: #1A5EDB;
+  --mm-bg-light: #D5DCFF;
+}
+
+/* --- Botón circular con efecto de profundidad --- */
+.arrowButton {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  border: 1.7px solid var(--mm-blue);
+  background: var(--mm-bg-light);
+  box-shadow: -6px 6px 0 0 var(--mm-shadow);
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+/* --- Hover --- */
+.arrowButton:hover {
+  transform: translate(-2px, 2px);
+  box-shadow: -4px 4px 0 0 var(--mm-shadow);
+}
+
+/* --- Active --- */
+.arrowButton:active {
+  transform: translate(-1px, 1px);
+  box-shadow: -2px 2px 0 0 var(--mm-shadow);
+}
+
+/* --- Disabled --- */
+.arrowButton:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.arrowButton:disabled:hover {
+  transform: none;
+  box-shadow: -6px 6px 0 0 var(--mm-shadow);
+}
+
+/* --- Inner Circle --- */
+.innerCircle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- Icono central --- */
+.icon {
+  color: var(--mm-blue);
+  font-size: 32px !important;
+  transition: transform 0.3s ease;
+}
+
+.arrowButton:hover .icon {
+  transform: scale(1.1);
+}
+
+.arrowButton:disabled .icon {
+  transform: none;
+}
+
+/* --- Tamaños responsivos --- */
+@media (max-width: 768px) {
+  .arrowButton {
+    width: 64px;
+    height: 64px;
+    border: 1.5px solid var(--mm-blue);
+    box-shadow: -5px 5px 0 0 var(--mm-shadow);
+  }
+
+  .arrowButton:hover {
+    transform: translate(-1.5px, 1.5px);
+    box-shadow: -3px 3px 0 0 var(--mm-shadow);
+  }
+
+  .icon {
+    font-size: 28px !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .arrowButton {
+    width: 60px;
+    height: 60px;
+    border: 1.5px solid var(--mm-blue);
+    box-shadow: -4px 4px 0 0 var(--mm-shadow);
+  }
+
+  .arrowButton:hover {
+    transform: translate(-1px, 1px);
+    box-shadow: -2px 2px 0 0 var(--mm-shadow);
+  }
+
+  .arrowButton:active {
+    transform: translate(0, 0);
+    box-shadow: 0 0 0 var(--mm-shadow);
+  }
+
+  .icon {
+    font-size: 24px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .arrowButton {
+    width: 56px;
+    height: 56px;
+    border: 1px solid var(--mm-blue);
+    box-shadow: -3px 3px 0 0 var(--mm-shadow);
+  }
+
+  .arrowButton:hover {
+    transform: translate(-1px, 1px);
+    box-shadow: -1.5px 1.5px 0 0 var(--mm-shadow);
+  }
+
+  .arrowButton:active {
+    transform: translate(0, 0);
+    box-shadow: 0 0 0 var(--mm-shadow);
+  }
+
+  .icon {
+    font-size: 20px !important;
+  }
+}

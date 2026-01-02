@@ -26,6 +26,9 @@ export default function Header() {
           <button onClick={() => navigate('/review')} className={styles.navItem}>
             Repaso
           </button>
+          <button onClick={() => navigate('/parent-zone')} className={styles.navItem}>
+            Zona de Padres
+          </button>
         </nav>
 
         {/* User Section */}

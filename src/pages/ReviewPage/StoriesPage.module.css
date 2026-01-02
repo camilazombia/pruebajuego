@@ -1,0 +1,134 @@
+.page {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	padding: 2rem 1rem;
+	position: relative;
+}
+
+.backButton {
+	position: absolute;
+	top: 2rem;
+	left: 2rem;
+	padding: 0.75rem 1.5rem;
+	border: 2px solid rgba(255, 63, 161, 0.5);
+	color: #ffffff;
+	font-size: 1rem;
+	font-weight: 600;
+	border-radius: 0.5rem;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+}
+
+.backButton:hover {
+	border-color: rgba(255, 63, 161, 0.8);
+	transform: translateX(-5px);
+}
+
+.backButton:focus {
+	outline: none;
+	box-shadow: 0 0 0 3px rgba(255, 63, 161, 0.5);
+}
+
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	flex: 1;
+	gap: 2rem;
+	text-align: center;
+}
+
+.title {
+	font-size: 2.5rem;
+	font-weight: bold;
+	color: #ffffff;
+	margin: 0;
+	margin-top: 3rem;
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.subtitle {
+	font-size: 1.1rem;
+	color: #cbd5e1;
+	margin: 0;
+}
+
+.placeholder {
+	padding: 3rem 2rem;
+	border: 2px dashed rgba(168, 85, 247, 0.4);
+	border-radius: 1rem;
+	min-width: 300px;
+}
+
+.placeholder p {
+	font-size: 1.3rem;
+	color: #cbd5e1;
+	margin: 0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+	.page {
+		padding: 1rem;
+	}
+
+	.backButton {
+		top: 1rem;
+		left: 1rem;
+		padding: 0.5rem 1rem;
+		font-size: 0.9rem;
+	}
+
+	.title {
+		font-size: 1.8rem;
+		margin-top: 2rem;
+	}
+
+	.subtitle {
+		font-size: 1rem;
+	}
+
+	.placeholder {
+		min-width: 250px;
+		padding: 2rem 1.5rem;
+	}
+
+	.placeholder p {
+		font-size: 1.1rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.page {
+		padding: 0.5rem;
+	}
+
+	.backButton {
+		top: 0.5rem;
+		left: 0.5rem;
+		padding: 0.5rem 0.75rem;
+		font-size: 0.8rem;
+	}
+
+	.title {
+		font-size: 1.4rem;
+		margin-top: 2rem;
+	}
+
+	.subtitle {
+		font-size: 0.9rem;
+	}
+
+	.placeholder {
+		min-width: 90%;
+		padding: 1.5rem 1rem;
+	}
+
+	.placeholder p {
+		font-size: 1rem;
+	}
+}

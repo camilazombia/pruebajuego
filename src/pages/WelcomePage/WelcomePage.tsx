@@ -1,12 +1,12 @@
 import React from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
+import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
 import styles from './WelcomePage.module.css';
 
 // UI
 import Logo from '../../assets/svg/logo.svg';
 import { Button } from '../../shared/ui/Button/Button';
-import { SoundButton } from '../../shared/ui/SoundButton/SoundButton';
 
 export default function WelcomePage() {
   const location = useLocation();
@@ -20,6 +20,8 @@ export default function WelcomePage() {
   };
 
   return (
+    <>
+    <OrientationAlert />
     <div className={styles.page}>
       {/* HEADER con logo centrado */}
       <header className={styles.navbar}>
@@ -37,52 +39,40 @@ export default function WelcomePage() {
           transition={{ duration: 0.3 }}
           aria-label="Bienvenida"
         >
-          {/* Avatar del Niño */}
-          <motion.div
-            className={styles.avatarDisplay}
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-          >
-            <span className={styles.avatarLarge}>{selectedAvatar.emoji}</span>
-          </motion.div>
-
           {/* Título de bienvenida */}
           <motion.h1
             className={styles.title}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.2 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
           >
             ¡Bienvenido, <span className={styles.childName}>{childName}</span>!
           </motion.h1>
 
-          {/* Sound Button */}
+          {/* Video Section */}
           <motion.div
-            className={styles.soundButtonContainer}
+            className={styles.videoSection}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.3 }}
+            transition={{ duration: 0.3, delay: 0.2 }}
           >
-            <SoundButton />
+            <video
+              className={styles.video}
+              controls
+              controlsList="nodownload"
+              poster="/assets/videos/welcome-poster.jpg"
+            >
+              <source src="/assets/videos/welcome.mp4" type="video/mp4" />
+              Tu navegador no soporta videos HTML5.
+            </video>
           </motion.div>
-
-          {/* Subtítulo */}
-          <motion.p
-            className={styles.subtitle}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.3, delay: 0.4 }}
-          >
-            Tu aventura mágica está a punto de comenzar. Prepárate para explorar mundos increíbles, completar misiones emocionantes y aprender inglés de una forma divertida que nunca habías imaginado.
-          </motion.p>
 
           {/* CTA Button */}
           <motion.div
             className={styles.actions}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.3, delay: 0.5 }}
+            transition={{ duration: 0.3, delay: 0.35 }}
           >
             <Button
               className={styles.cta}
@@ -94,5 +84,6 @@ export default function WelcomePage() {
         </motion.section>
       </main>
     </div>
+    </>
   );
 }

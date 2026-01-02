@@ -2,13 +2,19 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styles from './Sidebar.module.css';
 
+// Import menu images
+import HomeIcon from '../../assets/images/menu/Home.png';
+import WorldsIcon from '../../assets/images/menu/Worlds.png';
+import RewardsIcon from '../../assets/images/menu/Clothes.png';
+import ReviewIcon from '../../assets/images/menu/Review.png';
+import HelpIcon from '../../assets/images/menu/Help.png';
+
 const MENU_ITEMS = [
-  { key: 'home', label: 'Inicio' },
-  { key: 'worlds', label: 'Mundos' },
-  { key: 'rewards', label: 'Premios' },
-  { key: 'review', label: 'Repaso' },
-  { key: 'help', label: 'Ayuda' },
-  
+  { key: 'home', label: 'Inicio', icon: HomeIcon },
+  { key: 'worlds', label: 'Mundos', icon: WorldsIcon },
+  { key: 'rewards', label: 'Premios', icon: RewardsIcon },
+  { key: 'review', label: 'Repaso', icon: ReviewIcon },
+  { key: 'help', label: 'Ayuda & Padres', icon: HelpIcon },
 ];
 
 const Sidebar: React.FC = () => {
@@ -17,6 +23,7 @@ const Sidebar: React.FC = () => {
 
   const handleClick = (key: string) => {
     setActive(key);
+    
     switch (key) {
       case 'home':
         navigate('/home');
@@ -47,10 +54,15 @@ const Sidebar: React.FC = () => {
             className={`${styles.item} ${active === item.key ? styles.active : ''}`}
             onClick={() => handleClick(item.key)}
             aria-current={active === item.key ? 'page' : undefined}
+            aria-label={item.label}
             type="button"
+            title={item.label}
           >
-            <div className={styles.iconPlaceholder} aria-hidden />
-            <span className={styles.label}>{item.label}</span>
+            <img 
+              src={item.icon} 
+              alt={item.label}
+              className={styles.icon}
+            />
           </button>
         ))}
       </div>

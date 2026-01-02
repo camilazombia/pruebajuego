@@ -1,6 +1,55 @@
 // src/shared/lib/db/db.ts
 import Dexie, { Table } from 'dexie';
 
+interface User {
+  id?: number;
+  name: string;
+  age: number;
+  createdAt: number;
+}
+
+interface AuthSession {
+  code: string;
+  deviceId: string;
+  userId: number;
+  isActive: boolean;
+}
+
+interface WorldProgress {
+  worldId: string;
+  userId: number;
+  completed: boolean;
+}
+
+interface MissionProgress {
+  missionId: string;
+  userId: number;
+  status: 'pending' | 'started' | 'completed';
+}
+
+interface UserReward {
+  rewardId: string;
+  userId: number;
+  isPurchased: boolean;
+}
+
+interface Flashcard {
+  id?: number;
+  word: string;
+  category: string;
+  worldId: string;
+}
+
+interface PlaySession {
+  id?: number;
+  userId: number;
+  startTime: number;
+}
+
+interface AppSettings {
+  id?: number;
+}
+
 export class AppDatabase extends Dexie {
   users!: Table<User>;
   sessions!: Table<AuthSession>;
@@ -13,7 +62,7 @@ export class AppDatabase extends Dexie {
 
   constructor() {
     super('EnglishKidsDB');
-    
+
     this.version(1).stores({
       users: 'id, name, age, createdAt',
       sessions: 'code, deviceId, userId, isActive',
@@ -28,44 +77,3 @@ export class AppDatabase extends Dexie {
 }
 
 export const db = new AppDatabase();
-```
-
-## 🔄 Flujo de Navegación Básico
-```
-1. Landing (/) 
-   → Click "Ingresar"
-   
-2. Login (/login)
-   → Ingresa código único
-   → Valida dispositivo (deviceId vs código)
-   → Si es primera vez: redirige a /family-access
-   → Si ya existe sesión: redirige a /welcome
-   
-3. Family Access (/family-access)
-   → Completa formulario de niño
-   → Acepta consentimientos
-   → Crea usuario en IndexedDB
-   → Redirige a /welcome
-   
-4. Welcome (/welcome)
-   → Video loop de bienvenida
-   → Click "Jugar" → redirige a /home
-   
-5. Home (/home)
-   → Hub principal con accesos
-   → Click "Jugar" o "Mundos" → /worlds
-   
-6. Worlds Map (/worlds)
-   → Muestra grid de mundos
-   → Click en mundo desbloqueado → /worlds/:worldId/missions
-   
-7. Missions Map (/worlds/:worldId/missions)
-   → Muestra camino de misiones
-   → Click en misión disponible → /missions/:missionId
-   
-8. Mission (/missions/:missionId)
-   → Ejecuta actividades secuencialmente
-   → Al finalizar: muestra resultado con estrellas
-   → Actualiza progreso en IndexedDB
-   → Desbloquea siguiente misión si aplica
-   → Botón "Continuar" → vuelve a /worlds/:worldId/missions

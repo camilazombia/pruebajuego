@@ -1,0 +1,12 @@
+<svg viewBox="0 0 200 240" xmlns="http://www.w3.org/2000/svg">
+  <!-- Top - Red T-Shirt -->
+  
+  <path d="M 70 100 L 68 140 Q 68 145 72 145 L 128 145 Q 132 145 132 140 L 130 100 Z" fill="#e74c3c"/>
+  
+  <!-- Sleeve left -->
+  <ellipse cx="65" cy="110" rx="12" ry="20" fill="#e74c3c"/>
+  
+  <!-- Sleeve right -->
+  <ellipse cx="135" cy="110" rx="12" ry="20" fill="#e74c3c"/>
+  
+</svg>

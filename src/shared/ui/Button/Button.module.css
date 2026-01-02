@@ -11,7 +11,7 @@
   justify-content: center;
   gap: 8.367px;
 
-  padding: 16px 32px;
+  padding: 16px 16px;
   border-radius: 33.466px;
   border: 1.673px solid var(--mm-yellow);
   background: var(--mm-blue);
@@ -26,6 +26,7 @@
   cursor: pointer;
   transition: all 0.2s ease;
   outline: none;
+  aspect-ratio: auto;
 }
 
 /* --- Hover / Active --- */
@@ -64,6 +65,24 @@
   flex-shrink: 0;
 }
 
+/* --- Icono sin círculo --- */
+.iconOnly {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: var(--mm-yellow);
+  flex-shrink: 0;
+}
+
+.iconOnly span {
+  color: inherit;
+}
+
+.iconOnly .material-symbols-outlined {
+  color: inherit;
+}
+
 /* --- Texto --- */
 .text {
   font-weight: 900;
@@ -72,14 +91,71 @@
 }
 
 /* --- Responsive --- */
-@media (max-width: 480px) {
+@media (max-width: 768px) {
+  .button {
+    padding: 14px 28px;
+    font-size: 0.95rem;
+    gap: 6px;
+    box-shadow: -4px 4px 0 0 var(--mm-yellow);
+  }
+
+  .iconCircle {
+    width: 26px;
+    height: 26px;
+  }
+}
+
+@media (max-width: 640px) {
   .button {
     padding: 12px 24px;
     font-size: 0.9rem;
+    gap: 6px;
+    box-shadow: -3px 3px 0 0 var(--mm-yellow);
+    border: 1.5px solid var(--mm-yellow);
+  }
+
+  .button:hover {
+    transform: translate(-1.5px, 1.5px);
+    box-shadow: -2px 2px 0 0 var(--mm-yellow);
+  }
+
+  .button:active {
+    transform: translate(-1px, 1px);
+    box-shadow: -1.5px 1.5px 0 0 var(--mm-yellow);
   }
 
   .iconCircle {
     width: 24px;
     height: 24px;
+  }
+
+  .text {
+    font-size: 0.85rem;
+    letter-spacing: 0.3px;
+  }
+}
+
+@media (max-width: 480px) {
+  .button {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    gap: 4px;
+    box-shadow: -2px 2px 0 0 var(--mm-yellow);
+    border: 1px solid var(--mm-yellow);
+  }
+
+  .button:hover {
+    transform: translate(-1px, 1px);
+    box-shadow: -1px 1px 0 0 var(--mm-yellow);
+  }
+
+  .button:active {
+    transform: translate(0, 0);
+    box-shadow: 0 0 0 var(--mm-yellow);
+  }
+
+  .iconCircle {
+    width: 22px;
+    height: 22px;
   }
 }

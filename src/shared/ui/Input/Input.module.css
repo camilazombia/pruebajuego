@@ -20,23 +20,23 @@
   flex-direction: column;
 }
 
-/* Label arriba (mock) */
+/* Label arriba (estado “filled / focus”) */
 .label {
   font-size: 14px;
   line-height: 1.2;
   color: var(--gray-400);
   margin-bottom: 6px;
-  transition: color .2s ease;
+  transition: color 0.2s ease;
 }
 
-/* Campo (input + clear) */
+/* Contenedor del input */
 .field {
   position: relative;
   display: flex;
   align-items: center;
 }
 
-/* Valor grande como en “Filled” del mock */
+/* Input sin borde, solo subrayado */
 .input {
   width: 100%;
   border: none;
@@ -44,37 +44,23 @@
   background: transparent;
   color: var(--ink);
   caret-color: var(--blue);
-  padding-right: 36px; /* espacio para el botón clear */
 }
 
-/* Tamaños del valor (controla el “Filled” grande) */
-.valueLg { font-size: 28px; line-height: 1.2; }
-.valueMd { font-size: 18px; line-height: 1.2; }
+/* Tamaño del valor (como en el mock) */
+.valueLg {
+  font-size: 28px;
+  line-height: 1.2;
+}
 
-/* Placeholder tenue para “Default” */
+.valueMd {
+  font-size: 18px;
+  line-height: 1.2;
+}
+
+/* Placeholder gris claro (primer estado) */
 .input::placeholder {
   color: #c7cad3;
 }
-
-/* Botón de limpiar (x) */
-.clear {
-  position: absolute;
-  right: 4px;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 22px;
-  height: 22px;
-  border-radius: 50%;
-  border: none;
-  background: #e5e7eb;
-  color: #666;
-  font-size: 16px;
-  line-height: 1;
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-}
-.clear:hover { background: #dfe3ea; }
 
 /* Subrayado */
 .underline {
@@ -82,29 +68,32 @@
   width: 100%;
   background: #cfd4e0; /* default */
   margin-top: 6px;
-  transition: background-color .2s ease;
+  transition: background-color 0.2s ease;
 }
 
 /* Helper / Error debajo */
 .helperRow {
   margin-top: 6px;
-  min-height: 18px; /* reserva espacio en vacío */
+  min-height: 18px; /* reserva espacio aunque esté vacío */
 }
+
 .helperText {
   font-size: 12px;
   color: var(--gray-500);
 }
+
 .errorText {
   font-size: 12px;
   color: var(--red);
 }
 
-/* ------- ESTADOS (según mock) ------- */
+/* ------- ESTADOS ------- */
 
 /* Active (focus) */
 .isFocused .label {
   color: var(--blue);
 }
+
 .isFocused .underline {
   background: var(--blue-underline);
 }
@@ -118,9 +107,11 @@
 .isError .label {
   color: var(--red);
 }
+
 .isError .underline {
   background: var(--red);
 }
+
 .isError .input {
   color: var(--ink);
 }

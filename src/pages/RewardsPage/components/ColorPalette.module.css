@@ -1,0 +1,198 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  padding: 0;
+  background: transparent;
+  border-radius: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.title {
+  display: none;
+}
+
+.palette {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  align-items: center;
+  /* Hide scrollbar but keep scrolling */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  width: 100%;
+  flex: 1;
+}
+
+.palette::-webkit-scrollbar {
+  display: none;
+}
+
+.colorButton {
+  width: 30px;
+  min-width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 2px solid white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  flex-shrink: 0;
+  padding: 0;
+}
+
+.colorButton:hover {
+  transform: scale(1.2);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive - smaller scale on mobile */
+@media (max-width: 1024px) {
+  .colorButton:hover {
+    transform: scale(1.2);
+  }
+}
+
+@media (max-width: 600px) {
+  .colorButton:hover {
+    transform: scale(0.5);
+  }
+}
+
+/* Use CSS custom property for background color */
+.colorButton[data-color='#ef4444'] {
+  background-color: #ef4444;
+}
+
+.colorButton[data-color='#ec4899'] {
+  background-color: #ec4899;
+}
+
+.colorButton[data-color='#a855f7'] {
+  background-color: #a855f7;
+}
+
+.colorButton[data-color='#2c47d5'] {
+  background-color: #2c47d5;
+}
+
+.colorButton[data-color='#06b6d4'] {
+  background-color: #06b6d4;
+}
+
+.colorButton[data-color='#10b981'] {
+  background-color: #10b981;
+}
+
+.colorButton[data-color='#f7c62f'] {
+  background-color: #f7c62f;
+}
+
+.colorButton[data-color='#f97316'] {
+  background-color: #f97316;
+}
+
+.colorButton[data-color='#92400e'] {
+  background-color: #92400e;
+}
+
+.colorButton[data-color='#6b7280'] {
+  background-color: #6b7280;
+}
+
+.colorButton[data-color='#1f2937'] {
+  background-color: #1f2937;
+}
+
+.colorButton[data-color='#ffffff'] {
+  background-color: #ffffff;
+  border: 2px solid #e2e8f0;
+}
+
+.colorButton:hover {
+  transform: scale(1.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+.colorButton:active {
+  transform: scale(0.95);
+}
+
+.selected {
+  border-color: #2c47d5 !important;
+  box-shadow: 0 0 0 2px rgba(44, 71, 213, 0.3), 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.checkmark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 18px;
+  font-weight: bold;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.selected[data-color='#ffffff'] .checkmark {
+  color: #2c47d5;
+  text-shadow: none;
+}
+
+/* RESPONSIVE: Tablets */
+@media (max-width: 1024px) {
+  .colorButton {
+    width: 20px;
+  }
+
+  .checkmark {
+    font-size: 14px;
+  }
+}
+
+/* RESPONSIVE: Mobile Landscape */
+@media (max-width: 900px) {
+  .colorButton {
+    width: 18px;
+  }
+
+  .checkmark {
+    font-size: 12px;
+  }
+}
+
+/* RESPONSIVE: Mobile Portrait */
+@media (max-width: 768px) {
+  .palette {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .colorButton {
+    width: 20px;
+  }
+
+  .checkmark {
+    font-size: 12px;
+  }
+}
+
+/* RESPONSIVE: Small Mobile */
+@media (max-width: 480px) {
+  .palette {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+
+  .colorButton {
+    width: 18px;
+  }
+
+  .checkmark {
+    font-size: 10px;
+  }
+}

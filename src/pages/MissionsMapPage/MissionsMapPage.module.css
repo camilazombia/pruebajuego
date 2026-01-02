@@ -1,0 +1,269 @@
+.page {
+	min-height: 100vh;
+	background-color: #0b1220;
+	color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+}
+
+.header {
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	padding: 1rem 2rem;
+	border-bottom: 1px solid rgba(255, 63, 161, 0.3);
+}
+
+.backButton {
+	background-color: #1a2d4d;
+	color: #ffffff;
+	border: none;
+	padding: 0.75rem 1.5rem;
+	border-radius: 0.5rem;
+	font-size: 1rem;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+}
+
+.backButton:hover {
+	background-color: #2a3d5d;
+}
+
+.title {
+	font-size: 2rem;
+	font-weight: bold;
+	margin: 0;
+	flex: 1;
+	color: #ff3fa1;
+}
+
+/* Contenedor del mapa */
+.mapContainer {
+	flex: 1;
+	position: relative;
+	margin: 1rem 2rem;
+	border-radius: 1rem;
+	overflow: hidden;
+	border: 2px solid rgba(255, 63, 161, 0.5);
+	background-color: rgba(26, 45, 77, 0.5);
+}
+
+.mapBackground {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-size: cover;
+	background-position: center;
+	opacity: 0.4;
+	z-index: 1;
+}
+
+/* Fondos específicos para cada mundo */
+.mapContainer.world-w1 .mapBackground {
+	background-image: url('/assets/images/backgrounds/world1.jpg');
+}
+
+.mapContainer.world-w2 .mapBackground {
+	background-image: url('/assets/images/backgrounds/world2.jpg');
+}
+
+.mapContainer.world-w3 .mapBackground {
+	background-image: url('/assets/images/backgrounds/world3.jpg');
+}
+
+.mapContainer.world-w4 .mapBackground {
+	background-image: url('/assets/images/backgrounds/world4.jpg');
+}
+
+.mapContainer.world-w5 .mapBackground {
+	background-image: url('/assets/images/backgrounds/world5.jpg');
+}
+
+.mapContainer.world-w6 .mapBackground {
+	background-image: url('/assets/images/backgrounds/world6.jpg');
+}
+
+.mapContainer.world-w7 .mapBackground {
+	background-image: url('/assets/images/backgrounds/world7.jpg');
+}
+
+.mapContainer.world-w8 .mapBackground {
+	background-image: url('/assets/images/backgrounds/world8.jpg');
+}
+
+.mapContainer.world-w9 .mapBackground {
+	background-image: url('/assets/images/backgrounds/world9.jpg');
+}
+
+.mapContainer.world-w10 .mapBackground {
+	background-image: url('/assets/images/backgrounds/world10.jpg');
+}
+
+.mapContent {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+}
+
+/* SVG de líneas de conexión */
+.connectionLines {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	pointer-events: none;
+}
+
+.connectionLine {
+	stroke: rgba(255, 63, 161, 0.3);
+	stroke-width: 2;
+	stroke-dasharray: 5, 5;
+}
+
+/* Marcadores de misión en el mapa */
+.missionMarker {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	cursor: pointer;
+	z-index: 10;
+	transition: all 0.3s ease;
+}
+
+/* Posicionamiento dinámico usando data-attributes */
+[data-x="20"][data-y="30"] { left: 20%; top: 30%; }
+[data-x="50"][data-y="25"] { left: 50%; top: 25%; }
+[data-x="80"][data-y="40"] { left: 80%; top: 40%; }
+[data-x="25"][data-y="45"] { left: 25%; top: 45%; }
+[data-x="50"][data-y="50"] { left: 50%; top: 50%; }
+[data-x="75"][data-y="35"] { left: 75%; top: 35%; }
+[data-x="30"][data-y="20"] { left: 30%; top: 20%; }
+[data-x="55"][data-y="35"] { left: 55%; top: 35%; }
+[data-x="80"][data-y="55"] { left: 80%; top: 55%; }
+[data-x="15"][data-y="50"] { left: 15%; top: 50%; }
+[data-x="85"][data-y="30"] { left: 85%; top: 30%; }
+[data-x="40"][data-y="25"] { left: 40%; top: 25%; }
+[data-x="60"][data-y="55"] { left: 60%; top: 55%; }
+[data-x="25"][data-y="65"] { left: 25%; top: 65%; }
+[data-x="20"][data-y="40"] { left: 20%; top: 40%; }
+[data-x="65"][data-y="45"] { left: 65%; top: 45%; }
+[data-x="35"][data-y="20"] { left: 35%; top: 20%; }
+[data-x="45"][data-y="65"] { left: 45%; top: 65%; }
+[data-x="75"][data-y="40"] { left: 75%; top: 40%; }
+[data-x="50"][data-y="60"] { left: 50%; top: 60%; }
+[data-x="30"][data-y="30"] { left: 30%; top: 30%; }
+[data-x="70"][data-y="35"] { left: 70%; top: 35%; }
+
+.missionMarker:hover {
+	z-index: 20;
+	transform: translate(-50%, -50%) scale(1.1);
+}
+
+.markerPin {
+	width: 60px;
+	height: 60px;
+	background: linear-gradient(135deg, #ff3fa1 0%, #ff69b4 100%);
+	border: 3px solid #ffffff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	box-shadow: 0 4px 12px rgba(255, 63, 161, 0.5);
+	transition: all 0.3s ease;
+}
+
+.missionMarker:hover .markerPin {
+	box-shadow: 0 8px 24px rgba(255, 63, 161, 0.8);
+	transform: scale(1.1);
+}
+
+.missionMarker.completed .markerPin {
+	background: linear-gradient(135deg, #4ade80 0%, #86efac 100%);
+	border-color: #ffffff;
+}
+
+.missionNumber {
+	font-size: 1.5rem;
+	font-weight: bold;
+	color: #ffffff;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.markerPulse {
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: rgba(255, 63, 161, 0.3);
+	animation: pulse 2s infinite;
+	pointer-events: none;
+}
+
+.missionMarker.completed .markerPulse {
+	background-color: rgba(74, 222, 128, 0.3);
+}
+
+@keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 0 currentColor;
+	}
+	70% {
+		box-shadow: 0 0 0 12px rgba(255, 63, 161, 0);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(255, 63, 161, 0);
+	}
+}
+
+/* Tooltip que aparece al pasar el mouse */
+.tooltip {
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(11, 18, 32, 0.95);
+	border: 2px solid #ff3fa1;
+	border-radius: 0.5rem;
+	padding: 0.75rem 1rem;
+	margin-bottom: 0.5rem;
+	white-space: nowrap;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease;
+	pointer-events: none;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	z-index: 30;
+}
+
+.missionMarker:hover .tooltip {
+	opacity: 1;
+	visibility: visible;
+}
+
+.tooltipName {
+	font-size: 0.9rem;
+	font-weight: 600;
+	color: #ff3fa1;
+	margin-bottom: 0.25rem;
+}
+
+.tooltipBadge {
+	font-size: 0.75rem;
+	color: #4ade80;
+	font-weight: 600;
+}
+
+.tooltipReward {
+	font-size: 0.75rem;
+	color: #fbbf24;
+	font-weight: 600;
+}

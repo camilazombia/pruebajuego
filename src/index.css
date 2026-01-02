@@ -1,13 +1,25 @@
-@font-face {
-  font-family: 'MiFuente';
-  src: url('./assets/fonts/mi-fuente.woff2') format('woff2');
-  font-weight: normal;
-  font-style: normal;
-  font-display: swap;
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-200..200');
+@import 'material-symbols/outlined.css';
+
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 300,
+    'GRAD' 0,
+    'opsz' 24;
+  display: inline-block;
+  line-height: 1;
+  text-transform: none;
+  letter-spacing: normal;
+  word-wrap: normal;
+  white-space: nowrap;
+  direction: ltr;
 }
 
 :root {
-  font-family: 'MiFuente', sans-serif;;
+  font-family: 'Inter', sans-serif;
   line-height: 1.5;
   font-weight: 400;
 

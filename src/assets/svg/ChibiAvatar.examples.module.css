@@ -1,0 +1,33 @@
+.examplesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.gridContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.grid2Column {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+
+.flexContainer {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.exampleItem {
+  text-align: center;
+}
+
+.exampleLabel {
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  color: #666;
+}

@@ -1,22 +1,12 @@
 import React, { useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { ArrowButton } from '../../shared/ui/ArrowButton/ArrowButton';
+import { WORLDS } from '../../shared/data/worlds';
+import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
 import styles from './WorldsMapPage.module.css';
 
-type World = { id: string; name: string; stars: number; locked?: boolean };
-
-const WORLDS: World[] = [
-	{ id: 'w1', name: 'Mundo 1', stars: 3 },
-	{ id: 'w2', name: 'Mundo 2', stars: 2 },
-	{ id: 'w3', name: 'Mundo 3', stars: 0, locked: true },
-	{ id: 'w4', name: 'Mundo 4', stars: 1 },
-	{ id: 'w5', name: 'Mundo 5', stars: 0, locked: true },
-	{ id: 'w6', name: 'Mundo 6', stars: 3 },
-	{ id: 'w7', name: 'Mundo 7', stars: 2 },
-	{ id: 'w8', name: 'Mundo 8', stars: 1 },
-	{ id: 'w9', name: 'Mundo 9', stars: 0, locked: true },
-	{ id: 'w10', name: 'Mundo 10', stars: 0 },
-];
-
 const WorldsMapPage: React.FC = () => {
+	const navigate = useNavigate();
 	const carouselRef = useRef<HTMLDivElement | null>(null);
 
 	const scrollByCard = (direction: 'next' | 'prev') => {
@@ -35,45 +25,66 @@ const WorldsMapPage: React.FC = () => {
 		if (e.key === 'ArrowRight') scrollByCard('next');
 	};
 
+	const handleWorldClick = (worldId: string, locked?: boolean) => {
+		if (locked) return;
+		navigate(`/chapters/${worldId}`);
+	};
+
 	return (
+		<>
+		<OrientationAlert />
 		<div className={styles.page}>
 			<section className={styles.container} aria-label="Mundos disponibles">
-
 				<div className={styles.carouselWrapper} tabIndex={0} onKeyDown={handleKeyDown}>
-					<button className={`${styles.arrow} ${styles.arrowLeft}`} aria-label="Anterior" onClick={() => scrollByCard('prev')}>
-						‹
-					</button>
+					<ArrowButton
+						direction="left"
+						size={60}
+						aria-label="Anterior"
+						onClick={() => scrollByCard('prev')}
+					/>
 
-					<div className={styles.carousel} role="list" ref={carouselRef}>
-						{WORLDS.map((w) => (
-							<article
-								key={w.id}
+				<div className={styles.carousel} role="list" ref={carouselRef}>
+					{WORLDS.map((world) => (
+						<article
+								key={world.id}
 								role="listitem"
-								className={`${styles.card} ${w.locked ? styles.locked : ''}`}
+								className={`${styles.card} ${!world.isUnlocked ? styles.locked : ''}`}
 								data-card
-								onClick={() => {
-									if (w.locked) return;
-									console.log('Seleccionado', w.id);
+								onClick={() => handleWorldClick(world.id, !world.isUnlocked)}
+								onKeyDown={(e) => {
+									if ((e.key === 'Enter' || e.key === ' ') && world.isUnlocked) {
+										e.preventDefault();
+										handleWorldClick(world.id, !world.isUnlocked);
+									}
 								}}
-								tabIndex={w.locked ? -1 : 0}
+								tabIndex={!world.isUnlocked ? -1 : 0}
 							>
-								<div className={styles.imagePlaceholder} aria-hidden />
-								<div className={styles.namePill}>{w.name}</div>
-								<div className={styles.stars} aria-hidden>
-									{Array.from({ length: 3 }).map((_, i) => (
-										<span key={i} className={`${styles.star} ${i < w.stars ? styles.filled : styles.empty}`}>★</span>
-									))}
+								<div className={styles.imagePlaceholder} aria-hidden>
+									<span className={styles.worldNumber}>{world.number}</span>
+									{!world.isUnlocked && <div className={styles.lockOverlay}>🔒</div>}
+								</div>
+								<div className={styles.namePill}>{world.title}</div>
+								<div className={styles.progressBar}>
+									<div 
+										className={styles.progressFill} 
+										style={{ width: `${world.progress}%` }}
+										aria-label={`Progreso: ${Math.round(world.progress)}%`}
+									/>
 								</div>
 							</article>
 						))}
 					</div>
 
-					<button className={`${styles.arrow} ${styles.arrowRight}`} aria-label="Siguiente" onClick={() => scrollByCard('next')}>
-						›
-					</button>
+					<ArrowButton
+						direction="right"
+						size={60}
+						aria-label="Siguiente"
+						onClick={() => scrollByCard('next')}
+					/>
 				</div>
 			</section>
 		</div>
+		</>
 	);
 };
 

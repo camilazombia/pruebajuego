@@ -1,0 +1,289 @@
+import React from 'react';
+import { motion } from 'framer-motion';
+
+interface SapitoProps extends React.SVGProps<SVGSVGElement> {
+  eyePosition?: { x: number; y: number };
+  animation?: 'dance' | 'magic' | 'celebrate' | null;
+}
+
+export const Sapito: React.FC<SapitoProps> = ({ 
+  className, 
+  eyePosition = { x: 0, y: 0 }, 
+  animation,
+  ...props 
+}) => {
+  const getAnimationVariants = () => {
+    switch (animation) {
+      case 'dance':
+        return {
+          animate: { rotate: [0, -10, 10, -10, 10, 0], scale: [1, 1.05, 1] },
+          transition: { duration: 1.5 }
+        };
+      case 'magic':
+        return {
+          animate: { 
+            scale: [1, 1.1, 0.95, 1.1, 1],
+            rotateZ: [0, 360, 0]
+          },
+          transition: { duration: 1.5 }
+        };
+      case 'celebrate':
+        return {
+          animate: { 
+            y: [0, -20, 0, -20, 0],
+            rotate: [0, 5, -5, 5, 0]
+          },
+          transition: { duration: 1.5 }
+        };
+      default:
+        return { animate: {}, transition: {} };
+    }
+  };
+
+  return (
+    <motion.div
+      className={className}
+      animate={animation ? getAnimationVariants().animate : {}}
+      transition={animation ? getAnimationVariants().transition : {}}
+      style={{ display: 'inline-block' }}
+    >
+      <svg
+        width="292"
+        height="573"
+        viewBox="0 0 292 573"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+        {...props}
+      >
+    <defs>
+      <clipPath id="clip0_194_1316">
+        <rect x="27.1572" y="58.1938" width="237.624" height="199.962" rx="26.1871" fill="white" />
+      </clipPath>
+      <clipPath id="clip1_194_1316">
+        <path d="M90.7178 292.908C90.7178 282.194 99.4025 273.51 110.116 273.51H179.948C190.661 273.51 199.346 282.194 199.346 292.908V403.475C199.346 433.472 175.029 457.789 145.032 457.789C115.035 457.789 90.7178 433.472 90.7178 403.475V292.908Z" fill="white"/>
+      </clipPath>
+      {/* Máscaras para los ojos */}
+      <mask id="eyeMaskLeft">
+        <circle cx="98.4214" cy="145.664" r="32.4683" fill="white" />
+      </mask>
+      <mask id="eyeMaskRight">
+        <circle cx="193.517" cy="145.664" r="32.4683" fill="white" />
+      </mask>
+    </defs>
+    <path
+      d="M137.538 24.6701C134.353 5.70981 114.647 0.969727 105.192 0.969727L102.206 64.0128H139.529C140.192 58.7987 140.723 43.6304 137.538 24.6701Z"
+      fill="#129365"
+    />
+    <path
+      d="M133.752 29.0502C133.752 64.2749 133.752 64.2749 104.491 64.2749C75.2302 64.2749 75.6517 64.2749 75.6517 29.0502C75.6517 13.0062 88.6579 0 104.702 0C120.746 0 133.752 13.0062 133.752 29.0502Z"
+      fill="#1C9A6D"
+    />
+    <ellipse cx="104.208" cy="29.0504" rx="26.5883" ry="27.0807" fill="white" />
+    <path
+      d="M130.797 29.0504C130.797 64.2751 131.571 64.2751 104.208 64.2751C77.6201 64.2751 77.6201 64.2751 77.6201 29.0504C77.6201 14.0942 89.5241 1.96973 104.208 1.96973C118.893 1.96973 130.797 14.0942 130.797 29.0504Z"
+      fill="white"
+    />
+    <path
+      d="M127.352 33.9734C127.352 64.2742 128.126 64.2742 104.21 64.2742C81.0684 64.2742 81.0684 64.2742 81.0684 33.9734C81.0684 21.7364 91.4293 11.8164 104.21 11.8164C116.991 11.8164 127.352 21.7364 127.352 33.9734Z"
+      fill="#613D37"
+    />
+    <ellipse cx="104.21" cy="38.8974" rx="12.8018" ry="13.7865" fill="black" />
+    <circle cx="111.595" cy="30.5272" r="3.44664" fill="white" />
+    <path
+      d="M157.677 24.6701C160.862 5.70981 180.568 0.969727 190.023 0.969727L193.009 64.0128H155.686C155.023 58.7987 154.492 43.6304 157.677 24.6701Z"
+      fill="#129365"
+    />
+    <path
+      d="M161.463 29.0502C161.463 64.2749 161.463 64.2749 190.724 64.2749C219.985 64.2749 219.563 64.2749 219.563 29.0502C219.563 13.0062 206.557 0 190.513 0C174.469 0 161.463 13.0062 161.463 29.0502Z"
+      fill="#1C9A6D"
+    />
+    <ellipse cx="26.5883" cy="27.0807" rx="26.5883" ry="27.0807" transform="matrix(-1 0 0 1 217.594 1.96973)" fill="white" />
+    <path
+      d="M164.417 29.0504C164.417 64.2751 163.643 64.2751 191.005 64.2751C217.594 64.2751 217.594 64.2751 217.594 29.0504C217.594 14.0942 205.69 1.96973 191.005 1.96973C176.321 1.96973 164.417 14.0942 164.417 29.0504Z"
+      fill="white"
+    />
+    <path
+      d="M167.863 33.9734C167.863 64.2742 167.089 64.2742 191.005 64.2742C214.146 64.2742 214.146 64.2742 214.146 33.9734C214.146 21.7364 203.786 11.8164 191.005 11.8164C178.224 11.8164 167.863 21.7364 167.863 33.9734Z"
+      fill="#613D37"
+    />
+    <ellipse cx="12.8018" cy="13.7865" rx="12.8018" ry="13.7865" transform="matrix(-1 0 0 1 203.808 25.1108)" fill="black" />
+    <circle cx="3.44664" cy="3.44664" r="3.44664" transform="matrix(-1 0 0 1 187.066 27.0806)" fill="white" />
+    <circle cx="24.7323" cy="158.174" r="24.7323" fill="#1C9A6D" />
+    <g clipPath="url(#clip0_194_1316)">
+      <rect x="27.1572" y="58.1938" width="237.624" height="199.962" rx="26.1871" fill="#1C9A6D" />
+      <circle cx="146.454" cy="158.093" r="93.1097" fill="#FFCFC8" />
+      <path
+        d="M127.089 77.5918C124.665 86.3208 125.634 98.4445 136.788 100.384C155.574 103.651 154.246 83.8961 147.942 83.8961C136.143 83.8961 143.464 109.159 160.55 102.324C165.4 100.384 166.855 92.6251 165.4 88.2606"
+        stroke="black"
+        strokeWidth="3.87957"
+        strokeLinecap="round"
+      />
+      <circle cx="98.4214" cy="145.664" r="32.4683" fill="white" />
+      <circle cx={87.8902 + eyePosition.x} cy={134.256 + eyePosition.y} r="32.4683" fill="black" mask="url(#eyeMaskLeft)" />
+      <circle cx="193.517" cy="145.664" r="32.4683" fill="white" />
+      <circle cx={182.987 + eyePosition.x} cy={134.256 + eyePosition.y} r="32.4683" fill="black" mask="url(#eyeMaskRight)" />
+      <path
+        d="M126.087 204.319C126.087 204.319 125.602 238.757 145.97 238.757C166.338 238.757 165.852 204.319 165.852 204.319"
+        stroke="black"
+        strokeWidth="3.87957"
+        strokeLinecap="round"
+      />
+      <circle cx="243.928" cy="72.2569" r="31.5215" fill="#227959" />
+      <circle cx="208.527" cy="268.661" r="20.3678" fill="#227959" />
+      <circle cx="264.782" cy="208.527" r="20.3678" fill="#227959" />
+      <circle cx="36.3709" cy="82.9261" r="24.7323" fill="#227959" />
+      <circle cx="19.398" cy="208.527" r="20.3678" fill="#227959" />
+    </g>
+    <circle cx="267.205" cy="158.174" r="24.7323" fill="#1C9A6D" />
+    <rect x="128.996" y="257.991" width="34.9161" height="31.0366" fill="#CAF9B5" />
+    <g clipPath="url(#clip1_194_1316)">
+      <path
+        d="M90.7178 292.908C90.7178 282.194 99.4025 273.51 110.116 273.51H179.948C190.661 273.51 199.346 282.194 199.346 292.908V403.475C199.346 433.472 175.029 457.789 145.032 457.789C115.035 457.789 90.7178 433.472 90.7178 403.475V292.908Z"
+        fill="#1C9A6D"
+      />
+      <circle cx="189.129" cy="404.446" r="20.3678" fill="#227959" />
+      <circle cx="97.9586" cy="352.072" r="20.3678" fill="#227959" />
+      <path
+        d="M110.601 273.51H179.463V390.382C179.463 409.398 164.048 424.813 145.032 424.813V424.813C126.016 424.813 110.601 409.398 110.601 390.382V273.51Z"
+        fill="#CAF9B5"
+      />
+      <circle cx="90.2008" cy="428.692" r="20.3678" fill="#227959" />
+      <circle cx="205.618" cy="316.185" r="20.3678" fill="#227959" />
+    </g>
+    <rect x="112.476" y="442.271" width="24.7288" height="129.463" fill="#1C9A6D" />
+    <path d="M137.202 549.915V572.098H84.2715L137.202 549.915Z" fill="#1C9A6D" />
+    <rect width="24.7288" height="129.463" transform="matrix(-1 0 0 1 180.361 442.271)" fill="#1C9A6D" />
+    <path d="M155.633 549.915V572.098H208.563L155.633 549.915Z" fill="#1C9A6D" />
+    <path
+      d="M145.484 271.57C138.113 271.57 131.259 268.013 128.996 266.235L128.511 273.51H164.397L163.912 266.72C160.679 268.013 152.855 271.57 145.484 271.57Z"
+      fill="#286CFF"
+    />
+    <circle cx="145.484" cy="273.994" r="4.36452" fill="#286CFF" />
+    <path
+      d="M150.333 290.484L146.453 274.48C148.878 274.48 152.086 276.905 152.757 279.814C153.765 284.179 152.272 288.221 150.333 290.484Z"
+      fill="#286CFF"
+    />
+    <path
+      d="M141.443 290.484L145.322 274.48C142.898 274.48 139.689 276.905 139.018 279.814C138.011 284.179 139.503 288.221 141.443 290.484Z"
+      fill="#286CFF"
+    />
+    <path
+      d="M187.125 350.617C190.017 349.353 196.606 346.133 199.827 343.369"
+      stroke="#1C9A6D"
+      strokeWidth="7.93006"
+      strokeLinecap="round"
+    />
+    <path
+      d="M202.154 366.876C198.05 362.062 190.977 351.421 195.514 347.372"
+      stroke="#1C9A6D"
+      strokeWidth="7.93006"
+      strokeLinecap="round"
+    />
+    <path
+      d="M208.959 365.52C204.93 361.738 197.388 352.815 199.447 347.374"
+      stroke="#1C9A6D"
+      strokeWidth="7.93006"
+      strokeLinecap="round"
+    />
+    <path
+      d="M214.703 362.803C210.146 358.996 201.484 350.505 203.3 346.999"
+      stroke="#1C9A6D"
+      strokeWidth="7.93006"
+      strokeLinecap="round"
+    />
+    <path
+      d="M219.999 357.817C215.314 356.655 205.4 353.183 207.761 347.682"
+      stroke="#1C9A6D"
+      strokeWidth="7.93006"
+      strokeLinecap="round"
+    />
+    <path
+      d="M202.317 349.947C205.596 343.398 206.411 329.088 221.305 319.045C229.695 313.388 232.582 296.756 197.064 288.117"
+      stroke="#1C9A6D"
+      strokeWidth="18.8339"
+      strokeLinecap="round"
+    />
+    <path
+      d="M202.577 349.947C205.856 343.398 206.671 329.088 221.565 319.045C229.954 313.388 232.842 296.756 197.324 288.117"
+      stroke="#1C9A6D"
+      strokeWidth="18.8339"
+      strokeLinecap="round"
+    />
+    <path
+      d="M205.313 366.37C205.313 366.37 199.881 362.089 198.155 356.774"
+      stroke="black"
+      strokeWidth="0.991258"
+      strokeLinecap="round"
+    />
+    <path
+      d="M211.875 364.381C211.875 364.381 206.027 360.69 203.757 355.583"
+      stroke="black"
+      strokeWidth="0.991258"
+      strokeLinecap="round"
+    />
+    <path
+      d="M217.265 360.47C217.265 360.47 210.788 358.045 207.527 353.507"
+      stroke="black"
+      strokeWidth="0.991258"
+      strokeLinecap="round"
+    />
+    <path
+      d="M110.562 349.172C107.621 348.025 100.908 345.073 97.5781 342.44"
+      stroke="#1C9A6D"
+      strokeWidth="7.93006"
+      strokeLinecap="round"
+    />
+    <path
+      d="M96.1994 366.023C100.106 361.047 106.745 350.13 102.049 346.267"
+      stroke="#1C9A6D"
+      strokeWidth="7.93006"
+      strokeLinecap="round"
+    />
+    <path
+      d="M89.345 364.941C93.2183 361.001 100.396 351.781 98.1194 346.428"
+      stroke="#1C9A6D"
+      strokeWidth="7.93006"
+      strokeLinecap="round"
+    />
+    <path
+      d="M83.494 362.458C87.8949 358.47 96.2078 349.638 94.2521 346.208"
+      stroke="#1C9A6D"
+      strokeWidth="7.93006"
+      strokeLinecap="round"
+    />
+    <path
+      d="M78.0041 357.689C82.639 356.339 92.4054 352.47 89.8245 347.069"
+      stroke="#1C9A6D"
+      strokeWidth="7.93006"
+      strokeLinecap="round"
+    />
+    <path
+      d="M95.3555 349.113C91.8155 342.702 90.4253 328.437 75.1391 319.001C66.5293 313.686 62.9744 297.183 98.1165 287.123"
+      stroke="#1C9A6D"
+      strokeWidth="18.8339"
+      strokeLinecap="round"
+    />
+    <path
+      d="M93.0228 365.644C93.0228 365.644 98.2783 361.148 99.7894 355.768"
+      stroke="black"
+      strokeWidth="0.991258"
+      strokeLinecap="round"
+    />
+    <path
+      d="M86.3841 363.922C86.3841 363.922 92.0791 359.998 94.1422 354.804"
+      stroke="black"
+      strokeWidth="0.991258"
+      strokeLinecap="round"
+    />
+    <path
+      d="M80.8413 360.229C80.8413 360.229 87.2153 357.545 90.2913 352.88"
+      stroke="black"
+      strokeWidth="0.991258"
+      strokeLinecap="round"
+    />
+    </svg>
+    </motion.div>
+  );
+};
+
+export default Sapito;

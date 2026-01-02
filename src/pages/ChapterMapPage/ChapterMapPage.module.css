@@ -1,0 +1,301 @@
+.page {
+	min-height: 100vh;
+	background: transparent;
+	color: #ffffff;
+	display: flex;
+	flex-direction: column;
+	padding: 2rem;
+	gap: 2rem;
+}
+
+/* Header */
+.header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 2rem;
+	padding: 2rem;
+	background-color: transparent;
+	border-radius: 1rem;
+	border: none;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+}
+
+.headerContent {
+	text-align: center;
+	flex: 1;
+}
+
+.chapterNumber {
+	font-size: 0.85rem;
+	color: #cbd5e1;
+	font-weight: 600;
+	text-transform: uppercase;
+	letter-spacing: 1.5px;
+	margin-bottom: 0.8rem;
+	opacity: 0.8;
+}
+
+.chapterName {
+	font-size: 2.8rem;
+	font-weight: 900;
+	margin: 0;
+	color: #ffffff;
+	line-height: 1.1;
+	text-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+	letter-spacing: -1px;
+}
+
+.description {
+	display: none;
+}
+
+/* Map Container */
+.mapContainer {
+	flex: 1;
+	position: relative;
+	background: transparent;
+	border-radius: 1rem;
+	border: none;
+	overflow: hidden;
+	min-height: 500px;
+}
+
+/* SVG Path */
+.connectionPath {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1;
+	pointer-events: none;
+}
+
+.pathLine {
+	stroke: rgba(255, 63, 161, 0.3);
+	stroke-width: 3;
+	fill: none;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.pathLineDashed {
+	stroke: rgba(255, 63, 161, 0.3);
+	stroke-width: 3;
+	fill: none;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	stroke-dasharray: 8, 4;
+	opacity: 0.6;
+}
+
+.pathLineFilled {
+	stroke: rgba(255, 63, 161, 0.8);
+	stroke-width: 3;
+	fill: none;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+	opacity: 1;
+}
+
+/* Map Content */
+.mapContent {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+}
+
+/* Level Marker */
+.levelMarker {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	cursor: pointer;
+	z-index: 10;
+	transition: all 0.3s ease;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+/* Posicionamiento dinámico */
+[data-x="15"][data-y="60"] { left: 15%; top: 60%; }
+[data-x="35"][data-y="40"] { left: 35%; top: 40%; }
+[data-x="50"][data-y="20"] { left: 50%; top: 20%; }
+[data-x="65"][data-y="40"] { left: 65%; top: 40%; }
+[data-x="80"][data-y="60"] { left: 80%; top: 60%; }
+[data-x="85"][data-y="75"] { left: 85%; top: 75%; }
+[data-x="20"][data-y="70"] { left: 20%; top: 70%; }
+[data-x="40"][data-y="50"] { left: 40%; top: 50%; }
+[data-x="55"][data-y="30"] { left: 55%; top: 30%; }
+[data-x="70"][data-y="35"] { left: 70%; top: 35%; }
+[data-x="80"][data-y="55"] { left: 80%; top: 55%; }
+[data-x="80"][data-y="75"] { left: 80%; top: 75%; }
+[data-x="25"][data-y="65"] { left: 25%; top: 65%; }
+[data-x="45"][data-y="45"] { left: 45%; top: 45%; }
+[data-x="60"][data-y="25"] { left: 60%; top: 25%; }
+[data-x="75"][data-y="60"] { left: 75%; top: 60%; }
+[data-x="85"][data-y="70"] { left: 85%; top: 70%; }
+[data-x="35"][data-y="55"] { left: 35%; top: 55%; }
+[data-x="65"][data-y="30"] { left: 65%; top: 30%; }
+[data-x="38"][data-y="50"] { left: 38%; top: 50%; }
+[data-x="52"][data-y="30"] { left: 52%; top: 30%; }
+[data-x="68"][data-y="35"] { left: 68%; top: 35%; }
+[data-x="52"][data-y="32"] { left: 52%; top: 32%; }
+[data-x="68"][data-y="38"] { left: 68%; top: 38%; }
+[data-x="18"][data-y="70"] { left: 18%; top: 70%; }
+[data-x="36"][data-y="52"] { left: 36%; top: 52%; }
+
+.levelMarker:hover:not(.locked) {
+	transform: translate(-50%, -50%) scale(1.15);
+	z-index: 20;
+}
+
+.levelMarker.locked {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+/* Level Pin */
+.levelPin {
+	width: 70px;
+	height: 70px;
+	background: linear-gradient(135deg, #ff3fa1 0%, #ff69b4 100%);
+	border: 4px solid #ffffff;
+	border-radius: 50%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: relative;
+	box-shadow: 0 6px 20px rgba(255, 63, 161, 0.5);
+	transition: all 0.3s ease;
+	font-weight: bold;
+	font-size: 1.8rem;
+	color: #ffffff;
+	text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.levelMarker:hover:not(.locked) .levelPin {
+	box-shadow: 0 12px 32px rgba(255, 63, 161, 0.8);
+	transform: scale(1.1);
+}
+
+.levelMarker.completed .levelPin {
+	background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+	border-color: #fbbf24;
+	box-shadow: 0 6px 20px rgba(251, 191, 36, 0.6);
+}
+
+.levelNumber {
+	font-size: 2rem;
+	font-weight: 900;
+	color: #ffffff;
+}
+
+.lockIcon {
+	font-size: 2rem;
+}
+
+.levelMarker.locked .levelPin {
+	background: linear-gradient(135deg, #64748b 0%, #475569 100%);
+	border-color: #94a3b8;
+	box-shadow: 0 6px 20px rgba(100, 116, 139, 0.4);
+}
+
+/* Stars Container */
+.starsContainer {
+	display: flex;
+	gap: 0.2rem;
+	justify-content: center;
+	margin-top: 0.3rem;
+}
+
+.star {
+	font-size: 1rem;
+	transition: all 0.3s ease;
+}
+
+.star.filled {
+	color: #fbbf24;
+	text-shadow: 0 0 8px rgba(251, 191, 36, 0.5);
+}
+
+.star.empty {
+	color: rgba(148, 163, 184, 0.5);
+}
+
+.levelMarker:hover:not(.locked) .star {
+	font-size: 1.1rem;
+}
+
+/* Tooltip */
+.tooltip {
+	position: absolute;
+	bottom: 100%;
+	left: 50%;
+	transform: translateX(-50%);
+	background-color: rgba(11, 18, 32, 0.95);
+	border: 2px solid #ff3fa1;
+	border-radius: 0.5rem;
+	padding: 0.75rem 1rem;
+	margin-bottom: 0.5rem;
+	white-space: nowrap;
+	opacity: 0;
+	visibility: hidden;
+	transition: all 0.3s ease;
+	pointer-events: none;
+	-webkit-backdrop-filter: blur(10px);
+	backdrop-filter: blur(10px);
+	z-index: 30;
+	font-size: 0.9rem;
+}
+
+.levelMarker:hover:not(.locked) .tooltip {
+	opacity: 1;
+	visibility: visible;
+	margin-bottom: 0.75rem;
+}
+
+.tooltipName {
+	font-weight: 600;
+	color: #ff3fa1;
+	margin-bottom: 0.25rem;
+}
+
+.completedText {
+	font-size: 0.8rem;
+	color: #4ade80;
+	font-weight: 600;
+}
+
+.lockedText {
+	font-size: 0.8rem;
+	color: #f87171;
+	font-weight: 600;
+}
+
+/* Animación de pulso */
+@keyframes pulse {
+	0% {
+		box-shadow: 0 0 0 0 currentColor;
+	}
+	70% {
+		box-shadow: 0 0 0 15px rgba(255, 63, 161, 0);
+	}
+	100% {
+		box-shadow: 0 0 0 0 rgba(255, 63, 161, 0);
+	}
+}
+
+.levelMarker:not(.locked) .levelPin {
+	animation: pulse 2s infinite;
+}
+
+.levelMarker.completed .levelPin {
+	animation: none;
+}
