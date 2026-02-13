@@ -36,6 +36,13 @@
 	align-items: flex-start;
 }
 
+.progressHint {
+	margin: 0;
+	color: #e5e7eb;
+	font-size: 0.85rem;
+	max-width: 260px;
+}
+
 .progressLabel {
 	color: #ffffff;
 	font-size: 0.9rem;
@@ -195,6 +202,12 @@
 	filter: drop-shadow(0 0 20px rgba(255, 255, 0, 0.3));
 	transition: all 0.3s ease;
 	position: relative;
+}
+
+.awakeningAvatar {
+	width: 100%;
+	height: auto;
+	max-width: 260px;
 }
 
 /* Interaction Hint */

@@ -3,11 +3,13 @@ import { useNavigate } from 'react-router-dom';
 import { ArrowButton } from '../../shared/ui/ArrowButton/ArrowButton';
 import { WORLDS } from '../../shared/data/worlds';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
+import { useProgressStore } from '../../features/progress/context/ProgressContext';
 import styles from './WorldsMapPage.module.css';
 
 const WorldsMapPage: React.FC = () => {
 	const navigate = useNavigate();
 	const carouselRef = useRef<HTMLDivElement | null>(null);
+	const { isWorldUnlocked } = useProgressStore();
 
 	const scrollByCard = (direction: 'next' | 'prev') => {
 		const el = carouselRef.current;
@@ -44,35 +46,38 @@ const WorldsMapPage: React.FC = () => {
 					/>
 
 				<div className={styles.carousel} role="list" ref={carouselRef}>
-					{WORLDS.map((world) => (
-						<article
+					{WORLDS.map((world) => {
+						const unlocked = isWorldUnlocked(world.id);
+						return (
+							<article
 								key={world.id}
 								role="listitem"
-								className={`${styles.card} ${!world.isUnlocked ? styles.locked : ''}`}
+								className={`${styles.card} ${!unlocked ? styles.locked : ''}`}
 								data-card
-								onClick={() => handleWorldClick(world.id, !world.isUnlocked)}
+								onClick={() => handleWorldClick(world.id, !unlocked)}
 								onKeyDown={(e) => {
-									if ((e.key === 'Enter' || e.key === ' ') && world.isUnlocked) {
+									if ((e.key === 'Enter' || e.key === ' ') && unlocked) {
 										e.preventDefault();
-										handleWorldClick(world.id, !world.isUnlocked);
+										handleWorldClick(world.id, !unlocked);
 									}
 								}}
-								tabIndex={!world.isUnlocked ? -1 : 0}
+								tabIndex={!unlocked ? -1 : 0}
 							>
 								<div className={styles.imagePlaceholder} aria-hidden>
 									<span className={styles.worldNumber}>{world.number}</span>
-									{!world.isUnlocked && <div className={styles.lockOverlay}>🔒</div>}
+									{!unlocked && <div className={styles.lockOverlay}>🔒</div>}
 								</div>
 								<div className={styles.namePill}>{world.title}</div>
 								<div className={styles.progressBar}>
-									<div 
-										className={styles.progressFill} 
+									<div
+										className={styles.progressFill}
 										style={{ width: `${world.progress}%` }}
 										aria-label={`Progreso: ${Math.round(world.progress)}%`}
 									/>
 								</div>
 							</article>
-						))}
+						);
+					})}
 					</div>
 
 					<ArrowButton

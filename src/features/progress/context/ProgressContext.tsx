@@ -36,8 +36,10 @@ export interface ProgressState {
 const ProgressContext = createContext<ProgressState | undefined>(undefined);
 
 export const ProgressProvider = ({ children }: { children: ReactNode }) => {
-	const [unlockedWorlds, setUnlockedWorlds] = useState<string[]>(['w1']);
-	const [unlockedChapters, setUnlockedChapters] = useState<string[]>(['w1-ch1']);
+	// Para la demo frontend usamos directamente los IDs reales de worlds.ts
+	// Mundo 1 y su primer capítulo comienzan desbloqueados.
+	const [unlockedWorlds, setUnlockedWorlds] = useState<string[]>(['world_1']);
+	const [unlockedChapters, setUnlockedChapters] = useState<string[]>(['world_1_chapter_1']);
 	const [completedWorlds, setCompletedWorlds] = useState<string[]>([]);
 	const [completedChapters, setCompletedChapters] = useState<string[]>([]);
 	const [completedLevels, setCompletedLevels] = useState<string[]>([]);
@@ -98,8 +100,8 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 	);
 
 	const resetProgress = useCallback(() => {
-		setUnlockedWorlds(['w1']);
-		setUnlockedChapters(['w1-ch1']);
+		setUnlockedWorlds(['world_1']);
+		setUnlockedChapters(['world_1_chapter_1']);
 		setCompletedWorlds([]);
 		setCompletedChapters([]);
 		setCompletedLevels([]);

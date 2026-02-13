@@ -51,14 +51,41 @@ export const useProgressAdaptedContent = () => {
 	};
 
 	/**
-	 * Obtener niveles de un capítulo con estado de progreso
+	 * Obtener niveles de un capítulo con estado de progreso.
+	 * Regla de desbloqueo FRONTEND:
+	 * - Siempre se puede jugar el nivel 1.
+	 * - Después de completar el nivel N, se desbloquea el nivel N+1.
+	 * - Niveles posteriores siguen bloqueados hasta que se complete el anterior.
 	 */
 	const getLevelsWithProgress = (chapterId: string): LevelWithProgress[] => {
-		return getAdaptedLevels(chapterId).map((level) => ({
-			...level,
-			locked: completedLevels.length > 0 ? !completedLevels.includes(level.id) : level.number > 1,
-			completed: completedLevels.includes(level.id),
-		}));
+		const levels = getAdaptedLevels(chapterId);
+		const completedSet = new Set(completedLevels);
+
+		// Filtramos solo los niveles completados de este capítulo
+		const completedInChapter = levels.filter((level) => completedSet.has(level.id));
+		const maxCompletedNumber = completedInChapter.reduce(
+			(max, level) => (level.number > max ? level.number : max),
+			0
+		);
+
+		return levels.map((level) => {
+			const completed = completedSet.has(level.id);
+			let locked = false;
+
+			if (maxCompletedNumber === 0) {
+				// Nadie completado todavía: solo el nivel 1 está disponible
+				locked = level.number > 1;
+			} else {
+				// Ya hay progreso: se desbloquea solo el siguiente
+				locked = level.number > maxCompletedNumber + 1;
+			}
+
+			return {
+				...level,
+				locked,
+				completed,
+			};
+		});
 	};
 
 	return {

@@ -37,24 +37,62 @@ const createLevels = (worldNum: number, chapterNum: number, chapterId: string): 
 };
 
 // Descripciones de capítulos por mundo
+// Nota: estos textos están alineados con la pedagogía infantil del proyecto
+// y se usan solo para contenido frontend (no hay lógica de backend asociada).
 const CHAPTER_DESCRIPTIONS: Record<number, string[]> = {
+	// Mundo 1 – Fundamentos Mágicos (4–6 años)
 	1: [
-		'First Sound — El primer intento. El mundo reacciona por primera vez.',
-		'Names Appear — Las palabras empiezan a identificar a las personas.',
-		'Friendly Gestures — Las interacciones se vuelven amables y completas.',
-		'Waiting Turns — Aprender que hablar también implica esperar.',
-		'Closer Voices — Las palabras funcionan distinto según la distancia.',
-		'Small Groups — Hablar con más de una persona a la vez.',
-		'New Faces — Personas nuevas requieren iniciar otra vez.',
-		'Many Beginnings — El jugador inicia interacciones sin guía.',
-		'The Flow — Las interacciones fluyen naturalmente.',
-		'The First Weave — El mundo se reconecta por completo.',
+		'Magic Greetings — Aprende a decir hi, hello y goodbye con tu varita mágica.',
+		'Color Spells — Colores básicos que se encienden cuando dices el nombre en inglés.',
+		'Magic Toys — Juguetes que cobran vida cuando pronuncias sus nombres.',
+		'Family Charms — Mamá, papá y amigos aparecen con palabras sencillas.',
+		'Cozy Room — Objetos de tu habitación que responden a tu voz.',
+		'Happy Snacks — Comidas favoritas que brillan cuando dices la palabra correcta.',
+		'Animal Friends — Animales tiernos que saludan en inglés.',
+		'Feelings Potions — Caritas felices y tristes para hablar de emociones.',
+		'Little Actions — Saltar, correr y bailar con verbos muy simples.',
+		'Mini Review Quest — Pequeña misión para repasar todo lo aprendido.',
 	],
+	// Mundo 2 – Aventuras en la Ciudad (6–8 años)
+	2: [
+		'At the Park — Juegos, columpios y amigos en el parque.',
+		'On the Street — Coches, buses y señales para moverte con seguridad.',
+		'At School — Aulas, materiales y amigos de clase.',
+		'At the Store — Frutas, precios y pequeñas compras.',
+		'In the House — Habitaciones y tareas cotidianas.',
+		'Transport Mix — Medios de transporte para ir de un lugar a otro.',
+		'City Jobs — Personas y profesiones de la ciudad.',
+		'Daily Routine — Mañana, tarde y noche en tu día a día.',
+		'Directions — Girar a la izquierda, derecha y seguir recto.',
+		'City Review Quest — Aventura rápida para repasar la ciudad.',
+	],
+	// Mundo 3 – Exploradores Globales (9–10 años)
+	3: [
+		'Countries & Flags — Descubre países y sus banderas.',
+		'World Foods — Platos típicos de distintos lugares.',
+		'Travel Gear — Maletas, mapas y objetos para viajar.',
+		'Transport Around — Aviones, trenes y barcos por el mundo.',
+		'Weather Zones — Climas diferentes en cada región.',
+		'Landscapes — Montañas, playas y desiertos increíbles.',
+		'People & Cultures — Formas básicas de saludar en otros países.',
+		'City vs Nature — Diferencias entre ciudad y campo.',
+		'Travel Phrases — Frases útiles para un viaje sencillo.',
+		'Explorer Review Quest — Misión final para explorar el mapa completo.',
+	],
+};
+
+// Número de capítulos por mundo (para los mundos infantiles principales usamos 5)
+const CHAPTER_COUNT: Record<number, number> = {
+	1: 5,
+	2: 5,
+	3: 5,
 };
 
 const createChapters = (worldNum: number): Chapter[] => {
 	const descriptions = CHAPTER_DESCRIPTIONS[worldNum] || [];
-	return Array.from({ length: 10 }, (_, i) => {
+	const chapterCount = CHAPTER_COUNT[worldNum] ?? 10;
+
+	return Array.from({ length: chapterCount }, (_, i) => {
 		const descText = descriptions[i] || `Chapter ${i + 1}`;
 		const [title, ...descParts] = descText.split(' — ');
 		const chapterId = `world_${worldNum}_chapter_${i + 1}`;
@@ -72,8 +110,8 @@ export const WORLDS: World[] = [
 	{
 		id: 'world_1',
 		number: 1,
-		title: 'The Silent Arrival',
-		description: 'El mundo donde nada comienza.',
+		title: 'Fundamentos Mágicos',
+		description: 'Tu primera aventura mágica para aprender palabras básicas en inglés.',
 		chapters: createChapters(1),
 		isUnlocked: true,
 		progress: 0,
@@ -81,8 +119,8 @@ export const WORLDS: World[] = [
 	{
 		id: 'world_2',
 		number: 2,
-		title: 'The Broken Bodies',
-		description: 'El mundo donde los movimientos no obedecen.',
+		title: 'Aventuras en la Ciudad',
+		description: 'Explora parques, escuelas y calles de la ciudad usando inglés sencillo.',
 		chapters: createChapters(2),
 		isUnlocked: false,
 		progress: 0,
@@ -90,8 +128,8 @@ export const WORLDS: World[] = [
 	{
 		id: 'world_3',
 		number: 3,
-		title: 'The Forgotten Rooms',
-		description: 'El mundo donde los espacios perdieron su sentido.',
+		title: 'Exploradores Globales',
+		description: 'Viaja por el mundo descubriendo países, comidas y paisajes en inglés.',
 		chapters: createChapters(3),
 		isUnlocked: false,
 		progress: 0,

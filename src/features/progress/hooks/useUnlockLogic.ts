@@ -20,7 +20,22 @@ export const useUnlockLogic = () => {
 	const handleCompleteLevel = (levelId: string, chapterId: string, worldId: string) => {
 		completeLevel(levelId);
 
-		// Obtener el capítulo completo
+		// DEMO FRONTEND:
+		// Aseguramos que el mundo actual y el siguiente queden desbloqueados
+		// aunque no se hayan completado todos los niveles/capítulos todavía.
+		const currentWorldIndex = WORLDS.findIndex((w: World) => w.id === worldId);
+		if (currentWorldIndex >= 0) {
+			unlockWorld(worldId);
+			const nextWorld = WORLDS[currentWorldIndex + 1];
+			if (nextWorld) {
+				unlockWorld(nextWorld.id);
+				if (nextWorld.chapters.length > 0) {
+					unlockChapter(nextWorld.chapters[0].id);
+				}
+			}
+		}
+
+		// Lógica completa de desbloqueo (se mantiene para futuro backend)
 		const world = WORLDS.find((w: World) => w.id === worldId);
 		if (!world) return;
 

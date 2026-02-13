@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
-import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
 import styles from './AwakeningLevel.module.css';
 
 interface AwakeningLevelProps {
@@ -106,6 +105,9 @@ export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionCom
 				{/* Progress indicator */}
 				<div className={styles.progressSection}>
 					<div className={styles.progressLabel}>Mundo Despertando</div>
+					<p className={styles.progressHint}>
+						Toca al personaje 5 veces para despertarlo y encender la plaza.
+					</p>
 					<div className={styles.progressBar}>
 						{Array.from({ length: MAX_INTERACTIONS }).map((_, i) => (
 							<div
@@ -181,12 +183,10 @@ export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionCom
 					tabIndex={levelComplete ? -1 : 0}
 					aria-label={levelComplete ? "Nivel completado" : "Toca el avatar para interactuar"}
 				>
-					<ChibiAvatar
-						eyeState="open"
-						mouthState={interactionCount > 0 ? "smile" : "neutral"}
-						isBlinking={true}
-						isBreathing={true}
-						size="lg"
+					<img
+						src="/assets/avatar/composite/default-avatar.png"
+						alt="Avatar despertando"
+						className={styles.awakeningAvatar}
 					/>
 
 					{/* Interaction hint */}
