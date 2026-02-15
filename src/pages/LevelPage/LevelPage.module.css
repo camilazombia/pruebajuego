@@ -56,9 +56,63 @@
 	z-index: 5;
 	flex: 1;
 	display: flex;
+	gap: 2rem;
+	padding: 2rem;
+	max-width: 1400px;
+	margin: 0 auto;
+	width: 100%;
+}
+
+.avatarPanel {
+	flex: 0 0 280px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	position: sticky;
+	top: 2rem;
+	height: fit-content;
+}
+
+.avatarContainer {
+	position: relative;
+	width: 100%;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.avatarSpeechBubble {
+	background: rgba(255, 255, 255, 0.95);
+	color: #0b1220;
+	padding: 0.75rem 1rem;
+	border-radius: 16px;
+	font-weight: 600;
+	font-size: 0.95rem;
+	text-align: center;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+	position: relative;
+}
+
+.avatarSpeechBubble::after {
+	content: '';
+	position: absolute;
+	bottom: -8px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 0;
+	height: 0;
+	border-left: 8px solid transparent;
+	border-right: 8px solid transparent;
+	border-top: 8px solid rgba(255, 255, 255, 0.95);
+}
+
+.gamePanel {
+	flex: 1;
+	display: flex;
 	align-items: center;
 	justify-content: center;
-	padding: 2rem;
+	min-width: 0;
 }
 
 .activityContainer {
@@ -70,6 +124,18 @@
 	padding: 2rem;
 	-webkit-backdrop-filter: blur(10px);
 	backdrop-filter: blur(10px);
+}
+
+@media (max-width: 1024px) {
+	.content {
+		flex-direction: column;
+	}
+
+	.avatarPanel {
+		flex: 0 0 auto;
+		position: static;
+		width: 100%;
+	}
 }
 
 .activityPlaceholder {

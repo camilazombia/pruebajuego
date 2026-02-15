@@ -16,6 +16,27 @@
   height: 100%;
 }
 
+/* Ajustes finos de alineación de capas */
+.eyesLayer {
+  transform: translateY(10px); /* Movemos los ojos hacia abajo */
+}
+
+.mouthLayer {
+  transform: translateY(25px); /* Movemos la boca hacia abajo, más que los ojos */
+}
+
+.topLayer {
+  transform: translateY(-6px);
+}
+
+.bottomLayer {
+  transform: translateY(2px);
+}
+
+.shoesLayer {
+  transform: translateY(4px);
+}
+
 /* Size Variants */
 .sizeSm {
   width: 120px;

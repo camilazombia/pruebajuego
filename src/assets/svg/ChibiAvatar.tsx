@@ -85,43 +85,43 @@ export const ChibiAvatar: React.FC<ChibiAvatarProps> = ({
 
       {/* Eyes */}
       {currentEyeState === 'open' ? (
-        <img className={layerClass} src="/assets/avatar/base/eyes/eyes_open.svg" alt="Eyes Open" />
+        <img className={`${styles.layer} ${styles.eyesLayer}`} src="/assets/avatar/base/eyes/eyes_open.svg" alt="Eyes Open" />
       ) : (
-        <img className={layerClass} src="/assets/avatar/base/eyes/eyes_closed.svg" alt="Eyes Closed" />
+        <img className={`${styles.layer} ${styles.eyesLayer}`} src="/assets/avatar/base/eyes/eyes_closed.svg" alt="Eyes Closed" />
       )}
 
       {/* Mouth */}
       {mouthState === 'smile' ? (
-        <img className={layerClass} src="/assets/avatar/base/mouth/mouth_smile.svg" alt="Mouth Smile" />
+        <img className={`${styles.layer} ${styles.mouthLayer}`} src="/assets/avatar/base/mouth/mouth_smile.svg" alt="Mouth Smile" />
       ) : (
-        <img className={layerClass} src="/assets/avatar/base/mouth/mouth_neutral.svg" alt="Mouth Neutral" />
+        <img className={`${styles.layer} ${styles.mouthLayer}`} src="/assets/avatar/base/mouth/mouth_neutral.svg" alt="Mouth Neutral" />
       )}
 
       {/* Top Layer */}
       {topId === 'top_red_shirt' && (
-        <img className={layerClass} src="/assets/avatar/clothing/tops/top_red_shirt.svg" alt="Red Shirt" />
+        <img className={`${styles.layer} ${styles.topLayer}`} src="/assets/avatar/clothing/tops/top_red_shirt.svg" alt="Red Shirt" />
       )}
 
       {topId === 'top_sweater' && (
-        <img className={layerClass} src="/assets/avatar/clothing/tops/top_sweater.svg" alt="Sweater" />
+        <img className={`${styles.layer} ${styles.topLayer}`} src="/assets/avatar/clothing/tops/top_sweater.svg" alt="Sweater" />
       )}
 
       {/* Bottom Layer */}
       {bottomId === 'bottom_pants' && (
-        <img className={layerClass} src="/assets/avatar/clothing/bottoms/bottom_pants.svg" alt="Pants" />
+        <img className={`${styles.layer} ${styles.bottomLayer}`} src="/assets/avatar/clothing/bottoms/bottom_pants.svg" alt="Pants" />
       )}
 
       {bottomId === 'bottom_shorts' && (
-        <img className={layerClass} src="/assets/avatar/clothing/bottoms/bottom_shorts.svg" alt="Shorts" />
+        <img className={`${styles.layer} ${styles.bottomLayer}`} src="/assets/avatar/clothing/bottoms/bottom_shorts.svg" alt="Shorts" />
       )}
 
       {/* Shoes Layer */}
       {shoesId === 'shoes_sneakers' && (
-        <img className={layerClass} src="/assets/avatar/clothing/shoes/shoes_sneakers.svg" alt="Sneakers" />
+        <img className={`${styles.layer} ${styles.shoesLayer}`} src="/assets/avatar/clothing/shoes/shoes_sneakers.svg" alt="Sneakers" />
       )}
 
       {shoesId === 'shoes_boots' && (
-        <img className={layerClass} src="/assets/avatar/clothing/shoes/shoes_boots.svg" alt="Boots" />
+        <img className={`${styles.layer} ${styles.shoesLayer}`} src="/assets/avatar/clothing/shoes/shoes_boots.svg" alt="Boots" />
       )}
 
       {/* Accessories */}

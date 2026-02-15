@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
+import { useAvatar } from '../../app/providers/AvatarProvider';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
 import styles from './AwakeningLevel.module.css';
 
@@ -13,6 +15,7 @@ interface Coin {
 }
 
 export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionComplete }) => {
+	const { avatarState } = useAvatar();
 	const [interactionCount, setInteractionCount] = useState(0);
 	const [showPulse, setShowPulse] = useState(false);
 	const [npcReactions, setNpcReactions] = useState({ npc1: false, npc2: false, npc3: false });
@@ -183,10 +186,16 @@ export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionCom
 					tabIndex={levelComplete ? -1 : 0}
 					aria-label={levelComplete ? "Nivel completado" : "Toca el avatar para interactuar"}
 				>
-					<img
-						src="/assets/avatar/composite/default-avatar.png"
-						alt="Avatar despertando"
-						className={styles.awakeningAvatar}
+					<ChibiAvatar
+						eyeState={interactionCount > 0 ? 'open' : 'closed'}
+						mouthState={interactionCount > 2 ? 'smile' : 'neutral'}
+						topId={avatarState.top}
+						bottomId={avatarState.bottom}
+						shoesId={avatarState.shoes}
+						accessories={[]}
+						isBlinking={interactionCount > 0}
+						isBreathing={true}
+						size="md"
 					/>
 
 					{/* Interaction hint */}

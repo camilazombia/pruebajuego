@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import styles from './Sidebar.module.css';
 
 // Import menu images
@@ -49,7 +50,7 @@ const Sidebar: React.FC = () => {
     <aside className={styles.sidebar} aria-label="Menú lateral">
       <div className={styles.stack}>
         {MENU_ITEMS.map((item) => (
-          <button
+          <motion.button
             key={item.key}
             className={`${styles.item} ${active === item.key ? styles.active : ''}`}
             onClick={() => handleClick(item.key)}
@@ -57,13 +58,16 @@ const Sidebar: React.FC = () => {
             aria-label={item.label}
             type="button"
             title={item.label}
+            whileHover={{ scale: 1.1 }}
+            whileTap={{ scale: 0.95 }}
+            transition={{ type: "spring", stiffness: 400, damping: 17 }}
           >
             <img 
               src={item.icon} 
               alt={item.label}
               className={styles.icon}
             />
-          </button>
+          </motion.button>
         ))}
       </div>
     </aside>

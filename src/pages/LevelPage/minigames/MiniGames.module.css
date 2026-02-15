@@ -1,0 +1,262 @@
+.gameContainer {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5rem;
+	text-align: center;
+}
+
+.gameTitle {
+	font-size: 1.6rem;
+	font-weight: 700;
+	color: #ffffff;
+}
+
+.gameSubtitle {
+	margin: 0;
+	color: #e5e7eb;
+}
+
+.dragDropLayout {
+	display: flex;
+	gap: 2rem;
+	width: 100%;
+	max-width: 800px;
+	justify-content: center;
+}
+
+.dragColumn,
+.dropColumn {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	gap: 0.75rem;
+}
+
+.draggableItem {
+	background: rgba(15, 23, 42, 0.85);
+	border-radius: 999px;
+	padding: 0.5rem 1.25rem;
+	color: #f9fafb;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	cursor: grab;
+	border: 2px solid rgba(148, 163, 184, 0.3);
+}
+
+.emoji {
+	font-size: 1.4rem;
+}
+
+.dropSlot {
+	min-width: 180px;
+	min-height: 56px;
+	border-radius: 16px;
+	border: 2px dashed rgba(148, 163, 184, 0.8);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	color: #e5e7eb;
+	padding: 0.5rem;
+	background: rgba(15, 23, 42, 0.5);
+}
+
+.dropSlotCorrect {
+	border-style: solid;
+	border-color: #22c55e;
+	background: rgba(34, 197, 94, 0.18);
+}
+
+.englishLabel {
+	font-weight: 700;
+}
+
+.matchBadge {
+	margin-top: 0.25rem;
+	font-size: 0.85rem;
+	color: #bbf7d0;
+}
+
+.optionsGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+	gap: 1rem;
+	width: 100%;
+	max-width: 640px;
+}
+
+.optionsRow {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.75rem;
+	width: 100%;
+}
+
+.choiceButton {
+	border: none;
+	border-radius: 999px;
+	padding: 0.75rem 1.5rem;
+	background: #1d4ed8;
+	color: #f9fafb;
+	font-weight: 600;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	box-shadow: 0 8px 20px rgba(15, 23, 42, 0.6);
+	transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
+
+.choiceButton:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 24px rgba(15, 23, 42, 0.75);
+	background: #2563eb;
+}
+
+.feedbackBubble {
+	margin-top: 0.75rem;
+	padding: 0.75rem 1.25rem;
+	border-radius: 999px;
+	background: rgba(34, 197, 94, 0.2);
+	color: #bbf7d0;
+	font-weight: 600;
+}
+
+.feedbackBubbleError {
+	margin-top: 0.75rem;
+	padding: 0.75rem 1.25rem;
+	border-radius: 999px;
+	background: rgba(248, 113, 113, 0.2);
+	color: #fecaca;
+	font-weight: 600;
+}
+
+.audioButton {
+	border: none;
+	border-radius: 999px;
+	padding: 1rem 2rem;
+	background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+	color: #ffffff;
+	font-weight: 700;
+	font-size: 1.1rem;
+	cursor: pointer;
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+	transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+
+.audioButton:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 12px 24px rgba(102, 126, 234, 0.6);
+}
+
+.audioButton:active {
+	transform: translateY(0);
+}
+
+.audioIcon {
+	font-size: 2rem;
+}
+
+.bigEmoji {
+	font-size: 8rem;
+	line-height: 1;
+	margin: 1rem 0;
+	filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.3));
+}
+
+.phraseBuilder {
+	width: 100%;
+	max-width: 700px;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+}
+
+.phraseSlot {
+	min-height: 80px;
+	border: 3px dashed rgba(148, 163, 184, 0.5);
+	border-radius: 16px;
+	padding: 1rem;
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem;
+	align-items: center;
+	justify-content: center;
+	background: rgba(15, 23, 42, 0.3);
+}
+
+.emptySlot {
+	color: rgba(148, 163, 184, 0.6);
+	font-style: italic;
+}
+
+.wordChip {
+	border: none;
+	border-radius: 999px;
+	padding: 0.5rem 1rem;
+	background: #1d4ed8;
+	color: #ffffff;
+	font-weight: 600;
+	cursor: pointer;
+	display: inline-flex;
+	align-items: center;
+	gap: 0.5rem;
+	transition: background 0.15s ease;
+}
+
+.wordChip:hover {
+	background: #2563eb;
+}
+
+.removeIcon {
+	font-size: 1.2rem;
+	line-height: 1;
+}
+
+.availableWords {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.75rem;
+	justify-content: center;
+}
+
+.wordButton {
+	border: 2px solid rgba(148, 163, 184, 0.5);
+	border-radius: 999px;
+	padding: 0.75rem 1.5rem;
+	background: rgba(15, 23, 42, 0.5);
+	color: #ffffff;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.15s ease;
+}
+
+.wordButton:hover {
+	border-color: #1d4ed8;
+	background: rgba(29, 78, 216, 0.2);
+	transform: translateY(-2px);
+}
+
+@media (max-width: 768px) {
+	.dragDropLayout {
+		flex-direction: column;
+		align-items: center;
+	}
+
+	.dropSlot {
+		min-width: 160px;
+	}
+
+	.bigEmoji {
+		font-size: 6rem;
+	}
+}
+
