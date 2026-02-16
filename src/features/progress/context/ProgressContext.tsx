@@ -1,118 +1,144 @@
 import type { ReactNode } from 'react';
-import { createContext, useContext, useState, useCallback } from 'react';
+import { createContext, useContext, useState, useCallback, useEffect } from 'react';
+import { useAvatar } from '../../../app/providers/AvatarProvider';
 
-export interface ProgressState {
-	// Worlds tracking
-	unlockedWorlds: string[]; // Array de world IDs desbloqueados
-	unlockedChapters: string[]; // Array de chapter IDs desbloqueados
-	completedWorlds: string[]; // Array de world IDs completados
-	completedChapters: string[]; // Array de chapter IDs completados
-	completedLevels: string[]; // Array de level IDs completados
+// Define la forma del estado que se guardará en localStorage
+interface StoredProgress {
+	unlockedWorlds: string[];
+	unlockedChapters: string[];
+	completedWorlds: string[];
+	completedChapters: string[];
+	completedLevels: string[];
+}
 
-	// Unlock actions
+export interface ProgressState extends StoredProgress {
+	// Acciones de desbloqueo
 	unlockWorld: (worldId: string) => void;
 	unlockChapter: (chapterId: string) => void;
 	completeWorld: (worldId: string) => void;
 	completeChapter: (chapterId: string) => void;
 	completeLevel: (levelId: string) => void;
 
-	// Query actions
+	// Acciones de consulta
 	isWorldUnlocked: (worldId: string) => boolean;
 	isChapterUnlocked: (chapterId: string) => boolean;
 	isWorldCompleted: (worldId: string) => boolean;
 	isChapterCompleted: (chapterId: string) => boolean;
 	isLevelCompleted: (levelId: string) => boolean;
 
-	// Helper to check if all chapters of a world are completed
+	// Helpers para verificar completitud
 	isAllChaptersCompleted: (worldId: string, chapters: string[]) => boolean;
-
-	// Helper to check if all levels of a chapter are completed
 	isAllLevelsCompleted: (chapterId: string, levels: string[]) => boolean;
 
 	// Reset
 	resetProgress: () => void;
 }
 
+const PROGRESS_STORAGE_KEY = 'user_progress';
+
 const ProgressContext = createContext<ProgressState | undefined>(undefined);
 
+// Estado inicial por defecto
+const defaultInitialState: StoredProgress = {
+	unlockedWorlds: ['world_1'],
+	unlockedChapters: ['world_1_chapter_1'],
+	completedWorlds: [],
+	completedChapters: [],
+	completedLevels: [],
+};
+
 export const ProgressProvider = ({ children }: { children: ReactNode }) => {
-	// Para la demo frontend usamos directamente los IDs reales de worlds.ts
-	// Mundo 1 y su primer capítulo comienzan desbloqueados.
-	const [unlockedWorlds, setUnlockedWorlds] = useState<string[]>(['world_1']);
-	const [unlockedChapters, setUnlockedChapters] = useState<string[]>(['world_1_chapter_1']);
-	const [completedWorlds, setCompletedWorlds] = useState<string[]>([]);
-	const [completedChapters, setCompletedChapters] = useState<string[]>([]);
-	const [completedLevels, setCompletedLevels] = useState<string[]>([]);
+	const { unlockTop } = useAvatar();
+
+	// Cargar el estado inicial desde localStorage
+	const [progressState, setProgressState] = useState<StoredProgress>(() => {
+		try {
+			const savedProgress = localStorage.getItem(PROGRESS_STORAGE_KEY);
+			if (savedProgress) {
+				return JSON.parse(savedProgress) as StoredProgress;
+			}
+		} catch (error) {
+			console.error("Error loading progress from localStorage", error);
+		}
+		return defaultInitialState;
+	});
+
+	// useEffect para guardar el estado en localStorage cada vez que cambie
+	useEffect(() => {
+		try {
+			localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(progressState));
+		} catch (error) {
+			console.error("Error saving progress to localStorage", error);
+		}
+	}, [progressState]);
+
 
 	const unlockWorld = useCallback((worldId: string) => {
-		setUnlockedWorlds((prev) => [...new Set([...prev, worldId])]);
+		setProgressState(prev => ({ ...prev, unlockedWorlds: [...new Set([...prev.unlockedWorlds, worldId])] }));
 	}, []);
 
 	const unlockChapter = useCallback((chapterId: string) => {
-		setUnlockedChapters((prev) => [...new Set([...prev, chapterId])]);
+		setProgressState(prev => ({ ...prev, unlockedChapters: [...new Set([...prev.unlockedChapters, chapterId])] }));
 	}, []);
 
 	const completeWorld = useCallback((worldId: string) => {
-		setCompletedWorlds((prev) => [...new Set([...prev, worldId])]);
+		setProgressState(prev => ({ ...prev, completedWorlds: [...new Set([...prev.completedWorlds, worldId])] }));
 	}, []);
 
 	const completeChapter = useCallback((chapterId: string) => {
-		setCompletedChapters((prev) => [...new Set([...prev, chapterId])]);
+		setProgressState(prev => ({ ...prev, completedChapters: [...new Set([...prev.completedChapters, chapterId])] }));
 	}, []);
 
 	const completeLevel = useCallback((levelId: string) => {
-		setCompletedLevels((prev) => [...new Set([...prev, levelId])]);
-	}, []);
+		setProgressState(prev => ({ ...prev, completedLevels: [...new Set([...prev.completedLevels, levelId])] }));
+		
+		// Integración con Avatar: Desbloquear camiseta al completar el primer nivel
+		if (levelId === 'world_1_chapter_1_level_1') {
+			unlockTop('top_red_shirt');
+		}
+	}, [unlockTop]);
 
 	const isWorldUnlocked = useCallback(
-		(worldId: string) => unlockedWorlds.includes(worldId),
-		[unlockedWorlds]
+		(worldId: string) => progressState.unlockedWorlds.includes(worldId),
+		[progressState.unlockedWorlds]
 	);
 
 	const isChapterUnlocked = useCallback(
-		(chapterId: string) => unlockedChapters.includes(chapterId),
-		[unlockedChapters]
+		(chapterId: string) => progressState.unlockedChapters.includes(chapterId),
+		[progressState.unlockedChapters]
 	);
 
 	const isWorldCompleted = useCallback(
-		(worldId: string) => completedWorlds.includes(worldId),
-		[completedWorlds]
+		(worldId: string) => progressState.completedWorlds.includes(worldId),
+		[progressState.completedWorlds]
 	);
 
 	const isChapterCompleted = useCallback(
-		(chapterId: string) => completedChapters.includes(chapterId),
-		[completedChapters]
+		(chapterId: string) => progressState.completedChapters.includes(chapterId),
+		[progressState.completedChapters]
 	);
 
 	const isLevelCompleted = useCallback(
-		(levelId: string) => completedLevels.includes(levelId),
-		[completedLevels]
+		(levelId: string) => progressState.completedLevels.includes(levelId),
+		[progressState.completedLevels]
 	);
 
 	const isAllChaptersCompleted = useCallback(
-		(_worldId: string, chapters: string[]) => chapters.every((chId) => completedChapters.includes(chId)),
-		[completedChapters]
+		(_worldId: string, chapters: string[]) => chapters.every((chId) => progressState.completedChapters.includes(chId)),
+		[progressState.completedChapters]
 	);
 
 	const isAllLevelsCompleted = useCallback(
-		(_chapterId: string, levels: string[]) => levels.every((lvlId) => completedLevels.includes(lvlId)),
-		[completedLevels]
+		(_chapterId: string, levels: string[]) => levels.every((lvlId) => progressState.completedLevels.includes(lvlId)),
+		[progressState.completedLevels]
 	);
 
 	const resetProgress = useCallback(() => {
-		setUnlockedWorlds(['world_1']);
-		setUnlockedChapters(['world_1_chapter_1']);
-		setCompletedWorlds([]);
-		setCompletedChapters([]);
-		setCompletedLevels([]);
+		setProgressState(defaultInitialState);
 	}, []);
 
 	const value: ProgressState = {
-		unlockedWorlds,
-		unlockedChapters,
-		completedWorlds,
-		completedChapters,
-		completedLevels,
+		...progressState,
 		unlockWorld,
 		unlockChapter,
 		completeWorld,

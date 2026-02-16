@@ -1,5 +1,6 @@
 import React from 'react';
-import { Routes, Route, Navigate } from 'react-router-dom';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+import { AnimatePresence } from 'framer-motion';
 
 import LandingPage from '../../pages/LandingPage/LandingPage';
 import LoginPage from '../../pages/LoginPage/LoginPage';
@@ -36,52 +37,55 @@ import {
 import PoliciesPage from '../../pages/LegalPages/PoliciesPage';
 
 export const AppRouter: React.FC = () => {
+  const location = useLocation();
   return (
-    <Routes>
-      {/* Página inicial (Landing) */}
-      <Route path="/" element={<LandingPage />} />
+    <AnimatePresence mode="wait">
+      <Routes location={location} key={location.pathname}>
+        {/* Página inicial (Landing) */}
+        <Route path="/" element={<LandingPage />} />
 
-      {/* Página de Login */}
-      <Route path="/login" element={<LoginPage />} />
+        {/* Página de Login */}
+        <Route path="/login" element={<LoginPage />} />
 
-      {/* Página de Acceso Familiar */}
-      <Route path="/family-access" element={<FamilyAccessPage />} />
+        {/* Página de Acceso Familiar */}
+        <Route path="/family-access" element={<FamilyAccessPage />} />
 
-      {/* Página de Bienvenida */}
-      <Route path="/welcome" element={<WelcomePage />} />
+        {/* Página de Bienvenida */}
+        <Route path="/welcome" element={<WelcomePage />} />
 
-      {/* Rutas internas que usan MainLayout */}
-      <Route element={<MainLayout />}>
-        <Route path="/home" element={<HomePage />} />
-        <Route path="/chapters/:worldId" element={<ChapterMapPage />} />
-        <Route path="/level/:levelId" element={<LevelPage />} />
-        <Route path="/worlds" element={<WorldsMapPage />} />
-        <Route path="/missions/:worldId" element={<MissionsMapPage />} />
-        <Route path="/mission/:missionId" element={<MissionPage />} />
-        <Route path="/rewards" element={<RewardsPage />} />
-        <Route path="/review" element={<ReviewPage />} />
-        <Route path="/review/flashcards" element={<FlashcardsPage />} />
-        <Route path="/review/stories" element={<StoriesPage />} />
-        <Route path="/review/coloring" element={<ColoringPage />} />
-        <Route path="/help" element={<HelpPage />} />
-        <Route path="/parent-zone" element={<ParentZonePage />} />
-      </Route>
+        {/* Rutas internas que usan MainLayout */}
+        <Route element={<MainLayout />}>
+          <Route path="/home" element={<HomePage />} />
+          <Route path="/chapters/:worldId" element={<ChapterMapPage />} />
+          <Route path="/level/:levelId" element={<LevelPage />} />
+          <Route path="/worlds" element={<WorldsMapPage />} />
+          <Route path="/missions/:worldId" element={<MissionsMapPage />} />
+          <Route path="/mission/:missionId" element={<MissionPage />} />
+          <Route path="/rewards" element={<RewardsPage />} />
+          <Route path="/review" element={<ReviewPage />} />
+          <Route path="/review/flashcards" element={<FlashcardsPage />} />
+          <Route path="/review/stories" element={<StoriesPage />} />
+          <Route path="/review/coloring" element={<ColoringPage />} />
+          <Route path="/help" element={<HelpPage />} />
+          <Route path="/parent-zone" element={<ParentZonePage />} />
+        </Route>
 
-      {/* Legal Pages (sin MainLayout) */}
-      <Route path="/policies" element={<PoliciesPage />} />
-      <Route path="/privacy" element={<PrivacyPolicyPage />} />
-      <Route path="/terms" element={<TermsAndConditionsPage />} />
-      <Route path="/cookies" element={<CookiesPolicyPage />} />
-      <Route path="/legal" element={<LegalNoticePage />} />
-      <Route path="/child-protection" element={<ChildProtectionPolicyPage />} />
-      <Route path="/educational-content" element={<EducationalContentPolicyPage />} />
-      <Route path="/accessibility" element={<AccessibilityPage />} />
-      <Route path="/contact" element={<ContactPage />} />
-      <Route path="/about" element={<AboutPage />} />
-      <Route path="/faq" element={<FAQPage />} />
+        {/* Legal Pages (sin MainLayout) */}
+        <Route path="/policies" element={<PoliciesPage />} />
+        <Route path="/privacy" element={<PrivacyPolicyPage />} />
+        <Route path="/terms" element={<TermsAndConditionsPage />} />
+        <Route path="/cookies" element={<CookiesPolicyPage />} />
+        <Route path="/legal" element={<LegalNoticePage />} />
+        <Route path="/child-protection" element={<ChildProtectionPolicyPage />} />
+        <Route path="/educational-content" element={<EducationalContentPolicyPage />} />
+        <Route path="/accessibility" element={<AccessibilityPage />} />
+        <Route path="/contact" element={<ContactPage />} />
+        <Route path="/about" element={<AboutPage />} />
+        <Route path="/faq" element={<FAQPage />} />
 
-      {/* Redirección por defecto */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
+        {/* Redirección por defecto */}
+        <Route path="*" element={<Navigate to="/" replace />} />
+      </Routes>
+    </AnimatePresence>
   );
 };

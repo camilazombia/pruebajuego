@@ -74,14 +74,14 @@ const LevelPage: React.FC = () => {
 			return {
 				type: 'listenAndChoose',
 				words: [
-					{ english: 'hi', spanish: 'hola', emoji: '👋' },
 					{ english: 'hello', spanish: 'hola', emoji: '👋' },
-					{ english: 'goodbye', spanish: 'adiós', emoji: '👋' },
+					{ english: 'good morning', spanish: 'buenos días', emoji: '☀️' },
+					{ english: 'goodbye', spanish: 'adiós', emoji: '✌️' },
 				] as MiniGameWord[],
 				introAudioKey: 'audioMagicGreetingsIntro',
 				wordAudioKeys: {
-					hi: 'audioWordHi',
 					hello: 'audioWordHello',
+					'good morning': 'audioWordGoodMorning',
 					goodbye: 'audioWordGoodbye',
 				},
 			};

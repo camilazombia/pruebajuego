@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { ArrowButton } from '../../shared/ui/ArrowButton/ArrowButton';
 import { WORLDS } from '../../shared/data/worlds';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
@@ -49,7 +50,7 @@ const WorldsMapPage: React.FC = () => {
 					{WORLDS.map((world) => {
 						const unlocked = isWorldUnlocked(world.id);
 						return (
-							<article
+							<motion.article
 								key={world.id}
 								role="listitem"
 								className={`${styles.card} ${!unlocked ? styles.locked : ''}`}
@@ -62,6 +63,8 @@ const WorldsMapPage: React.FC = () => {
 									}
 								}}
 								tabIndex={!unlocked ? -1 : 0}
+								whileHover={{ scale: 1.05, y: -10 }}
+								transition={{ type: 'spring', stiffness: 300 }}
 							>
 								<div className={styles.imagePlaceholder} aria-hidden>
 									<span className={styles.worldNumber}>{world.number}</span>
@@ -75,7 +78,7 @@ const WorldsMapPage: React.FC = () => {
 										aria-label={`Progreso: ${Math.round(world.progress)}%`}
 									/>
 								</div>
-							</article>
+							</motion.article>
 						);
 					})}
 					</div>

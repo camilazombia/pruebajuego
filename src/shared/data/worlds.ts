@@ -11,6 +11,7 @@ export interface Chapter {
 	id: string;
 	number: number;
 	title: string;
+	icon: string; // Icon name for UI
 	description?: string;
 	levels: Level[];
 }
@@ -36,49 +37,41 @@ const createLevels = (worldNum: number, chapterNum: number, chapterId: string): 
 	}));
 };
 
-// Descripciones de capítulos por mundo
-// Nota: estos textos están alineados con la pedagogía infantil del proyecto
-// y se usan solo para contenido frontend (no hay lógica de backend asociada).
-const CHAPTER_DESCRIPTIONS: Record<number, string[]> = {
-	// Mundo 1 – Fundamentos Mágicos (4–6 años)
-	1: [
-		'Magic Greetings — Aprende a decir hi, hello y goodbye con tu varita mágica.',
-		'Color Spells — Colores básicos que se encienden cuando dices el nombre en inglés.',
-		'Magic Toys — Juguetes que cobran vida cuando pronuncias sus nombres.',
-		'Family Charms — Mamá, papá y amigos aparecen con palabras sencillas.',
-		'Cozy Room — Objetos de tu habitación que responden a tu voz.',
-		'Happy Snacks — Comidas favoritas que brillan cuando dices la palabra correcta.',
-		'Animal Friends — Animales tiernos que saludan en inglés.',
-		'Feelings Potions — Caritas felices y tristes para hablar de emociones.',
-		'Little Actions — Saltar, correr y bailar con verbos muy simples.',
-		'Mini Review Quest — Pequeña misión para repasar todo lo aprendido.',
-	],
-	// Mundo 2 – Aventuras en la Ciudad (6–8 años)
-	2: [
-		'At the Park — Juegos, columpios y amigos en el parque.',
-		'On the Street — Coches, buses y señales para moverte con seguridad.',
-		'At School — Aulas, materiales y amigos de clase.',
-		'At the Store — Frutas, precios y pequeñas compras.',
-		'In the House — Habitaciones y tareas cotidianas.',
-		'Transport Mix — Medios de transporte para ir de un lugar a otro.',
-		'City Jobs — Personas y profesiones de la ciudad.',
-		'Daily Routine — Mañana, tarde y noche en tu día a día.',
-		'Directions — Girar a la izquierda, derecha y seguir recto.',
-		'City Review Quest — Aventura rápida para repasar la ciudad.',
-	],
-	// Mundo 3 – Exploradores Globales (9–10 años)
-	3: [
-		'Countries & Flags — Descubre países y sus banderas.',
-		'World Foods — Platos típicos de distintos lugares.',
-		'Travel Gear — Maletas, mapas y objetos para viajar.',
-		'Transport Around — Aviones, trenes y barcos por el mundo.',
-		'Weather Zones — Climas diferentes en cada región.',
-		'Landscapes — Montañas, playas y desiertos increíbles.',
-		'People & Cultures — Formas básicas de saludar en otros países.',
-		'City vs Nature — Diferencias entre ciudad y campo.',
-		'Travel Phrases — Frases útiles para un viaje sencillo.',
-		'Explorer Review Quest — Misión final para explorar el mapa completo.',
-	],
+// --- Chapter Details ---
+// This maps chapter numbers to their specific themes and icons.
+const CHAPTER_THEMES: Record<string, { icon: string; data: string }> = {
+	'1-1': { icon: 'greetings', data: 'Magic Greetings — Aprende a decir hi, hello y goodbye con tu varita mágica.' },
+	'1-2': { icon: 'colors', data: 'Color Spells — Colores básicos que se encienden cuando dices el nombre en inglés.' },
+	'1-3': { icon: 'toys', data: 'Magic Toys — Juguetes que cobran vida cuando pronuncias sus nombres.' },
+	'1-4': { icon: 'family', data: 'Family Charms — Mamá, papá y amigos aparecen con palabras sencillas.' },
+	'1-5': { icon: 'room', data: 'Cozy Room — Objetos de tu habitación que responden a tu voz.' },
+	'1-6': { icon: 'food', data: 'Happy Snacks — Comidas favoritas que brillan cuando dices la palabra correcta.' },
+	'1-7': { icon: 'animals', data: 'Animal Friends — Animales tiernos que saludan en inglés.' },
+	'1-8': { icon: 'feelings', data: 'Feelings Potions — Caritas felices y tristes para hablar de emociones.' },
+	'1-9': { icon: 'actions', data: 'Little Actions — Saltar, correr y bailar con verbos muy simples.' },
+	'1-10': { icon: 'quest', data: 'Mini Review Quest — Pequeña misión para repasar todo lo aprendido.' },
+	
+	'2-1': { icon: 'park', data: 'At the Park — Juegos, columpios y amigos en el parque.' },
+	'2-2': { icon: 'street', data: 'On the Street — Coches, buses y señales para moverte con seguridad.' },
+	'2-3': { icon: 'school', data: 'At School — Aulas, materiales y amigos de clase.' },
+	'2-4': { icon: 'store', data: 'At the Store — Frutas, precios y pequeñas compras.' },
+	'2-5': { icon: 'house', data: 'In the House — Habitaciones y tareas cotidianas.' },
+	'2-6': { icon: 'transport', data: 'Transport Mix — Medios de transporte para ir de un lugar a otro.' },
+	'2-7': { icon: 'jobs', data: 'City Jobs — Personas y profesiones de la ciudad.' },
+	'2-8': { icon: 'routine', data: 'Daily Routine — Mañana, tarde y noche en tu día a día.' },
+	'2-9': { icon: 'directions', data: 'Directions — Girar a la izquierda, derecha y seguir recto.' },
+	'2-10': { icon: 'quest', data: 'City Review Quest — Aventura rápida para repasar la ciudad.' },
+
+	'3-1': { icon: 'globe', data: 'Countries & Flags — Descubre países y sus banderas.' },
+	'3-2': { icon: 'world_food', data: 'World Foods — Platos típicos de distintos lugares.' },
+	'3-3': { icon: 'travel', data: 'Travel Gear — Maletas, mapas y objetos para viajar.' },
+	'3-4': { icon: 'plane', data: 'Transport Around — Aviones, trenes y barcos por el mundo.' },
+	'3-5': { icon: 'weather', data: 'Weather Zones — Climas diferentes en cada región.' },
+	'3-6': { icon: 'landscape', data: 'Landscapes — Montañas, playas y desiertos increíbles.' },
+	'3-7': { icon: 'culture', data: 'People & Cultures — Formas básicas de saludar en otros países.' },
+	'3-8': { icon: 'city_nature', data: 'City vs Nature — Diferencias entre ciudad y campo.' },
+	'3-9': { icon: 'phrases', data: 'Travel Phrases — Frases útiles para un viaje sencillo.' },
+	'3-10': { icon: 'quest', data: 'Explorer Review Quest — Misión final para explorar el mapa completo.' },
 };
 
 // Número de capítulos por mundo (para los mundos infantiles principales usamos 5)
@@ -89,17 +82,20 @@ const CHAPTER_COUNT: Record<number, number> = {
 };
 
 const createChapters = (worldNum: number): Chapter[] => {
-	const descriptions = CHAPTER_DESCRIPTIONS[worldNum] || [];
 	const chapterCount = CHAPTER_COUNT[worldNum] ?? 10;
 
 	return Array.from({ length: chapterCount }, (_, i) => {
-		const descText = descriptions[i] || `Chapter ${i + 1}`;
-		const [title, ...descParts] = descText.split(' — ');
+		const chapterKey = `${worldNum}-${i + 1}`;
+		const theme = CHAPTER_THEMES[chapterKey] || { icon: 'default', data: `Chapter ${i + 1}` };
+		
+		const [title, ...descParts] = theme.data.split(' — ');
 		const chapterId = `world_${worldNum}_chapter_${i + 1}`;
+
 		return {
 			id: chapterId,
 			number: i + 1,
 			title: title.trim(),
+			icon: theme.icon,
 			description: descParts.join(' — ').trim() || undefined,
 			levels: createLevels(worldNum, i + 1, chapterId),
 		};
