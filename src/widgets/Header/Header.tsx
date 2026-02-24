@@ -32,10 +32,14 @@ export default function Header() {
         </nav>
 
         <div className={styles.userSection}>
-          <div className={styles.coinsBadge} aria-label={`${magicCoins} monedas magicas`}>
+          <button
+            className={styles.coinsBadge}
+            aria-label={`${magicCoins} monedas magicas - Ir a la tienda`}
+            onClick={() => navigate('/rewards')}
+          >
             <span className={styles.coinIcon} aria-hidden="true">&#129689;</span>
             <span className={styles.coinCount}>{magicCoins}</span>
-          </div>
+          </button>
           <button className={styles.exitButton}>
             Salir
           </button>

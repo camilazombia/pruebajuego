@@ -72,13 +72,16 @@ const WorldsMapPage: React.FC = () => {
 						onClick={() => scrollByCard('prev')}
 					/>
 
-				<div className={styles.carousel} role="list" ref={carouselRef}>
+				<div className={styles.carousel} ref={carouselRef}>
 					{WORLDS.map((world) => {
 						const unlocked = isWorldUnlocked(world.id);
+						const cardVars = {
+							'--world-theme': world.themeColor,
+							'--world-progress': `${world.progress}%`,
+						} as React.CSSProperties;
 						return (
 							<motion.article
 								key={world.id}
-								role="listitem"
 								className={`${styles.card} ${!unlocked ? styles.lockedCard : ''}`}
 								data-card
 								onClick={() => handleWorldClick(world.id, !unlocked)}
@@ -91,11 +94,10 @@ const WorldsMapPage: React.FC = () => {
 								tabIndex={0}
 								whileHover={unlocked ? { scale: 1.05, y: -10 } : { scale: 1.02 }}
 								transition={{ type: 'spring', stiffness: 300 }}
+								style={cardVars}
 							>
 							<div
 								className={`${styles.imagePlaceholder} ${!unlocked ? styles.imageLocked : ''}`}
-								style={unlocked ? { borderColor: world.themeColor } : undefined}
-								aria-hidden
 							>
 								<span className={styles.guardianEmoji}>{world.guardianEmoji}</span>
 								<span className={styles.worldNumber}>{world.number}</span>
@@ -110,14 +112,7 @@ const WorldsMapPage: React.FC = () => {
 								{unlocked ? world.guardianName : '???'}
 							</div>
 							<div className={styles.progressBar}>
-								<div
-									className={styles.progressFill}
-									style={{
-										width: `${world.progress}%`,
-										background: world.themeColor,
-									}}
-									aria-label={`Progreso: ${Math.round(world.progress)}%`}
-								/>
+								<div className={styles.progressFill} />
 							</div>
 							</motion.article>
 						);

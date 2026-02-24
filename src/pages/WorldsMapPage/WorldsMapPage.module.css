@@ -45,6 +45,7 @@
   align-items: center;
   gap: 12px;
   background: rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(10px);
   backdrop-filter: blur(10px);
   padding: 16px;
   box-sizing: border-box;
@@ -83,12 +84,13 @@
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
   position: relative;
   overflow: hidden;
-  border: 3px solid transparent;
+  border: 3px solid var(--world-theme, transparent);
   transition: border-color 300ms ease;
 }
 
 .imageLocked {
   background: linear-gradient(145deg, #d5d8de, #bfc3ca);
+  border-color: transparent;
 }
 
 .guardianEmoji {
@@ -188,8 +190,8 @@
 
 .progressFill {
   height: 100%;
-  width: 0;
-  background: linear-gradient(90deg, #22c55e, #fbbf24);
+  width: var(--world-progress, 0%);
+  background: var(--world-theme, linear-gradient(90deg, #22c55e, #fbbf24));
   border-radius: inherit;
   transition: width 0.3s ease;
 }
