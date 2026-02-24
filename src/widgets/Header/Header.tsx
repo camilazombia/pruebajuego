@@ -36,9 +36,11 @@ export default function Header() {
             className={styles.coinsBadge}
             aria-label={`${magicCoins} monedas magicas - Ir a la tienda`}
             onClick={() => navigate('/rewards')}
+            title="Ir a la Tienda"
           >
             <span className={styles.coinIcon} aria-hidden="true">&#129689;</span>
             <span className={styles.coinCount}>{magicCoins}</span>
+            <span className={styles.shopHint} aria-hidden="true">&#128722;</span>
           </button>
           <button className={styles.exitButton}>
             Salir

@@ -21,6 +21,12 @@ export const PurchaseModal: React.FC<PurchaseModalProps> = ({
   if (!item) return null;
 
   const canAfford = coins >= item.price;
+  const coinsNeeded = item.price - coins;
+
+  const handleConfirm = () => {
+    onConfirm(item);
+    onClose();
+  };
 
   return (
     <AnimatePresence>
@@ -34,9 +40,10 @@ export const PurchaseModal: React.FC<PurchaseModalProps> = ({
         >
           <motion.div
             className={styles.modalContainer}
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
+            initial={{ opacity: 0, scale: 0.85, y: 30 }}
+            animate={{ opacity: 1, scale: 1, y: 0 }}
+            exit={{ opacity: 0, scale: 0.85, y: 30 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 25 }}
             onClick={(e) => e.stopPropagation()}
           >
             <button
@@ -45,50 +52,61 @@ export const PurchaseModal: React.FC<PurchaseModalProps> = ({
               title="Cerrar"
               aria-label="Cerrar modal"
             >
-              ✕
+              &#10005;
             </button>
 
             <div className={styles.modal}>
-              {/* Item Image */}
               <div className={styles.imageSection}>
                 <div className={styles.imagePlaceholder}>
-                  <span>🖼️</span>
+                  <span>&#128444;&#65039;</span>
                 </div>
               </div>
 
-              {/* Item Info */}
               <div className={styles.infoSection}>
                 <h2 className={styles.title}>{item.name}</h2>
 
-                {/* Price */}
                 <div className={styles.priceSection}>
-                  <span className={styles.priceIcon}>💰</span>
+                  <span className={styles.priceIcon}>&#129689;</span>
                   <span className={styles.priceAmount}>{item.price}</span>
                 </div>
 
-                {/* Balance Check */}
-                {!canAfford && (
+                {canAfford ? (
+                  <div className={styles.bookMessage}>
+                    <span className={styles.bookEmoji}>&#128214;</span>
+                    <p className={styles.bookText}>
+                      Te va a quedar genial, pequeno mago!
+                    </p>
+                  </div>
+                ) : (
                   <div className={styles.insufficientBalance}>
-                    <span>💸 Monedas insuficientes</span>
+                    <div className={styles.bookMessageError}>
+                      <span className={styles.bookEmoji}>&#128214;</span>
+                      <p className={styles.bookText}>
+                        Necesitamos {coinsNeeded} monedas mas. Vamos a jugar unos niveles!
+                      </p>
+                    </div>
                     <span className={styles.balanceText}>
-                      Tienes: {coins} | Necesitas: {item.price - coins} más
+                      Tienes: {coins} &#129689; | Necesitas: {item.price} &#129689;
                     </span>
                   </div>
                 )}
 
-                {/* Buy Button */}
                 <button
                   className={`${styles.buyButton} ${!canAfford ? styles.disabled : ''}`}
-                  onClick={() => {
-                    if (canAfford) {
-                      onConfirm(item);
-                      onClose();
-                    }
-                  }}
+                  onClick={canAfford ? handleConfirm : undefined}
                   disabled={!canAfford}
                 >
-                  <span className={styles.buyIcon}>🛒</span>
-                  {canAfford ? 'COMPRAR' : 'SIN MONEDAS'}
+                  {canAfford ? (
+                    <>
+                      <span className={styles.buyIcon}>&#10024;</span>
+                      COMPRAR
+                    </>
+                  ) : (
+                    <>
+                      <span className={styles.buyIcon}>&#128274;</span>
+                      MONEDAS INSUFICIENTES
+                    </>
+                  )}
                 </button>
               </div>
             </div>

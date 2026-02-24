@@ -20,7 +20,7 @@ export const ItemVariants: React.FC<ItemVariantsProps> = ({
   if (items.length === 0) {
     return (
       <div className={styles.emptyState}>
-        <p>No hay items disponibles en esta categoría</p>
+        <p>No hay items disponibles</p>
       </div>
     );
   }
@@ -29,24 +29,21 @@ export const ItemVariants: React.FC<ItemVariantsProps> = ({
     <div className={styles.grid}>
       {items.map((item) => {
         const isEquipped = equippedItemId === item.id;
-        const isFree = item.price === 0;
-        const isPurchased = item.isUnlocked;
+        const isOwned = item.isUnlocked || item.price === 0;
+        const isLocked = !isOwned;
 
         return (
           <div
             key={item.id}
-            className={`${styles.card} ${isEquipped ? styles.equipped : ''}`}
+            className={`${styles.card} ${isEquipped ? styles.equipped : ''} ${isLocked ? styles.locked : ''}`}
             onClick={() => {
-              // If item is purchased or free, select it
-              if (isPurchased || isFree) {
+              if (isOwned) {
                 onItemSelect(item);
               } else {
-                // If not purchased, show buy modal
                 onBuyClick(item);
               }
             }}
           >
-            {/* Close/Remove Button */}
             {isEquipped && (
               <button
                 className={styles.removeButton}
@@ -61,18 +58,31 @@ export const ItemVariants: React.FC<ItemVariantsProps> = ({
               </button>
             )}
 
-            {/* Item Image Placeholder */}
             <div className={styles.imageContainer}>
               <div className={styles.imagePlaceholder}>
-                <span className={styles.icon}>🖼️</span>
+                <span className={styles.icon}>&#128444;&#65039;</span>
               </div>
             </div>
 
-            {/* Price Overlay - Only for locked (not purchased) items */}
-            {!isPurchased && !isFree && (
+            {/* Locked: overlay con precio */}
+            {isLocked && (
               <div className={styles.priceOverlay}>
-                <div className={styles.priceIcon}>💰</div>
+                <div className={styles.priceIcon}>&#129689;</div>
                 <div className={styles.priceAmount}>{item.price}</div>
+              </div>
+            )}
+
+            {/* Owned + equipped: badge "Puesto" */}
+            {isOwned && isEquipped && (
+              <div className={styles.statusBadge + ' ' + styles.badgeEquipped}>
+                &#10003; Puesto
+              </div>
+            )}
+
+            {/* Owned + not equipped: badge "Equipar" */}
+            {isOwned && !isEquipped && (
+              <div className={styles.statusBadge + ' ' + styles.badgeEquip}>
+                Equipar
               </div>
             )}
           </div>

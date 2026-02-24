@@ -198,17 +198,20 @@ const RewardsPage: React.FC = () => {
       unlockItem(item.id);
 
       if (selectedCategory) {
-        setAvatarState((prev) => ({ ...prev, [selectedCategory]: item.id }));
+        const newState = { ...avatarState, [selectedCategory]: item.id };
+        setAvatarState(newState);
+        setSavedAvatarState(newState);
+        setGlobalAvatarState(newState);
         if (item.allowsColor && item.defaultColor) {
           setSelectedColor(item.defaultColor);
         }
       }
 
       setShowConfetti(true);
-      setTimeout(() => setShowConfetti(false), 3000);
+      setTimeout(() => setShowConfetti(false), 3500);
       showToast('Nuevo item desbloqueado!', 'success');
     } else {
-      showToast('Necesitas jugar mas niveles para conseguir monedas magicas!', 'error');
+      showToast('Necesitamos mas monedas. A jugar!', 'error');
     }
   };
 

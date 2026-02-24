@@ -124,23 +124,57 @@
   color: #2c47d5;
 }
 
+/* Book Message - encouraging */
+.bookMessage {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px 16px;
+  background: linear-gradient(135deg, #ede9fe, #ddd6fe);
+  border-radius: 14px;
+  border: 2px solid #c4b5fd;
+}
+
+.bookMessageError {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.bookEmoji {
+  font-size: 28px;
+  flex-shrink: 0;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.15));
+}
+
+.bookText {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #4c1d95;
+  line-height: 1.4;
+  text-align: left;
+}
+
 /* Insufficient Balance */
 .insufficientBalance {
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 8px;
   padding: 12px 16px;
-  background: #fee2e2;
-  border-radius: 12px;
+  background: linear-gradient(135deg, #fef3c7, #fde68a);
+  border-radius: 14px;
+  border: 2px solid #fbbf24;
   font-size: 14px;
-  color: #ef4444;
+  color: #78350f;
   font-weight: 600;
 }
 
 .balanceText {
   font-size: 12px;
-  font-weight: 400;
-  opacity: 0.9;
+  font-weight: 500;
+  opacity: 0.8;
+  text-align: center;
 }
 
 /* Buy Button */

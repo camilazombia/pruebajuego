@@ -9,24 +9,20 @@ export const PROGRESS_STORAGE_KEY = 'mundo_magico_user_progress';
 const STORAGE_SCHEMA_VERSION = 1;
 
 // Define la forma del estado que se guardará en localStorage
+/** Items que el avatar trae desbloqueados por defecto (ropa base gratuita) */
 const DEFAULT_UNLOCKED_ITEMS = [
 	'skin_light', 'skin_medium', 'skin_dark', 'skin_olive',
 	'body_slim', 'body_average', 'body_athletic',
 	'hair_short', 'hair_long', 'hair_curly', 'hair_wavy',
-	'hairAcc_bow', 'hairAcc_ribbon', 'hairAcc_flower',
 	'eyes_open', 'eyes_sparkle', 'eyes_stars',
 	'eyebrows_normal', 'eyebrows_thick', 'eyebrows_angry',
 	'mouth_smile', 'mouth_laugh', 'mouth_kiss',
-	'top_tshirt', 'top_shirt', 'top_sweater', 'top_striped', 'top_hoodie', 'top_red_shirt',
-	'jacket_denim', 'jacket_leather', 'jacket_windbreaker',
-	'bottom_pants', 'bottom_jeans', 'bottom_shorts', 'bottom_skirt', 'bottom_overalls',
-	'shoes_sneakers', 'shoes_boots', 'shoes_sandals', 'shoes_heels',
-	'socks_plain', 'socks_striped',
-	'hat_beanie', 'hat_cap', 'hat_crown',
+	'top_tshirt', 'top_red_shirt', 'top_shirt', 'top_sweater', 'top_hoodie',
+	'bottom_pants', 'bottom_jeans', 'bottom_shorts', 'bottom_skirt',
+	'shoes_sneakers', 'shoes_boots', 'shoes_sandals',
+	'hat_beanie', 'hat_cap',
 	'glasses_sunglasses', 'glasses_nerd',
-	'jewelry_necklace', 'jewelry_pendant', 'jewelry_bracelet',
-	'acc_scarf', 'acc_bag', 'acc_belt',
-	'effects_sparkle', 'effects_hearts',
+	'acc_scarf', 'acc_bag',
 ];
 
 interface StoredProgress {
