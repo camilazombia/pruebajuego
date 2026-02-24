@@ -1,5 +1,7 @@
 import { useChild } from '../context/ChildContext';
-import { WORLDS, getChaptersForWorld, getLevelsForChapter, type Chapter, type Level, type AgeVariant } from '../../../shared/data/worlds';
+import { WORLDS, getChaptersForWorld, getLevelsForChapter, type Chapter, type Level } from '../../../shared/data/worlds';
+
+type AgeVariant = 'beginner' | 'intermediate' | 'advanced';
 
 /**
  * Hook para obtener contenido adaptado por edad
@@ -7,7 +9,6 @@ import { WORLDS, getChaptersForWorld, getLevelsForChapter, type Chapter, type Le
 export const useAgeAdaptedContent = () => {
 	const { ageRange } = useChild();
 
-	// Mapear ageRange a AgeVariant
 	const getVariant = (range: string | null): AgeVariant => {
 		switch (range) {
 			case '3-6':

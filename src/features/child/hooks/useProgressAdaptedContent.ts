@@ -28,6 +28,7 @@ export const useProgressAdaptedContent = () => {
 		unlockedChapters,
 		completedChapters,
 		completedLevels,
+		levelStars,
 	} = useProgressStore();
 
 	/**
@@ -61,7 +62,6 @@ export const useProgressAdaptedContent = () => {
 		const levels = getAdaptedLevels(chapterId);
 		const completedSet = new Set(completedLevels);
 
-		// Filtramos solo los niveles completados de este capítulo
 		const completedInChapter = levels.filter((level) => completedSet.has(level.id));
 		const maxCompletedNumber = completedInChapter.reduce(
 			(max, level) => (level.number > max ? level.number : max),
@@ -73,17 +73,18 @@ export const useProgressAdaptedContent = () => {
 			let locked = false;
 
 			if (maxCompletedNumber === 0) {
-				// Nadie completado todavía: solo el nivel 1 está disponible
 				locked = level.number > 1;
 			} else {
-				// Ya hay progreso: se desbloquea solo el siguiente
 				locked = level.number > maxCompletedNumber + 1;
 			}
+
+			const savedStars = levelStars[level.id] ?? 0;
 
 			return {
 				...level,
 				locked,
 				completed,
+				stars: savedStars,
 			};
 		});
 	};

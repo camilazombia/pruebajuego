@@ -2,9 +2,11 @@ import React, { useState } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
-import { getLevelById, getChapterById, getWorldById } from '../../shared/data/worlds';
+import { getLevelById, getChapterById, getWorldById, WORLDS } from '../../shared/data/worlds';
 import { useUnlockLogic } from '../../features/progress/hooks/useUnlockLogic';
+import { useAudio } from '../../app/providers/AudioProvider';
 import { AwakeningLevel } from './AwakeningLevel';
+import { MagicBookGuide } from '../../shared/ui/MagicBookGuide/MagicBookGuide';
 import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
 import styles from './LevelPage.module.css';
 import { DragAndDropWords } from './minigames/DragAndDropWords';
@@ -18,6 +20,7 @@ const LevelPage: React.FC = () => {
 	const { levelId } = useParams<{ levelId: string }>();
 	const navigate = useNavigate();
 	const { handleCompleteLevel } = useUnlockLogic();
+	const { playSound, playNarrative } = useAudio();
 
 	if (!levelId) {
 		return <div className={styles.page}>Nivel no encontrado</div>;
@@ -33,28 +36,51 @@ const LevelPage: React.FC = () => {
 		return <div className={styles.page}>Capítulo no encontrado</div>;
 	}
 
-	const worldId = chapter.id.split('_')[1]?.replace('chapter', '').split('_')[0] || '1';
-	const world = getWorldById(`world_${worldId}`);
+	const worldIdNum = chapter.id.split('_')[1]?.replace('chapter', '').split('_')[0] || '1';
+	const world = getWorldById(`world_${worldIdNum}`);
+
+	const isLastLevelInChapter = level.number === chapter.levels.length;
+	const isLastChapterInWorld = world
+		? chapter.number === world.chapters.length
+		: false;
 
 	const [avatarMessage, setAvatarMessage] = useState('¡Vamos a aprender!');
 	const [isCelebrating, setIsCelebrating] = useState(false);
 
 	const handleInteractionComplete = () => {
 		setIsCelebrating(true);
-		setAvatarMessage('¡Excelente trabajo! 🌟');
-		
-		// Efecto de sonido positivo usando audio existente del proyecto
-		try {
-			const audio = new Audio('/assets/audio/sfx/orientation/rotate.mp3');
-			void audio.play();
-		} catch {
-			// ignorar errores de reproducción (autoplay bloqueado, etc.)
-		}
+		setAvatarMessage('¡Excelente trabajo!');
+
+		playSound('orientation/rotate');
 
 		setTimeout(() => {
-			if (world) {
-				handleCompleteLevel(levelId, chapter.id, world.id);
-				navigate(`/chapters/${world.id}`, { state: { justCompletedLevel: levelId, fromChapterId: chapter.id } });
+			if (!world) return;
+			handleCompleteLevel(levelId, chapter.id, world.id);
+
+			if (isLastLevelInChapter && isLastChapterInWorld) {
+				const nextWorldIndex = WORLDS.findIndex((w) => w.id === world.id) + 1;
+				const nextWorld = WORLDS[nextWorldIndex];
+				navigate(`/chapters/${world.id}`, {
+					state: {
+						justCompletedLevel: levelId,
+						fromChapterId: chapter.id,
+						guardianCured: true,
+						nextWorldId: nextWorld?.id,
+					},
+				});
+			} else if (isLastLevelInChapter) {
+				const nextChapter = world.chapters[chapter.number];
+				navigate(`/chapters/${world.id}`, {
+					state: {
+						justCompletedLevel: levelId,
+						fromChapterId: chapter.id,
+						advanceToChapter: nextChapter?.id,
+					},
+				});
+			} else {
+				navigate(`/chapters/${world.id}`, {
+					state: { justCompletedLevel: levelId, fromChapterId: chapter.id },
+				});
 			}
 		}, 1500);
 	};
@@ -1137,27 +1163,48 @@ const LevelPage: React.FC = () => {
 				<OrientationAlert />
 				<div className={styles.page}>
 					<header className={styles.header}>
-						<button className={styles.backButton} onClick={() => navigate(`/chapters/${world?.id}`)}>
-							← Volver
-						</button>
-						<div>
-							<h2 className={styles.chapterName}>{chapter.title}</h2>
-							<h1 className={styles.levelTitle}>{level.title}</h1>
-						</div>
-					</header>
-					<div className={styles.content}>
-						<div className={styles.activityContainer}>
-							<div className={styles.activityPlaceholder}>
-								<p>Próximamente: Nivel {level.number}</p>
-							</div>
+					<button className={styles.backButton} onClick={() => navigate(`/chapters/${world?.id}`)}>
+						&#8592; Volver
+					</button>
+					<div>
+						<h2 className={styles.chapterName}>{chapter.title}</h2>
+						<h1 className={styles.levelTitle}>{level.title}</h1>
+					</div>
+				</header>
+				<div className={styles.content}>
+					<div className={styles.activityContainer}>
+						<div className={styles.activityPlaceholder}>
+							<p>Pr&#243;ximamente: Nivel {level.number}</p>
 						</div>
 					</div>
 				</div>
-			</>
-		);
+			</div>
+		</>
+	);
 	}
 
-	// Renderizar el juego según el tipo
+	const getInstructionText = (type?: string) => {
+		switch (type) {
+			case 'listenAndChoose': return 'Escucha la palabra y elige la imagen correcta';
+			case 'dragAndDrop': return 'Arrastra cada palabra a su pareja';
+			case 'multipleChoice': return 'Elige la respuesta correcta';
+			case 'selectWords': return 'Selecciona las palabras correctas';
+			case 'buildPhrase': return 'Pon las palabras en orden';
+			default: return 'Completa el nivel';
+		}
+	};
+
+	const getInstructionAudio = (type?: string) => {
+		switch (type) {
+			case 'listenAndChoose': return '/assets/audio/voices/minigame_listenAndChoose_intro.mp3';
+			case 'dragAndDrop': return '/assets/audio/voices/minigame_dragAndDrop_intro.mp3';
+			case 'multipleChoice': return '/assets/audio/voices/minigame_multipleChoice_intro.mp3';
+			case 'selectWords': return '/assets/audio/voices/minigame_selectWords_intro.mp3';
+			case 'buildPhrase': return '/assets/audio/voices/minigame_buildPhrase_intro.mp3';
+			default: return undefined;
+		}
+	};
+
 	const renderGame = () => {
 		if (!levelData) {
 			return (
@@ -1234,10 +1281,13 @@ const LevelPage: React.FC = () => {
 						</motion.div>
 					</div>
 
-					{/* Panel del juego */}
-					<div className={styles.gamePanel}>
-						<section className={styles.activityContainer}>{renderGame()}</section>
-					</div>
+				<div className={styles.gamePanel}>
+					<MagicBookGuide
+						instructionText={getInstructionText(levelData?.type)}
+						audioSrc={getInstructionAudio(levelData?.type)}
+					/>
+					<section className={styles.activityContainer}>{renderGame()}</section>
+				</div>
 				</div>
 			</div>
 		</>

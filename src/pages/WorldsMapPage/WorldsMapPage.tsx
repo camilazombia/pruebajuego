@@ -66,18 +66,27 @@ const WorldsMapPage: React.FC = () => {
 								whileHover={{ scale: 1.05, y: -10 }}
 								transition={{ type: 'spring', stiffness: 300 }}
 							>
-								<div className={styles.imagePlaceholder} aria-hidden>
-									<span className={styles.worldNumber}>{world.number}</span>
-									{!unlocked && <div className={styles.lockOverlay}>🔒</div>}
-								</div>
-								<div className={styles.namePill}>{world.title}</div>
-								<div className={styles.progressBar}>
-									<div
-										className={styles.progressFill}
-										style={{ width: `${world.progress}%` }}
-										aria-label={`Progreso: ${Math.round(world.progress)}%`}
-									/>
-								</div>
+							<div
+								className={styles.imagePlaceholder}
+								style={{ borderColor: unlocked ? world.themeColor : undefined }}
+								aria-hidden
+							>
+								<span className={styles.guardianEmoji}>{world.guardianEmoji}</span>
+								<span className={styles.worldNumber}>{world.number}</span>
+								{!unlocked && <div className={styles.lockOverlay}>🔒</div>}
+							</div>
+							<div className={styles.namePill}>{world.title}</div>
+							<div className={styles.guardianLabel}>{world.guardianName}</div>
+							<div className={styles.progressBar}>
+								<div
+									className={styles.progressFill}
+									style={{
+										width: `${world.progress}%`,
+										background: world.themeColor,
+									}}
+									aria-label={`Progreso: ${Math.round(world.progress)}%`}
+								/>
+							</div>
 							</motion.article>
 						);
 					})}

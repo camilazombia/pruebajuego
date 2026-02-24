@@ -1,7 +1,6 @@
-// Placeholder de mini‑juego Drag & Drop para Mundo Mágico Inglés.
-// No contiene lógica de evaluación real; se puede reemplazar por misiones definitivas.
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import { useAudio } from '../../../app/providers/AudioProvider';
 import styles from './MiniGames.module.css';
 
 export type MiniGameWord = {
@@ -16,10 +15,21 @@ interface DragAndDropWordsProps {
 }
 
 export const DragAndDropWords: React.FC<DragAndDropWordsProps> = ({ words, onComplete }) => {
+	const { playNarrative } = useAudio();
 	const [matches, setMatches] = useState<Record<string, string>>({});
 	const [completed, setCompleted] = useState(false);
 
+	const playWordAudio = (english: string) => {
+		const audioKey = `word_${english.replace(/\s+/g, '')}`;
+		playNarrative(`/assets/audio/voices/${audioKey}.mp3`).catch(() => {});
+	};
+
 	const handleDrop = (english: string, spanish: string) => {
+		const isCorrect = words.find((w) => w.english === english)?.spanish === spanish;
+		if (isCorrect) {
+			playWordAudio(english);
+		}
+
 		setMatches((prev) => {
 			const next = { ...prev, [english]: spanish };
 			const allMatched = words.every((w) => next[w.english] === w.spanish);

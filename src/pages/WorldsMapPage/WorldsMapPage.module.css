@@ -99,6 +99,26 @@
   }
 }
 
+.guardianEmoji {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 4rem;
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.2));
+  z-index: 5;
+}
+
+.worldNumber {
+  position: absolute;
+  bottom: 8px;
+  right: 10px;
+  font-size: 1.2rem;
+  font-weight: 800;
+  color: rgba(0, 0, 0, 0.35);
+  z-index: 5;
+}
+
 .namePill {
   margin-top: 6px;
   background: #ffffff;
@@ -108,6 +128,14 @@
   font-weight: 700;
   font-size: 16px;
   text-align: center;
+}
+
+.guardianLabel {
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.85);
+  text-align: center;
+  margin-top: -4px;
 }
 
 .stars {

@@ -1,6 +1,6 @@
-// Minijuego de escuchar y elegir - NO requiere lectura, solo audio y emojis grandes
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion } from 'framer-motion';
+import { useAudio } from '../../../app/providers/AudioProvider';
 import styles from './MiniGames.module.css';
 
 import type { MiniGameWord } from './DragAndDropWords';
@@ -18,40 +18,25 @@ export const ListenAndChoose: React.FC<ListenAndChooseProps> = ({
 	wordAudioKeys = {},
 	onComplete,
 }) => {
+	const { playNarrative } = useAudio();
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
 	const [completed, setCompleted] = useState(false);
-	const [currentAudio, setCurrentAudio] = useState<HTMLAudioElement | null>(null);
 
 	const current = words[currentIndex];
 
-	// --- Audio Handling ---
-
-	// Efecto para PRE-CARGAR el audio de la palabra actual sin reproducirlo
-	useEffect(() => {
-		if (current && wordAudioKeys[current.english]) {
-			const audio = new Audio(`/assets/audio/voices/${wordAudioKeys[current.english]}.mp3`);
-			audio.preload = 'auto';
-			setCurrentAudio(audio);
-		}
-	}, [currentIndex, current, wordAudioKeys]);
-
-	// Efecto para reproducir el audio de introducción UNA SOLA VEZ al inicio
 	useEffect(() => {
 		if (introAudioKey) {
-			const audio = new Audio(`/assets/audio/voices/${introAudioKey}.mp3`);
-			audio.play().catch(() => {});
+			playNarrative(`/assets/audio/voices/${introAudioKey}.mp3`).catch(() => {});
 		}
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [introAudioKey]);
 
-
 	const playCurrentWord = useCallback(() => {
-		if (currentAudio) {
-			currentAudio.currentTime = 0;
-			currentAudio.play().catch(() => {});
+		if (current && wordAudioKeys[current.english]) {
+			playNarrative(`/assets/audio/voices/${wordAudioKeys[current.english]}.mp3`).catch(() => {});
 		}
-	}, [currentAudio]);
+	}, [current, wordAudioKeys, playNarrative]);
 
 	// --- Game Logic ---
 

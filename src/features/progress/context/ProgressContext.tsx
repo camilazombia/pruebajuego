@@ -17,18 +17,19 @@ interface StoredProgress {
 	completedChapters: string[];
 	completedLevels: string[];
 	completedMissions: string[];
+	levelStars: Record<string, number>;
 }
 
 export interface ProgressState extends StoredProgress {
-	// Acciones de desbloqueo
 	unlockWorld: (worldId: string) => void;
 	unlockChapter: (chapterId: string) => void;
 	completeWorld: (worldId: string) => void;
 	completeChapter: (chapterId: string) => void;
-	completeLevel: (levelId: string) => void;
+	completeLevel: (levelId: string, stars?: number) => void;
 	completeMission: (missionId: string) => void;
+	setLevelStars: (levelId: string, stars: number) => void;
+	getLevelStars: (levelId: string) => number;
 
-	// Acciones de consulta
 	isWorldUnlocked: (worldId: string) => boolean;
 	isChapterUnlocked: (chapterId: string) => boolean;
 	isWorldCompleted: (worldId: string) => boolean;
@@ -36,11 +37,9 @@ export interface ProgressState extends StoredProgress {
 	isLevelCompleted: (levelId: string) => boolean;
 	isMissionCompleted: (missionId: string) => boolean;
 
-	// Helpers para verificar completitud
 	isAllChaptersCompleted: (worldId: string, chapters: string[]) => boolean;
 	isAllLevelsCompleted: (chapterId: string, levels: string[]) => boolean;
 
-	// Reset
 	resetProgress: () => void;
 }
 
@@ -54,6 +53,7 @@ const defaultInitialState: StoredProgress = {
 	completedChapters: [],
 	completedLevels: [],
 	completedMissions: [],
+	levelStars: {},
 };
 
 export const ProgressProvider = ({ children }: { children: ReactNode }) => {
@@ -71,6 +71,7 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 					return {
 						...rest,
 						completedMissions: rest.completedMissions ?? [],
+						levelStars: rest.levelStars ?? {},
 						version: STORAGE_SCHEMA_VERSION,
 					};
 				}
@@ -108,10 +109,32 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 		setProgressState(prev => ({ ...prev, completedChapters: [...new Set([...prev.completedChapters, chapterId])] }));
 	}, []);
 
-	const completeLevel = useCallback((levelId: string) => {
-		setProgressState(prev => ({ ...prev, completedLevels: [...new Set([...prev.completedLevels, levelId])] }));
-		
-		// Integración con Avatar: Desbloquear camiseta al completar el primer nivel
+	const setLevelStars = useCallback((levelId: string, stars: number) => {
+		setProgressState(prev => {
+			const currentStars = prev.levelStars[levelId] ?? 0;
+			if (stars <= currentStars) return prev;
+			return {
+				...prev,
+				levelStars: { ...prev.levelStars, [levelId]: Math.min(stars, 3) },
+			};
+		});
+	}, []);
+
+	const getLevelStars = useCallback(
+		(levelId: string) => progressState.levelStars[levelId] ?? 0,
+		[progressState.levelStars]
+	);
+
+	const completeLevel = useCallback((levelId: string, stars = 3) => {
+		setProgressState(prev => ({
+			...prev,
+			completedLevels: [...new Set([...prev.completedLevels, levelId])],
+			levelStars: {
+				...prev.levelStars,
+				[levelId]: Math.max(prev.levelStars[levelId] ?? 0, Math.min(stars, 3)),
+			},
+		}));
+
 		if (levelId === 'world_1_chapter_1_level_1') {
 			unlockTop('top_red_shirt');
 		}
@@ -176,6 +199,8 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 		completeChapter,
 		completeLevel,
 		completeMission,
+		setLevelStars,
+		getLevelStars,
 		isWorldUnlocked,
 		isChapterUnlocked,
 		isWorldCompleted,

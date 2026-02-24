@@ -4,14 +4,14 @@ export interface Level {
 	title: string;
 	isCompleted: boolean;
 	stars: number; // 0-3
-	chapterId?: string; // Added for easy navigation
+	chapterId?: string;
 }
 
 export interface Chapter {
 	id: string;
 	number: number;
 	title: string;
-	icon: string; // Icon name for UI
+	icon: string;
 	description?: string;
 	levels: Level[];
 }
@@ -21,8 +21,13 @@ export interface World {
 	number: number;
 	title: string;
 	description: string;
+	storyDescription: string;
+	guardianName: string;
+	guardianEmoji: string;
+	themeColor: string;
 	chapters: Chapter[];
 	isUnlocked: boolean;
+	isLocked: boolean;
 	progress: number; // 0-100
 }
 
@@ -33,61 +38,94 @@ const createLevels = (worldNum: number, chapterNum: number, chapterId: string): 
 		title: `Level ${i + 1}`,
 		isCompleted: false,
 		stars: 0,
-		chapterId: chapterId,
+		chapterId,
 	}));
 };
 
-// --- Chapter Details ---
-// This maps chapter numbers to their specific themes and icons.
 const CHAPTER_THEMES: Record<string, { icon: string; data: string }> = {
+	// Mundo 1 - Fundamentos Mágicos (Saludos/Colores)
 	'1-1': { icon: 'greetings', data: 'Magic Greetings — Aprende a decir hi, hello y goodbye con tu varita mágica.' },
 	'1-2': { icon: 'colors', data: 'Color Spells — Colores básicos que se encienden cuando dices el nombre en inglés.' },
 	'1-3': { icon: 'toys', data: 'Magic Toys — Juguetes que cobran vida cuando pronuncias sus nombres.' },
 	'1-4': { icon: 'family', data: 'Family Charms — Mamá, papá y amigos aparecen con palabras sencillas.' },
 	'1-5': { icon: 'room', data: 'Cozy Room — Objetos de tu habitación que responden a tu voz.' },
-	'1-6': { icon: 'food', data: 'Happy Snacks — Comidas favoritas que brillan cuando dices la palabra correcta.' },
-	'1-7': { icon: 'animals', data: 'Animal Friends — Animales tiernos que saludan en inglés.' },
-	'1-8': { icon: 'feelings', data: 'Feelings Potions — Caritas felices y tristes para hablar de emociones.' },
-	'1-9': { icon: 'actions', data: 'Little Actions — Saltar, correr y bailar con verbos muy simples.' },
-	'1-10': { icon: 'quest', data: 'Mini Review Quest — Pequeña misión para repasar todo lo aprendido.' },
-	
-	'2-1': { icon: 'park', data: 'At the Park — Juegos, columpios y amigos en el parque.' },
-	'2-2': { icon: 'street', data: 'On the Street — Coches, buses y señales para moverte con seguridad.' },
-	'2-3': { icon: 'school', data: 'At School — Aulas, materiales y amigos de clase.' },
-	'2-4': { icon: 'store', data: 'At the Store — Frutas, precios y pequeñas compras.' },
-	'2-5': { icon: 'house', data: 'In the House — Habitaciones y tareas cotidianas.' },
-	'2-6': { icon: 'transport', data: 'Transport Mix — Medios de transporte para ir de un lugar a otro.' },
-	'2-7': { icon: 'jobs', data: 'City Jobs — Personas y profesiones de la ciudad.' },
-	'2-8': { icon: 'routine', data: 'Daily Routine — Mañana, tarde y noche en tu día a día.' },
-	'2-9': { icon: 'directions', data: 'Directions — Girar a la izquierda, derecha y seguir recto.' },
-	'2-10': { icon: 'quest', data: 'City Review Quest — Aventura rápida para repasar la ciudad.' },
 
-	'3-1': { icon: 'globe', data: 'Maps & Places — Mapas, países y banderas para encontrar el camino.' },
-	'3-2': { icon: 'jobs', data: 'Professions — Teacher, doctor, pilot. Las profesiones que arreglan el mundo.' },
-	'3-3': { icon: 'science', data: 'Science — Sol, luna y estrellas. Descubre el cielo.' },
-	'3-4': { icon: 'clock', data: 'Time — Mañana, mediodía y noche. El reloj necesita estas palabras.' },
-	'3-5': { icon: 'quest', data: 'Fix the Clock — Junto con Zoe, reparas el Reloj Congelado.' },
-	'3-6': { icon: 'landscape', data: 'Landscapes — Montañas, playas y desiertos increíbles.' },
-	'3-7': { icon: 'culture', data: 'People & Cultures — Formas básicas de saludar en otros países.' },
-	'3-8': { icon: 'city_nature', data: 'City vs Nature — Diferencias entre ciudad y campo.' },
-	'3-9': { icon: 'phrases', data: 'Travel Phrases — Frases útiles para un viaje sencillo.' },
-	'3-10': { icon: 'quest', data: 'Explorer Review Quest — Misión final para explorar el mapa completo.' },
+	// Mundo 2 - El Bosque de las Formas (Figuras/Números)
+	'2-1': { icon: 'shapes', data: 'Shape Forest — Círculos, cuadrados y triángulos mágicos entre los árboles.' },
+	'2-2': { icon: 'numbers', data: 'Number Trees — Cuenta los árboles y animales del bosque.' },
+	'2-3': { icon: 'sizes', data: 'Big & Small — Compara tamaños de las criaturas del bosque.' },
+	'2-4': { icon: 'patterns', data: 'Pattern Paths — Sigue los patrones para encontrar el camino.' },
+	'2-5': { icon: 'quest', data: 'Forest Quest — Misión final para restaurar el orden del bosque.' },
+
+	// Mundo 3 - La Ciudad Hambrienta (Comida)
+	'3-1': { icon: 'fruits', data: 'Fruit Market — Manzanas, plátanos y frutas mágicas.' },
+	'3-2': { icon: 'vegetables', data: 'Veggie Garden — Zanahorias, tomates y verduras encantadas.' },
+	'3-3': { icon: 'meals', data: 'Meal Time — Desayuno, almuerzo y cena para alimentar la ciudad.' },
+	'3-4': { icon: 'drinks', data: 'Drink Potions — Agua, jugo y leche para las pociones.' },
+	'3-5': { icon: 'quest', data: 'Chef Quest — Cocina el banquete final para curar al Chef Mágico.' },
+
+	// Mundo 4 - La Granja Ruidosa (Animales)
+	'4-1': { icon: 'farm_animals', data: 'Farm Friends — Vacas, cerdos y gallinas de la granja.' },
+	'4-2': { icon: 'wild_animals', data: 'Wild Animals — Leones, elefantes y animales salvajes.' },
+	'4-3': { icon: 'pets', data: 'My Pets — Perros, gatos y mascotas que te acompañan.' },
+	'4-4': { icon: 'sounds', data: 'Animal Sounds — ¿Qué sonido hace cada animal?' },
+	'4-5': { icon: 'quest', data: 'Farm Quest — Devuelve cada animal a su lugar en la granja.' },
+
+	// Mundo 5 - El Reloj Congelado (Rutinas)
+	'5-1': { icon: 'morning', data: 'Good Morning — Rutinas de la mañana para empezar el día.' },
+	'5-2': { icon: 'afternoon', data: 'Afternoon Fun — Actividades de la tarde y juegos.' },
+	'5-3': { icon: 'night', data: 'Good Night — La hora de dormir y los sueños.' },
+	'5-4': { icon: 'days', data: 'Days of the Week — Los días de la semana en orden.' },
+	'5-5': { icon: 'quest', data: 'Clock Quest — Descongela el reloj del Señor Tiempo.' },
+
+	// Mundo 6 - El Castillo de las Emociones (Sentimientos)
+	'6-1': { icon: 'happy', data: 'Happy Room — Sonrisas, risas y alegría.' },
+	'6-2': { icon: 'sad', data: 'Sad Room — Lágrimas y cómo sentirse mejor.' },
+	'6-3': { icon: 'angry', data: 'Angry Room — Enojo y cómo calmarse.' },
+	'6-4': { icon: 'scared', data: 'Brave Room — Miedos y valentía para superarlos.' },
+	'6-5': { icon: 'quest', data: 'Emotion Quest — Ilumina todas las habitaciones del castillo.' },
+
+	// Mundo 7 - La Montaña del Clima (Clima/Ropa)
+	'7-1': { icon: 'weather', data: 'Weather Watch — Soleado, lluvioso, nevado y más.' },
+	'7-2': { icon: 'clothes', data: 'Closet Magic — Camisas, pantalones, zapatos y gorros.' },
+	'7-3': { icon: 'seasons', data: 'Four Seasons — Primavera, verano, otoño e invierno.' },
+	'7-4': { icon: 'dress_up', data: 'Dress the Yeti — Viste al Yeti según el clima.' },
+	'7-5': { icon: 'quest', data: 'Mountain Quest — Llega a la cima de la Montaña del Clima.' },
+
+	// Mundo 8 - El Océano de los Colores (Animales Marinos)
+	'8-1': { icon: 'fish', data: 'Colorful Fish — Peces de todos los colores del arcoíris.' },
+	'8-2': { icon: 'ocean', data: 'Deep Sea — Pulpos, medusas y criaturas del fondo.' },
+	'8-3': { icon: 'shells', data: 'Shell Shore — Conchas, estrellas de mar y tesoros.' },
+	'8-4': { icon: 'coral', data: 'Coral Reef — El arrecife mágico necesita color.' },
+	'8-5': { icon: 'quest', data: 'Ocean Quest — Devuelve los colores a la Sirena Descolorida.' },
+
+	// Mundo 9 - La Casa de los Espejos (Cuerpo/Familia)
+	'9-1': { icon: 'body', data: 'My Body — Cabeza, brazos, piernas y más.' },
+	'9-2': { icon: 'face', data: 'My Face — Ojos, nariz, boca y orejas.' },
+	'9-3': { icon: 'family', data: 'My Family — Mamá, papá, abuelos y hermanos.' },
+	'9-4': { icon: 'describe', data: 'Describe Me — Alto, bajo, grande, pequeño.' },
+	'9-5': { icon: 'quest', data: 'Mirror Quest — Devuelve el reflejo a cada espejo.' },
+
+	// Mundo 10 - La Academia Suprema (Verbos/Repaso)
+	'10-1': { icon: 'verbs', data: 'Action Verbs — Correr, saltar, bailar y volar.' },
+	'10-2': { icon: 'review_words', data: 'Word Review — Repasa las palabras de todos los mundos.' },
+	'10-3': { icon: 'sentences', data: 'Magic Sentences — Forma oraciones completas.' },
+	'10-4': { icon: 'challenge', data: 'Final Challenge — Demuestra todo lo que has aprendido.' },
+	'10-5': { icon: 'graduation', data: 'Graduation — Recibe tu título de Mago del Inglés.' },
 };
 
-// Número de capítulos por mundo (para los mundos infantiles principales usamos 5)
 const CHAPTER_COUNT: Record<number, number> = {
-	1: 5,
-	2: 5,
-	3: 5,
+	1: 5, 2: 5, 3: 5, 4: 5, 5: 5,
+	6: 5, 7: 5, 8: 5, 9: 5, 10: 5,
 };
 
 const createChapters = (worldNum: number): Chapter[] => {
-	const chapterCount = CHAPTER_COUNT[worldNum] ?? 10;
+	const chapterCount = CHAPTER_COUNT[worldNum] ?? 5;
 
 	return Array.from({ length: chapterCount }, (_, i) => {
 		const chapterKey = `${worldNum}-${i + 1}`;
 		const theme = CHAPTER_THEMES[chapterKey] || { icon: 'default', data: `Chapter ${i + 1}` };
-		
+
 		const [title, ...descParts] = theme.data.split(' — ');
 		const chapterId = `world_${worldNum}_chapter_${i + 1}`;
 
@@ -107,210 +145,146 @@ export const WORLDS: World[] = [
 		id: 'world_1',
 		number: 1,
 		title: 'Fundamentos Mágicos',
-		description: 'Tu primera aventura mágica para aprender palabras básicas en inglés.',
+		description: 'Saludos y Colores para despertar la magia.',
+		storyDescription: 'El Sol Dormilón no puede despertar porque olvidó las palabras mágicas. Aprende saludos y colores en inglés para devolverle su brillo al mundo.',
+		guardianName: 'Sol Dormilón',
+		guardianEmoji: '☀️',
+		themeColor: '#FFD93D',
 		chapters: createChapters(1),
 		isUnlocked: true,
+		isLocked: false,
 		progress: 0,
 	},
 	{
 		id: 'world_2',
 		number: 2,
-		title: 'Aventuras en la Ciudad',
-		description: 'Explora parques, escuelas y calles de la ciudad usando inglés sencillo.',
+		title: 'El Bosque de las Formas',
+		description: 'Figuras y Números escondidos entre los árboles.',
+		storyDescription: 'El Búho Geométrico perdió sus figuras y números. Sin ellos, los árboles del bosque crecen desordenados. Usa hechizos de formas y números para restaurar el orden.',
+		guardianName: 'Búho Geométrico',
+		guardianEmoji: '🦉',
+		themeColor: '#6BCB77',
 		chapters: createChapters(2),
 		isUnlocked: false,
+		isLocked: true,
 		progress: 0,
 	},
 	{
 		id: 'world_3',
 		number: 3,
-		title: 'El Reloj Congelado',
-		description: 'Zoe la hada digital necesita tu ayuda para arreglar el Reloj del Mundo.',
+		title: 'La Ciudad Hambrienta',
+		description: 'Comida y bebidas para alimentar la ciudad.',
+		storyDescription: 'El Chef Mágico olvidó los nombres de todos los ingredientes. La ciudad entera tiene hambre. Aprende vocabulario de comida para cocinar los platos mágicos.',
+		guardianName: 'Chef Mágico',
+		guardianEmoji: '👨‍🍳',
+		themeColor: '#FF6B6B',
 		chapters: createChapters(3),
 		isUnlocked: false,
+		isLocked: true,
 		progress: 0,
 	},
 	{
 		id: 'world_4',
 		number: 4,
-		title: 'The Hungry City',
-		description: 'El mundo que no sabe elegir.',
+		title: 'La Granja Ruidosa',
+		description: 'Animales que necesitan sus nombres de vuelta.',
+		storyDescription: 'El Espantapájaros ya no recuerda qué animal hace cada sonido. Los animales están confundidos. Nombra cada animal en inglés para devolver la armonía a la granja.',
+		guardianName: 'Espantapájaros',
+		guardianEmoji: '🤠',
+		themeColor: '#C9A96E',
 		chapters: createChapters(4),
 		isUnlocked: false,
+		isLocked: true,
 		progress: 0,
 	},
 	{
 		id: 'world_5',
 		number: 5,
-		title: 'The Frozen Clock',
-		description: 'El mundo donde el tiempo se detuvo.',
+		title: 'El Reloj Congelado',
+		description: 'Rutinas diarias para descongelar el tiempo.',
+		storyDescription: 'El Señor Tiempo se quedó dormido y su reloj se congeló. Nadie sabe si es de día o de noche. Aprende rutinas diarias en inglés para que el tiempo vuelva a correr.',
+		guardianName: 'Señor Tiempo',
+		guardianEmoji: '⏰',
+		themeColor: '#4ECDC4',
 		chapters: createChapters(5),
 		isUnlocked: false,
+		isLocked: true,
 		progress: 0,
 	},
 	{
 		id: 'world_6',
 		number: 6,
-		title: 'The Lost Bonds',
-		description: 'El mundo donde nadie reconoce a nadie.',
+		title: 'El Castillo de las Emociones',
+		description: 'Sentimientos que iluminan el castillo.',
+		storyDescription: 'El Fantasma Expresivo perdió todas sus emociones y ahora no siente nada. Las habitaciones del castillo están oscuras. Nombra cada sentimiento para devolver la luz.',
+		guardianName: 'Fantasma Expresivo',
+		guardianEmoji: '👻',
+		themeColor: '#A66CFF',
 		chapters: createChapters(6),
 		isUnlocked: false,
+		isLocked: true,
 		progress: 0,
 	},
 	{
 		id: 'world_7',
 		number: 7,
-		title: 'The Colorless Land',
-		description: 'El mundo que olvidó sentir.',
+		title: 'La Montaña del Clima',
+		description: 'Clima y ropa para vestir a la montaña.',
+		storyDescription: 'El Yeti Friolento no sabe qué ponerse porque olvidó las palabras del clima y la ropa. Ayúdalo a vestirse correctamente según el tiempo que haga.',
+		guardianName: 'Yeti Friolento',
+		guardianEmoji: '🏔️',
+		themeColor: '#74B9FF',
 		chapters: createChapters(7),
 		isUnlocked: false,
+		isLocked: true,
 		progress: 0,
 	},
 	{
 		id: 'world_8',
 		number: 8,
-		title: 'The Endless Paths',
-		description: 'El mundo sin dirección.',
+		title: 'El Océano de los Colores',
+		description: 'Animales marinos que perdieron sus colores.',
+		storyDescription: 'La Sirena Descolorida perdió todos los colores del océano. Los peces, pulpos y estrellas de mar son transparentes. Nombra cada criatura marina para devolverle el color al mar.',
+		guardianName: 'Sirena Descolorida',
+		guardianEmoji: '🧜‍♀️',
+		themeColor: '#0ABDE3',
 		chapters: createChapters(8),
 		isUnlocked: false,
+		isLocked: true,
 		progress: 0,
 	},
 	{
 		id: 'world_9',
 		number: 9,
-		title: 'The Echo World',
-		description: 'El mundo donde las voces no se conectan.',
+		title: 'La Casa de los Espejos',
+		description: 'Cuerpo y familia reflejados en los espejos.',
+		storyDescription: 'El Reflejo Perdido no puede verse en ningún espejo. Aprender las partes del cuerpo y los miembros de la familia hará que los reflejos vuelvan a aparecer.',
+		guardianName: 'Reflejo Perdido',
+		guardianEmoji: '🪞',
+		themeColor: '#FD79A8',
 		chapters: createChapters(9),
 		isUnlocked: false,
+		isLocked: true,
 		progress: 0,
 	},
 	{
 		id: 'world_10',
 		number: 10,
-		title: 'The Memory Fields',
-		description: 'El mundo que olvidó su pasado.',
+		title: 'La Academia Suprema',
+		description: 'Verbos y repaso final para graduarse de mago.',
+		storyDescription: 'El Gran Mago te espera en la Academia Suprema. Repasa todo lo aprendido y domina los verbos de acción para recibir tu título de Mago del Inglés.',
+		guardianName: 'Gran Mago',
+		guardianEmoji: '🧙‍♂️',
+		themeColor: '#6C5CE7',
 		chapters: createChapters(10),
 		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_11',
-		number: 11,
-		title: 'The World of Choices',
-		description: 'El mundo donde las decisiones no funcionan.',
-		chapters: createChapters(11),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_12',
-		number: 12,
-		title: 'The Whispering Forest',
-		description: 'El mundo que habla en silencio.',
-		chapters: createChapters(12),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_13',
-		number: 13,
-		title: 'The Storm City',
-		description: 'El mundo que vive con prisa.',
-		chapters: createChapters(13),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_14',
-		number: 14,
-		title: 'The Dream World',
-		description: 'El mundo donde nada es literal.',
-		chapters: createChapters(14),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_15',
-		number: 15,
-		title: 'The Helping Hands',
-		description: 'El mundo que olvidó pedir ayuda.',
-		chapters: createChapters(15),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_16',
-		number: 16,
-		title: 'The Rules That Broke',
-		description: 'El mundo donde las reglas se rompieron.',
-		chapters: createChapters(16),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_17',
-		number: 17,
-		title: 'The Traveling Fair',
-		description: 'El mundo donde todos se cruzan.',
-		chapters: createChapters(17),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_18',
-		number: 18,
-		title: 'The Open Lands',
-		description: 'El mundo sin camino fijo.',
-		chapters: createChapters(18),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_19',
-		number: 19,
-		title: 'The Conflict Zone',
-		description: 'El mundo del desacuerdo.',
-		chapters: createChapters(19),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_20',
-		number: 20,
-		title: 'The Story Builders',
-		description: 'El mundo que crea historias.',
-		chapters: createChapters(20),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_21',
-		number: 21,
-		title: 'The World Without Help',
-		description: 'El mundo donde estás solo.',
-		chapters: createChapters(21),
-		isUnlocked: false,
-		progress: 0,
-	},
-	{
-		id: 'world_22',
-		number: 22,
-		title: 'The Great Weave',
-		description: 'El mundo donde todo se conecta.',
-		chapters: createChapters(22),
-		isUnlocked: false,
+		isLocked: true,
 		progress: 0,
 	},
 ];
 
-/**
- * Obtener mundo por ID
- */
 export const getWorldById = (id: string) => WORLDS.find((w) => w.id === id);
 
-/**
- * Obtener capítulo por ID
- */
 export const getChapterById = (id: string) => {
 	for (const world of WORLDS) {
 		const chapter = world.chapters.find((c) => c.id === id);
@@ -319,9 +293,6 @@ export const getChapterById = (id: string) => {
 	return undefined;
 };
 
-/**
- * Obtener nivel por ID
- */
 export const getLevelById = (id: string) => {
 	for (const world of WORLDS) {
 		for (const chapter of world.chapters) {
@@ -332,12 +303,6 @@ export const getLevelById = (id: string) => {
 	return undefined;
 };
 
-/**
- * Obtener capítulos de un mundo
- */
 export const getChaptersForWorld = (worldId: string) => getWorldById(worldId)?.chapters || [];
 
-/**
- * Obtener niveles de un capítulo
- */
 export const getLevelsForChapter = (chapterId: string) => getChapterById(chapterId)?.levels || [];
