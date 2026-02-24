@@ -249,6 +249,29 @@
 	visibility: visible;
 }
 
+.missionMarker.locked {
+	opacity: 0.6;
+	cursor: not-allowed;
+}
+
+.missionMarker.locked:hover {
+	transform: translate(-50%, -50%) scale(1);
+}
+
+.emptyState {
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	text-align: center;
+	color: #cbd5e1;
+	z-index: 5;
+}
+
+.emptyState p {
+	margin-bottom: 1rem;
+}
+
 .tooltipName {
 	font-size: 0.9rem;
 	font-weight: 600;
@@ -266,4 +289,26 @@
 	font-size: 0.75rem;
 	color: #fbbf24;
 	font-weight: 600;
+}
+
+/* Avatar on map during transition sequence */
+.avatarOnMap {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	z-index: 15;
+	pointer-events: none;
+}
+
+/* Dialogue overlay */
+.dialogueOverlay {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	padding: 2rem;
+	padding-bottom: 4rem;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 100;
+	pointer-events: auto;
 }

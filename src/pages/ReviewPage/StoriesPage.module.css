@@ -70,6 +70,138 @@
 	margin: 0;
 }
 
+.storiesGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+	gap: 1.5rem;
+	width: 100%;
+	max-width: 900px;
+}
+
+.storyCard {
+	background: rgba(26, 45, 77, 0.8);
+	border: 2px solid rgba(255, 63, 161, 0.4);
+	border-radius: 1rem;
+	overflow: hidden;
+	cursor: pointer;
+	transition: all 0.3s ease;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.storyCard:hover {
+	border-color: #ff3fa1;
+	transform: translateY(-4px);
+	box-shadow: 0 8px 24px rgba(255, 63, 161, 0.3);
+}
+
+.storyCover {
+	height: 140px;
+	background-size: cover;
+	background-position: center;
+	background-color: rgba(11, 18, 32, 0.5);
+}
+
+.storyInfo {
+	padding: 1rem;
+}
+
+.storyCardTitle {
+	font-size: 1rem;
+	font-weight: 700;
+	color: #ffffff;
+	margin: 0 0 0.25rem 0;
+}
+
+.storyCardEn {
+	font-size: 0.85rem;
+	color: #94a3b8;
+	margin: 0;
+}
+
+.storyDetail {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1.5rem;
+	flex: 1;
+	margin-top: 3rem;
+	max-width: 700px;
+}
+
+.storyTitle {
+	font-size: 1.8rem;
+	color: #ffffff;
+	margin: 0;
+}
+
+.slideCounter {
+	font-size: 0.9rem;
+	color: #94a3b8;
+	margin: 0;
+}
+
+.slideContent {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	width: 100%;
+}
+
+.slideImage {
+	width: 100%;
+	height: 200px;
+	background-size: cover;
+	background-position: center;
+	border-radius: 1rem;
+	background-color: rgba(11, 18, 32, 0.5);
+}
+
+.slideTextEs,
+.slideTextEn {
+	margin: 0;
+	text-align: center;
+	color: #ffffff;
+}
+
+.slideTextEs {
+	font-size: 1.2rem;
+	font-weight: 600;
+}
+
+.slideTextEn {
+	font-size: 1rem;
+	color: #cbd5e1;
+}
+
+.slideNav {
+	display: flex;
+	gap: 1rem;
+	margin-top: 1rem;
+}
+
+.navButton {
+	padding: 0.75rem 1.5rem;
+	background: linear-gradient(135deg, #ff3fa1 0%, #ff69b4 100%);
+	color: #ffffff;
+	border: none;
+	border-radius: 0.5rem;
+	font-size: 1rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+.navButton:hover:not(:disabled) {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(255, 63, 161, 0.4);
+}
+
+.navButton:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
 	.page {

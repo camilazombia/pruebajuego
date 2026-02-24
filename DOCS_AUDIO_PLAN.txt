@@ -1,0 +1,116 @@
+================================================================================
+DOCS_AUDIO_PLAN.txt - Mundo Mágico Inglés
+Tabla de audios para ElevenLabs - 3 mundos (Forest, City, Clock)
+================================================================================
+
+Mundo 1 - El Bosque Mágico (Forest) - Voz: Sparkle (Femenina)
+--------------------------------------------------------------------------------
+
+world_1 / intro
+Voz: Sparkle (F)
+Texto en Inglés: Welcome to the Magic Forest! I'm Sparkle. Let's wake up the forest with our words. Are you ready?
+Carpeta: /public/assets/audio/voices/world_1/intro.mp3
+
+world_1 / chapter_1
+Voz: Sparkle (F)
+Texto en Inglés: Hello, little one! Say hi and hello to the forest. Wave your hand! Hi! Hello! Goodbye!
+Carpeta: /public/assets/audio/voices/world_1/chapter_1.mp3
+
+world_1 / chapter_2
+Voz: Sparkle (F)
+Texto en Inglés: The colors are asleep. Say red, blue, yellow and watch them glow! Red! Blue! Yellow!
+Carpeta: /public/assets/audio/voices/world_1/chapter_2.mp3
+
+world_1 / chapter_3
+Voz: Sparkle (F)
+Texto en Inglés: Now the toys want to play! Say ball, doll, car and they will come to life!
+Carpeta: /public/assets/audio/voices/world_1/chapter_3.mp3
+
+world_1 / chapter_4
+Voz: Sparkle (F)
+Texto en Inglés: Call your family with magic words. Mom, dad, sister, brother. They will appear!
+Carpeta: /public/assets/audio/voices/world_1/chapter_4.mp3
+
+world_1 / chapter_5
+Voz: Sparkle (F)
+Texto en Inglés: Name the things in your room. Bed, chair, table. The cozy room is waiting for you!
+Carpeta: /public/assets/audio/voices/world_1/chapter_5.mp3
+
+
+Mundo 2 - Aventuras en la Ciudad (City) - Voz: Benji (Masculino)
+--------------------------------------------------------------------------------
+
+world_2 / intro
+Voz: Benji (M)
+Texto en Inglés: Hi! I'm Benji the bear. I need your help in the city. Let's go!
+Carpeta: /public/assets/audio/voices/world_2/intro.mp3
+
+world_2 / chapter_1
+Voz: Benji (M)
+Texto en Inglés: First we go to the park. Swings, slides, trees! So much fun. Say park, swing, slide!
+Carpeta: /public/assets/audio/voices/world_2/chapter_1.mp3
+
+world_2 / chapter_2
+Voz: Benji (M)
+Texto en Inglés: Now we cross the street. Cars, buses, traffic lights. Stay safe! Say car, bus, street!
+Carpeta: /public/assets/audio/voices/world_2/chapter_2.mp3
+
+world_2 / chapter_3
+Voz: Benji (M)
+Texto en Inglés: This is the school. Books, teachers, pencils. We learn here! Say school, teacher, book!
+Carpeta: /public/assets/audio/voices/world_2/chapter_3.mp3
+
+world_2 / chapter_4
+Voz: Benji (M)
+Texto en Inglés: Let's go to the store. Apples, bananas, oranges. We buy food! Say apple, store, banana!
+Carpeta: /public/assets/audio/voices/world_2/chapter_4.mp3
+
+world_2 / chapter_5
+Voz: Benji (M)
+Texto en Inglés: We are home! Kitchen, bedroom, bathroom. Cozy places. Say kitchen, bedroom, bathroom!
+Carpeta: /public/assets/audio/voices/world_2/chapter_5.mp3
+
+
+Mundo 3 - El Reloj Congelado (Clock) - Voz: Zoe (Femenina)
+--------------------------------------------------------------------------------
+
+world_3 / intro
+Voz: Zoe (F)
+Texto en Inglés: I'm Zoe, the digital fairy. The World Clock is frozen! Help me fix it. Ready?
+Carpeta: /public/assets/audio/voices/world_3/intro.mp3
+
+world_3 / chapter_1
+Voz: Zoe (F)
+Texto en Inglés: We need maps to find places. Countries, flags, the world! Say map, country, flag!
+Carpeta: /public/assets/audio/voices/world_3/chapter_1.mp3
+
+world_3 / chapter_2
+Voz: Zoe (F)
+Texto en Inglés: Many people help the world. Teacher, doctor, pilot. Say the jobs! Teacher, doctor, pilot!
+Carpeta: /public/assets/audio/voices/world_3/chapter_2.mp3
+
+world_3 / chapter_3
+Voz: Zoe (F)
+Texto en Inglés: Science is fun! Sun, moon, stars. We discover the sky! Say sun, moon, star!
+Carpeta: /public/assets/audio/voices/world_3/chapter_3.mp3
+
+world_3 / chapter_4
+Voz: Zoe (F)
+Texto en Inglés: Time! Morning, noon, night. The clock needs these words. Say morning, noon, night!
+Carpeta: /public/assets/audio/voices/world_3/chapter_4.mp3
+
+world_3 / chapter_5
+Voz: Zoe (F)
+Texto en Inglés: We fix the clock together! Thank you! The world is happy again. Well done!
+Carpeta: /public/assets/audio/voices/world_3/chapter_5.mp3
+
+
+================================================================================
+RESUMEN - Total de archivos de audio a generar
+================================================================================
+- 3 intros (world_1, world_2, world_3)
+- 15 capítulos (5 por mundo)
+- Total: 18 archivos MP3
+
+Ruta base: /public/assets/audio/voices/world_X/
+Nomenclatura: intro.mp3, chapter_1.mp3, chapter_2.mp3, chapter_3.mp3, chapter_4.mp3, chapter_5.mp3

@@ -104,7 +104,15 @@
 }
 .objectYellow {
   background-color: #f8e71c;
-  /* background-image: url('/assets/images/objects/duck.png'); */
+}
+.objectGreen {
+  background-color: #4ade80;
+}
+.objectOrange {
+  background-color: #fb923c;
+}
+.objectPink {
+  background-color: #f472b6;
 }
 
 /* --- Completion State --- */

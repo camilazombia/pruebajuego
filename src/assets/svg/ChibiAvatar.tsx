@@ -5,6 +5,9 @@ export interface ChibiAvatarProps {
   // Face expressions
   eyeState?: 'open' | 'closed' | 'blink'; // blink is temporary
   mouthState?: 'neutral' | 'smile';
+
+  /** Animation mode: idle, walk (bounce loop), celebrate (scale+bounce, ~800ms) */
+  animationMode?: 'idle' | 'walk' | 'celebrate';
   
   // Clothing
   topId?: string; // 'top_red_shirt' | 'top_sweater'
@@ -32,6 +35,7 @@ export const ChibiAvatar: React.FC<ChibiAvatarProps> = ({
   isBlinking = false,
   isBreathing = false,
   size = 'md',
+  animationMode = 'idle',
 }) => {
   const [currentEyeState, setCurrentEyeState] = useState<'open' | 'closed'>(eyeState === 'open' ? 'open' : 'closed');
 
@@ -55,7 +59,9 @@ export const ChibiAvatar: React.FC<ChibiAvatarProps> = ({
 
   const layerClass = `${styles.layer}`;
 
-  const containerClass = `${styles.container} ${sizeClass} ${isBreathing ? styles.breathing : ''}`;
+  const animationClass =
+    animationMode === 'walk' ? styles.walk : animationMode === 'celebrate' ? styles.celebrate : '';
+  const containerClass = `${styles.container} ${sizeClass} ${isBreathing && animationMode === 'idle' ? styles.breathing : ''} ${animationClass}`;
 
   return (
     <div className={containerClass}>

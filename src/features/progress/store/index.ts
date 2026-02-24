@@ -1,2 +1,2 @@
-export { ProgressProvider, useProgressStore } from './ProgressContext';
-export type { ProgressState } from './ProgressContext';
+export { ProgressProvider, useProgressStore } from '../context/ProgressContext';
+export type { ProgressState } from '../context/ProgressContext';

@@ -51,6 +51,24 @@
 	display: none;
 }
 
+.missionsButton {
+	background: linear-gradient(135deg, #ff3fa1 0%, #ff69b4 100%);
+	color: #ffffff;
+	border: none;
+	padding: 0.6rem 1.2rem;
+	border-radius: 999px;
+	font-size: 0.9rem;
+	font-weight: 600;
+	cursor: pointer;
+	transition: all 0.2s ease;
+	white-space: nowrap;
+}
+
+.missionsButton:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 12px rgba(255, 63, 161, 0.4);
+}
+
 /* Map Container */
 .mapContainer {
 	flex: 1;
@@ -298,4 +316,26 @@
 
 .levelMarker.completed .levelPin {
 	animation: none;
+}
+
+/* Avatar on map during transition sequence */
+.avatarOnMap {
+	position: absolute;
+	transform: translate(-50%, -50%);
+	z-index: 15;
+	pointer-events: none;
+}
+
+/* Dialogue overlay */
+.dialogueOverlay {
+	position: fixed;
+	inset: 0;
+	display: flex;
+	align-items: flex-end;
+	justify-content: center;
+	padding: 2rem;
+	padding-bottom: 4rem;
+	background: rgba(0, 0, 0, 0.4);
+	z-index: 100;
+	pointer-events: auto;
 }

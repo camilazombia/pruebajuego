@@ -17,6 +17,7 @@ import RewardsPage from '../../pages/RewardsPage/RewardsPage';
 import ReviewPage from '../../pages/ReviewPage/ReviewPage';
 import FlashcardsPage from '../../pages/ReviewPage/FlashcardsPage';
 import StoriesPage from '../../pages/ReviewPage/StoriesPage';
+import StoryDetailPage from '../../pages/ReviewPage/StoryDetailPage';
 import ColoringPage from '../../pages/ReviewPage/ColoringPage';
 import HelpPage from '../../pages/HelpPage/HelpPage';
 import ParentZonePage from '../../pages/ParentZonePage/ParentZonePage';
@@ -65,6 +66,7 @@ export const AppRouter: React.FC = () => {
           <Route path="/review" element={<ReviewPage />} />
           <Route path="/review/flashcards" element={<FlashcardsPage />} />
           <Route path="/review/stories" element={<StoriesPage />} />
+          <Route path="/review/stories/:storyId" element={<StoryDetailPage />} />
           <Route path="/review/coloring" element={<ColoringPage />} />
           <Route path="/help" element={<HelpPage />} />
           <Route path="/parent-zone" element={<ParentZonePage />} />

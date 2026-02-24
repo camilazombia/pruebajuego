@@ -2,13 +2,21 @@ import type { ReactNode } from 'react';
 import { createContext, useContext, useState, useCallback, useEffect } from 'react';
 import { useAvatar } from '../../../app/providers/AvatarProvider';
 
+/** Clave única para localStorage; prefijo evita colisiones con otras apps en el mismo dominio */
+export const PROGRESS_STORAGE_KEY = 'mundo_magico_user_progress';
+
+/** Versión del schema para migraciones futuras */
+const STORAGE_SCHEMA_VERSION = 1;
+
 // Define la forma del estado que se guardará en localStorage
 interface StoredProgress {
+	version?: number;
 	unlockedWorlds: string[];
 	unlockedChapters: string[];
 	completedWorlds: string[];
 	completedChapters: string[];
 	completedLevels: string[];
+	completedMissions: string[];
 }
 
 export interface ProgressState extends StoredProgress {
@@ -18,6 +26,7 @@ export interface ProgressState extends StoredProgress {
 	completeWorld: (worldId: string) => void;
 	completeChapter: (chapterId: string) => void;
 	completeLevel: (levelId: string) => void;
+	completeMission: (missionId: string) => void;
 
 	// Acciones de consulta
 	isWorldUnlocked: (worldId: string) => boolean;
@@ -25,6 +34,7 @@ export interface ProgressState extends StoredProgress {
 	isWorldCompleted: (worldId: string) => boolean;
 	isChapterCompleted: (chapterId: string) => boolean;
 	isLevelCompleted: (levelId: string) => boolean;
+	isMissionCompleted: (missionId: string) => boolean;
 
 	// Helpers para verificar completitud
 	isAllChaptersCompleted: (worldId: string, chapters: string[]) => boolean;
@@ -33,8 +43,6 @@ export interface ProgressState extends StoredProgress {
 	// Reset
 	resetProgress: () => void;
 }
-
-const PROGRESS_STORAGE_KEY = 'user_progress';
 
 const ProgressContext = createContext<ProgressState | undefined>(undefined);
 
@@ -45,28 +53,39 @@ const defaultInitialState: StoredProgress = {
 	completedWorlds: [],
 	completedChapters: [],
 	completedLevels: [],
+	completedMissions: [],
 };
 
 export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 	const { unlockTop } = useAvatar();
 
-	// Cargar el estado inicial desde localStorage
+	// Cargar el estado inicial desde localStorage (ejecuta antes del primer render)
 	const [progressState, setProgressState] = useState<StoredProgress>(() => {
 		try {
-			const savedProgress = localStorage.getItem(PROGRESS_STORAGE_KEY);
-			if (savedProgress) {
-				return JSON.parse(savedProgress) as StoredProgress;
+			const raw = localStorage.getItem(PROGRESS_STORAGE_KEY);
+			if (raw) {
+				const parsed = JSON.parse(raw) as StoredProgress;
+				// Migración futura: si version !== STORAGE_SCHEMA_VERSION, transformar
+				if (parsed.version === STORAGE_SCHEMA_VERSION || !parsed.version) {
+					const { version: _, ...rest } = parsed;
+					return {
+						...rest,
+						completedMissions: rest.completedMissions ?? [],
+						version: STORAGE_SCHEMA_VERSION,
+					};
+				}
 			}
 		} catch (error) {
 			console.error("Error loading progress from localStorage", error);
 		}
-		return defaultInitialState;
+		return { ...defaultInitialState, version: STORAGE_SCHEMA_VERSION };
 	});
 
-	// useEffect para guardar el estado en localStorage cada vez que cambie
+	// Guardar en localStorage tras cada cambio de estado
 	useEffect(() => {
 		try {
-			localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(progressState));
+			const toStore = { ...progressState, version: STORAGE_SCHEMA_VERSION };
+			localStorage.setItem(PROGRESS_STORAGE_KEY, JSON.stringify(toStore));
 		} catch (error) {
 			console.error("Error saving progress to localStorage", error);
 		}
@@ -98,6 +117,13 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 		}
 	}, [unlockTop]);
 
+	const completeMission = useCallback((missionId: string) => {
+		setProgressState(prev => ({
+			...prev,
+			completedMissions: [...new Set([...prev.completedMissions, missionId])],
+		}));
+	}, []);
+
 	const isWorldUnlocked = useCallback(
 		(worldId: string) => progressState.unlockedWorlds.includes(worldId),
 		[progressState.unlockedWorlds]
@@ -123,6 +149,11 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 		[progressState.completedLevels]
 	);
 
+	const isMissionCompleted = useCallback(
+		(missionId: string) => progressState.completedMissions.includes(missionId),
+		[progressState.completedMissions]
+	);
+
 	const isAllChaptersCompleted = useCallback(
 		(_worldId: string, chapters: string[]) => chapters.every((chId) => progressState.completedChapters.includes(chId)),
 		[progressState.completedChapters]
@@ -144,11 +175,13 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 		completeWorld,
 		completeChapter,
 		completeLevel,
+		completeMission,
 		isWorldUnlocked,
 		isChapterUnlocked,
 		isWorldCompleted,
 		isChapterCompleted,
 		isLevelCompleted,
+		isMissionCompleted,
 		isAllChaptersCompleted,
 		isAllLevelsCompleted,
 		resetProgress,

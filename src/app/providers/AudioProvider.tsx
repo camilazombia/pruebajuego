@@ -1,150 +1,119 @@
-import React, { createContext, useContext, useCallback, useRef, useEffect } from 'react';
-import { Howl, Howler } from 'howler';
-import { useSettingsStore } from '@app/store/settings.store';
+import React, { createContext, useContext, useCallback, useRef } from 'react';
+import { useSettingsStore } from '../store/settings.store';
 
 interface AudioContextType {
-  playSound: (soundId: string) => void;
-  playVoice: (text: string, lang?: string) => void;
-  stopAllSounds: () => void;
-  playMusic: (musicId: string) => void;
-  stopMusic: () => void;
+	playSound: (soundId: string) => void;
+	playVoice: (text: string, lang?: string) => void;
+	playNarrative: (audioUrl: string) => Promise<void>;
+	stopAllSounds: () => void;
+	playMusic: (musicId: string) => void;
+	stopMusic: () => void;
 }
 
 const AudioContext = createContext<AudioContextType | undefined>(undefined);
 
 export const useAudio = () => {
-  const context = useContext(AudioContext);
-  if (!context) {
-    throw new Error('useAudio must be used within AudioProvider');
-  }
-  return context;
+	const context = useContext(AudioContext);
+	if (!context) {
+		throw new Error('useAudio must be used within AudioProvider');
+	}
+	return context;
 };
 
 interface AudioProviderProps {
-  children: React.ReactNode;
+	children: React.ReactNode;
 }
 
 export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
-  const { 
-    masterVolume, 
-    soundEffectsEnabled, 
-    musicEnabled, 
-    voiceSpeed,
-    voiceType 
-  } = useSettingsStore();
+	const { soundEffectsEnabled, musicEnabled, voiceEnabled, voiceSpeed } = useSettingsStore();
+	const activeSoundsRef = useRef<HTMLAudioElement[]>([]);
+	const musicRef = useRef<HTMLAudioElement | null>(null);
 
-  const soundsRef = useRef<Record<string, Howl>>({});
-  const musicRef = useRef<Howl | null>(null);
-  const voiceRef = useRef<Howl | null>(null);
+	const stopAllSounds = useCallback(() => {
+		activeSoundsRef.current.forEach((a) => {
+			a.pause();
+			a.currentTime = 0;
+		});
+		activeSoundsRef.current = [];
+	}, []);
 
-  // Update global volume
-  useEffect(() => {
-    Howler.volume(masterVolume);
-  }, [masterVolume]);
+	const playSound = useCallback(
+		(soundId: string) => {
+			if (!soundEffectsEnabled) return;
+			try {
+				const audio = new Audio(`/assets/audio/sfx/${soundId}.mp3`);
+				activeSoundsRef.current.push(audio);
+				audio.play().catch(() => {});
+				audio.onended = () => {
+					activeSoundsRef.current = activeSoundsRef.current.filter((a) => a !== audio);
+				};
+			} catch {
+				// ignore
+			}
+		},
+		[soundEffectsEnabled]
+	);
 
-  const playSound = useCallback((soundId: string) => {
-    if (!soundEffectsEnabled) return;
+	const playNarrative = useCallback(
+		async (audioUrl: string): Promise<void> => {
+			if (!voiceEnabled) return;
+			stopAllSounds();
+			try {
+				const audio = new Audio(audioUrl.startsWith('/') ? audioUrl : `/${audioUrl}`);
+				audio.playbackRate = voiceSpeed;
+				await audio.play();
+			} catch {
+				// Autoplay blocked or file not found
+			}
+		},
+		[voiceEnabled, voiceSpeed, stopAllSounds]
+	);
 
-    try {
-      // Check if sound is already loaded
-      if (!soundsRef.current[soundId]) {
-        soundsRef.current[soundId] = new Howl({
-          src: [`/assets/sounds/${soundId}.mp3`, `/assets/sounds/${soundId}.ogg`],
-          volume: 0.7,
-          preload: true,
-        });
-      }
+	const playVoice = useCallback(
+		(text: string, _lang = 'en-US') => {
+			if (!voiceEnabled) return;
+			const voiceFile = text.toLowerCase().replace(/\s+/g, '-');
+			playNarrative(`/assets/audio/voices/${voiceFile}.mp3`);
+		},
+		[voiceEnabled, playNarrative]
+	);
 
-      soundsRef.current[soundId].play();
-    } catch (error) {
-      console.error('Error playing sound:', error);
-    }
-  }, [soundEffectsEnabled]);
+	const playMusic = useCallback(
+		(musicId: string) => {
+			if (!musicEnabled) return;
+			if (musicRef.current) {
+				musicRef.current.pause();
+				musicRef.current = null;
+			}
+			try {
+				const audio = new Audio(`/assets/audio/music/${musicId}.mp3`);
+				audio.loop = true;
+				audio.volume = 0.3;
+				musicRef.current = audio;
+				audio.play().catch(() => {});
+			} catch {
+				// ignore
+			}
+		},
+		[musicEnabled]
+	);
 
-  const playVoice = useCallback((text: string, lang: string = 'en-US') => {
-    // Stop previous voice
-    if (voiceRef.current) {
-      voiceRef.current.stop();
-    }
+	const stopMusic = useCallback(() => {
+		if (musicRef.current) {
+			musicRef.current.pause();
+			musicRef.current.currentTime = 0;
+			musicRef.current = null;
+		}
+	}, []);
 
-    // TODO: Implement real TTS or pre-recorded voice
-    // For now, this is a placeholder
-    const voiceFile = `${text.toLowerCase().replace(/\s+/g, '-')}-${voiceType}`;
-    
-    try {
-      voiceRef.current = new Howl({
-        src: [`/assets/voices/${voiceFile}.mp3`, `/assets/voices/${voiceFile}.ogg`],
-        volume: 1,
-        rate: voiceSpeed,
-        onend: () => {
-          voiceRef.current = null;
-        },
-      });
+	const value: AudioContextType = {
+		playSound,
+		playVoice,
+		playNarrative,
+		stopAllSounds,
+		playMusic,
+		stopMusic,
+	};
 
-      voiceRef.current.play();
-    } catch (error) {
-      console.error('Error playing voice:', error);
-    }
-  }, [voiceSpeed, voiceType]);
-
-  const stopAllSounds = useCallback(() => {
-    Object.values(soundsRef.current).forEach(sound => sound.stop());
-    if (voiceRef.current) {
-      voiceRef.current.stop();
-    }
-  }, []);
-
-  const playMusic = useCallback((musicId: string) => {
-    if (!musicEnabled) return;
-
-    // Stop current music
-    if (musicRef.current) {
-      musicRef.current.fade(musicRef.current.volume(), 0, 500);
-      setTimeout(() => {
-        musicRef.current?.stop();
-      }, 500);
-    }
-
-    try {
-      musicRef.current = new Howl({
-        src: [`/assets/music/${musicId}.mp3`, `/assets/music/${musicId}.ogg`],
-        volume: 0.3,
-        loop: true,
-        preload: true,
-      });
-
-      musicRef.current.play();
-    } catch (error) {
-      console.error('Error playing music:', error);
-    }
-  }, [musicEnabled]);
-
-  const stopMusic = useCallback(() => {
-    if (musicRef.current) {
-      musicRef.current.fade(musicRef.current.volume(), 0, 1000);
-      setTimeout(() => {
-        musicRef.current?.stop();
-        musicRef.current = null;
-      }, 1000);
-    }
-  }, []);
-
-  // Cleanup on unmount
-  useEffect(() => {
-    return () => {
-      Object.values(soundsRef.current).forEach(sound => sound.unload());
-      musicRef.current?.unload();
-      voiceRef.current?.unload();
-    };
-  }, []);
-
-  const value: AudioContextType = {
-    playSound,
-    playVoice,
-    stopAllSounds,
-    playMusic,
-    stopMusic,
-  };
-
-  return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>;
+	return <AudioContext.Provider value={value}>{children}</AudioContext.Provider>;
 };

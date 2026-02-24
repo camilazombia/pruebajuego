@@ -54,7 +54,7 @@ const LevelPage: React.FC = () => {
 		setTimeout(() => {
 			if (world) {
 				handleCompleteLevel(levelId, chapter.id, world.id);
-				navigate(`/chapters/${world.id}`);
+				navigate(`/chapters/${world.id}`, { state: { justCompletedLevel: levelId, fromChapterId: chapter.id } });
 			}
 		}, 1500);
 	};

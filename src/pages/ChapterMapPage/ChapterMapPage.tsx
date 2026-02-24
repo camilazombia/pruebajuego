@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate, useParams, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowButton } from '../../shared/ui/ArrowButton/ArrowButton';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
 import { useProgressAdaptedContent } from '../../features/child/hooks/useProgressAdaptedContent';
+import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
+import { DialogueBox } from '../../shared/ui/DialogueBox/DialogueBox';
+import { getNarrativeForChapter } from '../../shared/data/narrative';
 import styles from './ChapterMapPage.module.css';
 
 type LevelPosition = {
@@ -21,22 +25,111 @@ const STANDARD_LEVEL_POSITIONS: LevelPosition[] = [
 	{ levelId: '', x: 85, y: 75 },
 ];
 
+type SequencePhase = 'idle' | 'walk' | 'celebrate' | 'dialogue' | 'done';
+
 const ChapterMapPage: React.FC = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const { worldId } = useParams<{ worldId: string }>();
-	const [currentChapterNumber, setCurrentChapterNumber] = useState(1);
 	const { getChaptersWithProgress, getLevelsWithProgress } = useProgressAdaptedContent();
+
+	const state = location.state as { justCompletedLevel?: string; fromChapterId?: string } | undefined;
+	const justCompletedLevel = state?.justCompletedLevel;
+	const fromChapterId = state?.fromChapterId;
+
+	const [currentChapterNumber, setCurrentChapterNumber] = useState(1);
+
+	const [sequencePhase, setSequencePhase] = useState<SequencePhase>('idle');
+	const [avatarPos, setAvatarPos] = useState<{ x: number; y: number } | null>(null);
+	const [showDialogue, setShowDialogue] = useState(false);
+	const [dialogueNarrative, setDialogueNarrative] = useState<{
+		characterName: string;
+		text: string;
+		audioUrl: string;
+	} | null>(null);
+	const hasRunSequence = useRef(false);
+
+	// Sincronizar capítulo mostrado cuando llegamos tras completar un nivel
+	useEffect(() => {
+		if (!fromChapterId || !worldId) return;
+		const chs = getChaptersWithProgress(worldId);
+		if (chs.length === 0) return;
+		const idx = chs.findIndex((c) => c.id === fromChapterId);
+		if (idx >= 0) setCurrentChapterNumber(idx + 1);
+	}, [worldId, fromChapterId, getChaptersWithProgress]);
+
+	// Secuencia: walk → celebrate → DialogueBox
+	useEffect(() => {
+		if (!worldId || !justCompletedLevel || !fromChapterId || hasRunSequence.current) return;
+		const chs = getChaptersWithProgress(worldId);
+		const ch = chs.find((c) => c.id === fromChapterId);
+		if (!ch) return;
+		const lvls = getLevelsWithProgress(ch.id);
+		const completedIdx = lvls.findIndex((l) => l.id === justCompletedLevel);
+		if (completedIdx < 0) return;
+
+		hasRunSequence.current = true;
+		const origPos = STANDARD_LEVEL_POSITIONS[completedIdx];
+		const destIdx = Math.min(completedIdx + 1, lvls.length - 1);
+		const destPos = STANDARD_LEVEL_POSITIONS[destIdx];
+		const targetChapterId = completedIdx + 1 < lvls.length ? ch.id : chs[chs.findIndex((c) => c.id === ch.id) + 1]?.id || ch.id;
+
+		// Fase 1: walk
+		setAvatarPos({ x: origPos.x, y: origPos.y });
+		setSequencePhase('walk');
+		setCurrentChapterNumber(chs.findIndex((c) => c.id === ch.id) + 1);
+
+		const t1 = setTimeout(() => {
+			setAvatarPos({ x: destPos.x, y: destPos.y });
+		}, 100);
+
+		const t2 = setTimeout(() => {
+			setSequencePhase('celebrate');
+		}, 1600);
+
+		const t3 = setTimeout(() => {
+			setSequencePhase('dialogue');
+			const narrative = getNarrativeForChapter(worldId, targetChapterId);
+			if (narrative) {
+				setDialogueNarrative({
+					characterName: narrative.characterName,
+					text: narrative.dialogueEs ?? narrative.dialogueEn,
+					audioUrl: narrative.audioUrl,
+				});
+				setShowDialogue(true);
+			} else {
+				setSequencePhase('done');
+				setAvatarPos(null);
+				navigate(`/chapters/${worldId}`, { replace: true, state: {} });
+			}
+		}, 2400);
+
+		const cleanup = () => {
+			clearTimeout(t1);
+			clearTimeout(t2);
+			clearTimeout(t3);
+		};
+
+		return cleanup;
+	}, [worldId, justCompletedLevel, fromChapterId, getChaptersWithProgress, getLevelsWithProgress]);
+
+	const handleDialogueClose = () => {
+		setShowDialogue(false);
+		setDialogueNarrative(null);
+		setSequencePhase('done');
+		setAvatarPos(null);
+		if (worldId) navigate(`/chapters/${worldId}`, { replace: true, state: {} });
+	};
 
 	if (!worldId) {
 		return <div className={styles.page}>Mundo no encontrado</div>;
 	}
 
 	const chapters = getChaptersWithProgress(worldId);
+	const chapter = chapters[currentChapterNumber - 1];
 	if (chapters.length === 0) {
 		return <div className={styles.page}>Capítulos no encontrados</div>;
 	}
-
-	const chapter = chapters[currentChapterNumber - 1];
 	if (!chapter) {
 		return <div className={styles.page}>Capítulo no encontrado</div>;
 	}
@@ -96,6 +189,13 @@ const ChapterMapPage: React.FC = () => {
 					disabled={currentChapterNumber === chapters.length}
 					aria-label="Capítulo siguiente"
 				/>
+				<button
+					className={styles.missionsButton}
+					onClick={() => navigate(`/missions/${worldId}`)}
+					aria-label="Ver misiones"
+				>
+					Misiones
+				</button>
 			</header>
 
 			<div className={styles.mapContainer}>
@@ -120,6 +220,23 @@ const ChapterMapPage: React.FC = () => {
 						})}
 				</svg>
 
+				{avatarPos && (
+					<motion.div
+						className={styles.avatarOnMap}
+						initial={false}
+						animate={{
+							left: `${avatarPos.x}%`,
+							top: `${avatarPos.y}%`,
+						}}
+						transition={{ duration: sequencePhase === 'walk' ? 1.5 : 0 }}
+					>
+						<ChibiAvatar
+							size="sm"
+							animationMode={sequencePhase === 'walk' ? 'walk' : sequencePhase === 'celebrate' ? 'celebrate' : 'idle'}
+							mouthState={sequencePhase === 'celebrate' || sequencePhase === 'dialogue' ? 'smile' : 'neutral'}
+						/>
+					</motion.div>
+				)}
 				<div className={styles.mapContent}>
 					{levels.map((level) => {
 						const position = getLevelPosition(level.id);
@@ -154,7 +271,7 @@ const ChapterMapPage: React.FC = () => {
 								</div>
 
 								<div className={styles.tooltip}>
-									<div className={styles.tooltipName}>{level.name}</div>
+									<div className={styles.tooltipName}>{level.title}</div>
 									{level.locked && <div className={styles.lockedText}>Bloqueado</div>}
 									{level.completed && <div className={styles.completedText}>✓ Completado</div>}
 								</div>
@@ -163,6 +280,25 @@ const ChapterMapPage: React.FC = () => {
 					})}
 				</div>
 			</div>
+
+			<AnimatePresence>
+				{showDialogue && dialogueNarrative && (
+					<motion.div
+						className={styles.dialogueOverlay}
+						initial={{ opacity: 0 }}
+						animate={{ opacity: 1 }}
+						exit={{ opacity: 0 }}
+					>
+						<DialogueBox
+							characterName={dialogueNarrative.characterName}
+							text={dialogueNarrative.text}
+							audioUrl={dialogueNarrative.audioUrl}
+							onClose={handleDialogueClose}
+							autoCloseDelayMs={5000}
+						/>
+					</motion.div>
+				)}
+			</AnimatePresence>
 		</div>
 		</>
 	);
