@@ -55,8 +55,34 @@
 /* User Section */
 .userSection {
   display: flex;
+  align-items: center;
   gap: 12px;
   flex-shrink: 0;
+}
+
+.coinsBadge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, #fff8e1, #ffecb3);
+  border: 2px solid #ffd54f;
+  border-radius: 999px;
+  padding: 6px 14px 6px 10px;
+  box-shadow: 0 2px 8px rgba(255, 193, 7, 0.3);
+}
+
+.coinIcon {
+  font-size: 1.2rem;
+  line-height: 1;
+}
+
+.coinCount {
+  font-size: 0.9rem;
+  font-weight: 800;
+  color: #5d4037;
+  line-height: 1;
+  min-width: 20px;
+  text-align: center;
 }
 
 .exitButton {
@@ -95,6 +121,18 @@
   .exitButton {
     padding: 8px 12px;
     font-size: 12px;
+  }
+
+  .coinsBadge {
+    padding: 4px 10px 4px 8px;
+  }
+
+  .coinIcon {
+    font-size: 1rem;
+  }
+
+  .coinCount {
+    font-size: 0.8rem;
   }
 
   .logo {

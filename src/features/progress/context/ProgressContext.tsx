@@ -18,6 +18,7 @@ interface StoredProgress {
 	completedLevels: string[];
 	completedMissions: string[];
 	levelStars: Record<string, number>;
+	magicCoins: number;
 }
 
 export interface ProgressState extends StoredProgress {
@@ -29,6 +30,8 @@ export interface ProgressState extends StoredProgress {
 	completeMission: (missionId: string) => void;
 	setLevelStars: (levelId: string, stars: number) => void;
 	getLevelStars: (levelId: string) => number;
+	addMagicCoins: (amount: number) => void;
+	spendMagicCoins: (amount: number) => boolean;
 
 	isWorldUnlocked: (worldId: string) => boolean;
 	isChapterUnlocked: (chapterId: string) => boolean;
@@ -46,6 +49,8 @@ export interface ProgressState extends StoredProgress {
 const ProgressContext = createContext<ProgressState | undefined>(undefined);
 
 // Estado inicial por defecto
+const COINS_PER_NEW_STAR = 10;
+
 const defaultInitialState: StoredProgress = {
 	unlockedWorlds: ['world_1'],
 	unlockedChapters: ['world_1_chapter_1'],
@@ -54,6 +59,7 @@ const defaultInitialState: StoredProgress = {
 	completedLevels: [],
 	completedMissions: [],
 	levelStars: {},
+	magicCoins: 0,
 };
 
 export const ProgressProvider = ({ children }: { children: ReactNode }) => {
@@ -72,6 +78,7 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 						...rest,
 						completedMissions: rest.completedMissions ?? [],
 						levelStars: rest.levelStars ?? {},
+						magicCoins: rest.magicCoins ?? 0,
 						version: STORAGE_SCHEMA_VERSION,
 					};
 				}
@@ -126,19 +133,42 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 	);
 
 	const completeLevel = useCallback((levelId: string, stars = 3) => {
-		setProgressState(prev => ({
-			...prev,
-			completedLevels: [...new Set([...prev.completedLevels, levelId])],
-			levelStars: {
-				...prev.levelStars,
-				[levelId]: Math.max(prev.levelStars[levelId] ?? 0, Math.min(stars, 3)),
-			},
-		}));
+		setProgressState(prev => {
+			const clampedStars = Math.min(stars, 3);
+			const previousStars = prev.levelStars[levelId] ?? 0;
+			const newStars = Math.max(clampedStars - previousStars, 0);
+			const coinsEarned = newStars * COINS_PER_NEW_STAR;
+
+			return {
+				...prev,
+				completedLevels: [...new Set([...prev.completedLevels, levelId])],
+				levelStars: {
+					...prev.levelStars,
+					[levelId]: Math.max(previousStars, clampedStars),
+				},
+				magicCoins: prev.magicCoins + coinsEarned,
+			};
+		});
 
 		if (levelId === 'world_1_chapter_1_level_1') {
 			unlockTop('top_red_shirt');
 		}
 	}, [unlockTop]);
+
+	const addMagicCoins = useCallback((amount: number) => {
+		if (amount <= 0) return;
+		setProgressState(prev => ({ ...prev, magicCoins: prev.magicCoins + amount }));
+	}, []);
+
+	const spendMagicCoins = useCallback((amount: number): boolean => {
+		let success = false;
+		setProgressState(prev => {
+			if (prev.magicCoins < amount) return prev;
+			success = true;
+			return { ...prev, magicCoins: prev.magicCoins - amount };
+		});
+		return success;
+	}, []);
 
 	const completeMission = useCallback((missionId: string) => {
 		setProgressState(prev => ({
@@ -201,6 +231,8 @@ export const ProgressProvider = ({ children }: { children: ReactNode }) => {
 		completeMission,
 		setLevelStars,
 		getLevelStars,
+		addMagicCoins,
+		spendMagicCoins,
 		isWorldUnlocked,
 		isChapterUnlocked,
 		isWorldCompleted,

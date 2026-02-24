@@ -1,18 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useProgressStore } from '../../features/progress/context/ProgressContext';
 import styles from './Header.module.css';
 import Logo from '../../assets/svg/logo.svg';
 
 export default function Header() {
   const navigate = useNavigate();
+  const { magicCoins } = useProgressStore();
 
   return (
     <header className={styles.header}>
       <div className={styles.headerContent}>
-        {/* Logo */}
-        <img src={Logo} alt="Mundo Mágico Inglés" className={styles.logo} />
+        <img src={Logo} alt="Mundo Magico Ingles" className={styles.logo} />
 
-        {/* Menu Items */}
         <nav className={styles.nav}>
           <button onClick={() => navigate('/home')} className={styles.navItem}>
             Inicio
@@ -31,8 +31,11 @@ export default function Header() {
           </button>
         </nav>
 
-        {/* User Section */}
         <div className={styles.userSection}>
+          <div className={styles.coinsBadge} aria-label={`${magicCoins} monedas magicas`}>
+            <span className={styles.coinIcon} aria-hidden="true">&#129689;</span>
+            <span className={styles.coinCount}>{magicCoins}</span>
+          </div>
           <button className={styles.exitButton}>
             Salir
           </button>

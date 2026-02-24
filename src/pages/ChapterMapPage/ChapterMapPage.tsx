@@ -3,10 +3,12 @@ import { useNavigate, useParams, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowButton } from '../../shared/ui/ArrowButton/ArrowButton';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
+import { CelebrationModal } from '../../shared/ui/CelebrationModal/CelebrationModal';
 import { useProgressAdaptedContent } from '../../features/child/hooks/useProgressAdaptedContent';
 import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
 import { DialogueBox } from '../../shared/ui/DialogueBox/DialogueBox';
 import { getNarrativeForChapter } from '../../shared/data/narrative';
+import { getWorldById } from '../../shared/data/worlds';
 import styles from './ChapterMapPage.module.css';
 
 type LevelPosition = {
@@ -33,11 +35,26 @@ const ChapterMapPage: React.FC = () => {
 	const { worldId } = useParams<{ worldId: string }>();
 	const { getChaptersWithProgress, getLevelsWithProgress } = useProgressAdaptedContent();
 
-	const state = location.state as { justCompletedLevel?: string; fromChapterId?: string } | undefined;
+	const state = location.state as {
+		justCompletedLevel?: string;
+		fromChapterId?: string;
+		guardianCured?: boolean;
+		advanceToChapter?: string;
+		nextWorldId?: string;
+	} | undefined;
 	const justCompletedLevel = state?.justCompletedLevel;
 	const fromChapterId = state?.fromChapterId;
+	const guardianCured = state?.guardianCured ?? false;
+	const advanceToChapter = state?.advanceToChapter;
 
 	const [currentChapterNumber, setCurrentChapterNumber] = useState(1);
+	const [showCelebration, setShowCelebration] = useState(false);
+	const [celebrationData, setCelebrationData] = useState<{
+		guardianEmoji: string;
+		guardianName: string;
+		worldTitle: string;
+		isWorldComplete: boolean;
+	} | null>(null);
 
 	const [sequencePhase, setSequencePhase] = useState<SequencePhase>('idle');
 	const [avatarPos, setAvatarPos] = useState<{ x: number; y: number } | null>(null);
@@ -48,6 +65,31 @@ const ChapterMapPage: React.FC = () => {
 		audioUrl: string;
 	} | null>(null);
 	const hasRunSequence = useRef(false);
+
+	// Detectar victoria de capítulo/mundo y mostrar CelebrationModal
+	useEffect(() => {
+		if (!worldId) return;
+		if (!guardianCured && !advanceToChapter) return;
+
+		const world = getWorldById(worldId);
+		if (!world) return;
+
+		setCelebrationData({
+			guardianEmoji: world.guardianEmoji,
+			guardianName: world.guardianName,
+			worldTitle: world.title,
+			isWorldComplete: guardianCured,
+		});
+		setShowCelebration(true);
+	}, [worldId, guardianCured, advanceToChapter]);
+
+	const handleCelebrationContinue = () => {
+		setShowCelebration(false);
+		setCelebrationData(null);
+		if (worldId) {
+			navigate(`/chapters/${worldId}`, { replace: true, state: {} });
+		}
+	};
 
 	// Sincronizar capítulo mostrado cuando llegamos tras completar un nivel
 	useEffect(() => {
@@ -281,26 +323,36 @@ const ChapterMapPage: React.FC = () => {
 				</div>
 			</div>
 
-			<AnimatePresence>
-				{showDialogue && dialogueNarrative && (
-					<motion.div
-						className={styles.dialogueOverlay}
-						initial={{ opacity: 0 }}
-						animate={{ opacity: 1 }}
-						exit={{ opacity: 0 }}
-					>
-						<DialogueBox
-							characterName={dialogueNarrative.characterName}
-							text={dialogueNarrative.text}
-							audioUrl={dialogueNarrative.audioUrl}
-							onClose={handleDialogueClose}
-							autoCloseDelayMs={5000}
-						/>
-					</motion.div>
-				)}
-			</AnimatePresence>
-		</div>
-		</>
+		<AnimatePresence>
+			{showDialogue && dialogueNarrative && (
+				<motion.div
+					className={styles.dialogueOverlay}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+				>
+					<DialogueBox
+						characterName={dialogueNarrative.characterName}
+						text={dialogueNarrative.text}
+						audioUrl={dialogueNarrative.audioUrl}
+						onClose={handleDialogueClose}
+						autoCloseDelayMs={5000}
+					/>
+				</motion.div>
+			)}
+		</AnimatePresence>
+
+		{showCelebration && celebrationData && (
+			<CelebrationModal
+				guardianEmoji={celebrationData.guardianEmoji}
+				guardianName={celebrationData.guardianName}
+				worldTitle={celebrationData.worldTitle}
+				isWorldComplete={celebrationData.isWorldComplete}
+				onContinue={handleCelebrationContinue}
+			/>
+		)}
+	</div>
+	</>
 	);
 };
 

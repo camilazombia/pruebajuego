@@ -1,16 +1,34 @@
-import React, { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import React, { useRef, useState, useEffect } from 'react';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowButton } from '../../shared/ui/ArrowButton/ArrowButton';
 import { WORLDS } from '../../shared/data/worlds';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
+import { CelebrationModal } from '../../shared/ui/CelebrationModal/CelebrationModal';
 import { useProgressStore } from '../../features/progress/context/ProgressContext';
 import styles from './WorldsMapPage.module.css';
 
 const WorldsMapPage: React.FC = () => {
 	const navigate = useNavigate();
+	const location = useLocation();
 	const carouselRef = useRef<HTMLDivElement | null>(null);
 	const { isWorldUnlocked } = useProgressStore();
+
+	const locState = location.state as {
+		guardianCured?: boolean;
+		worldTitle?: string;
+		guardianEmoji?: string;
+		guardianName?: string;
+	} | undefined;
+
+	const [showCelebration, setShowCelebration] = useState(false);
+	const [lockedToast, setLockedToast] = useState<string | null>(null);
+
+	useEffect(() => {
+		if (locState?.guardianCured) {
+			setShowCelebration(true);
+		}
+	}, [locState?.guardianCured]);
 
 	const scrollByCard = (direction: 'next' | 'prev') => {
 		const el = carouselRef.current;
@@ -22,15 +40,23 @@ const WorldsMapPage: React.FC = () => {
 		el.scrollBy({ left: direction === 'next' ? scrollAmount : -scrollAmount, behavior: 'smooth' });
 	};
 
-
 	const handleKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => {
 		if (e.key === 'ArrowLeft') scrollByCard('prev');
 		if (e.key === 'ArrowRight') scrollByCard('next');
 	};
 
-	const handleWorldClick = (worldId: string, locked?: boolean) => {
-		if (locked) return;
+	const handleWorldClick = (worldId: string, isLocked: boolean) => {
+		if (isLocked) {
+			setLockedToast('Primero debemos ayudar al guardian anterior!');
+			setTimeout(() => setLockedToast(null), 2800);
+			return;
+		}
 		navigate(`/chapters/${worldId}`);
+	};
+
+	const handleCelebrationContinue = () => {
+		setShowCelebration(false);
+		navigate('/worlds', { replace: true, state: {} });
 	};
 
 	return (
@@ -53,30 +79,36 @@ const WorldsMapPage: React.FC = () => {
 							<motion.article
 								key={world.id}
 								role="listitem"
-								className={`${styles.card} ${!unlocked ? styles.locked : ''}`}
+								className={`${styles.card} ${!unlocked ? styles.lockedCard : ''}`}
 								data-card
 								onClick={() => handleWorldClick(world.id, !unlocked)}
 								onKeyDown={(e) => {
-									if ((e.key === 'Enter' || e.key === ' ') && unlocked) {
+									if (e.key === 'Enter' || e.key === ' ') {
 										e.preventDefault();
 										handleWorldClick(world.id, !unlocked);
 									}
 								}}
-								tabIndex={!unlocked ? -1 : 0}
-								whileHover={{ scale: 1.05, y: -10 }}
+								tabIndex={0}
+								whileHover={unlocked ? { scale: 1.05, y: -10 } : { scale: 1.02 }}
 								transition={{ type: 'spring', stiffness: 300 }}
 							>
 							<div
-								className={styles.imagePlaceholder}
-								style={{ borderColor: unlocked ? world.themeColor : undefined }}
+								className={`${styles.imagePlaceholder} ${!unlocked ? styles.imageLocked : ''}`}
+								style={unlocked ? { borderColor: world.themeColor } : undefined}
 								aria-hidden
 							>
 								<span className={styles.guardianEmoji}>{world.guardianEmoji}</span>
 								<span className={styles.worldNumber}>{world.number}</span>
-								{!unlocked && <div className={styles.lockOverlay}>🔒</div>}
+								{!unlocked && (
+									<div className={styles.lockOverlay}>
+										<span className={styles.lockIcon}>&#128274;</span>
+									</div>
+								)}
 							</div>
 							<div className={styles.namePill}>{world.title}</div>
-							<div className={styles.guardianLabel}>{world.guardianName}</div>
+							<div className={styles.guardianLabel}>
+								{unlocked ? world.guardianName : '???'}
+							</div>
 							<div className={styles.progressBar}>
 								<div
 									className={styles.progressFill}
@@ -100,6 +132,33 @@ const WorldsMapPage: React.FC = () => {
 					/>
 				</div>
 			</section>
+
+			{/* Toast para mundos bloqueados */}
+			<AnimatePresence>
+				{lockedToast && (
+					<motion.div
+						className={styles.lockedToast}
+						initial={{ opacity: 0, y: 30, scale: 0.9 }}
+						animate={{ opacity: 1, y: 0, scale: 1 }}
+						exit={{ opacity: 0, y: 20, scale: 0.95 }}
+						transition={{ type: 'spring', stiffness: 300, damping: 22 }}
+					>
+						<span className={styles.toastBookIcon}>&#128214;</span>
+						<p className={styles.toastText}>{lockedToast}</p>
+					</motion.div>
+				)}
+			</AnimatePresence>
+
+			{/* Celebration modal si venimos de completar un mundo */}
+			{showCelebration && locState && (
+				<CelebrationModal
+					guardianEmoji={locState.guardianEmoji ?? '&#11088;'}
+					guardianName={locState.guardianName ?? 'Guardian'}
+					worldTitle={locState.worldTitle ?? 'Mundo'}
+					isWorldComplete
+					onContinue={handleCelebrationContinue}
+				/>
+			)}
 		</div>
 		</>
 	);
