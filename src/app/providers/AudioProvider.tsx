@@ -5,6 +5,8 @@ interface AudioContextType {
 	playSound: (soundId: string) => void;
 	playVoice: (text: string, lang?: string) => void;
 	playNarrative: (audioUrl: string) => Promise<void>;
+	playWord: (englishWord: string) => void;
+	playFeedback: (type: 'correct' | 'wrong' | 'complete' | 'star') => void;
 	stopAllSounds: () => void;
 	playMusic: (musicId: string) => void;
 	stopMusic: () => void;
@@ -55,16 +57,24 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
 	);
 
 	const playNarrative = useCallback(
-		async (audioUrl: string): Promise<void> => {
-			if (!voiceEnabled) return;
+		(audioUrl: string): Promise<void> => {
+			if (!voiceEnabled) return Promise.resolve();
 			stopAllSounds();
-			try {
-				const audio = new Audio(audioUrl.startsWith('/') ? audioUrl : `/${audioUrl}`);
-				audio.playbackRate = voiceSpeed;
-				await audio.play();
-			} catch {
-				// Autoplay blocked or file not found
-			}
+			return new Promise<void>((resolve) => {
+				try {
+					const audio = new Audio(audioUrl.startsWith('/') ? audioUrl : `/${audioUrl}`);
+					audio.playbackRate = voiceSpeed;
+					activeSoundsRef.current.push(audio);
+					audio.onended = () => {
+						activeSoundsRef.current = activeSoundsRef.current.filter((a) => a !== audio);
+						resolve();
+					};
+					audio.onerror = () => resolve();
+					audio.play().catch(() => resolve());
+				} catch {
+					resolve();
+				}
+			});
 		},
 		[voiceEnabled, voiceSpeed, stopAllSounds]
 	);
@@ -76,6 +86,38 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
 			playNarrative(`/assets/audio/voices/${voiceFile}.mp3`);
 		},
 		[voiceEnabled, playNarrative]
+	);
+
+	const playWord = useCallback(
+		(englishWord: string) => {
+			if (!voiceEnabled) return;
+			const key = englishWord.toLowerCase().replace(/\s+/g, '_');
+			const audio = new Audio(`/assets/audio/voices/words/${key}.mp3`);
+			audio.playbackRate = voiceSpeed;
+			activeSoundsRef.current.push(audio);
+			audio.play().catch(() => {});
+			audio.onended = () => {
+				activeSoundsRef.current = activeSoundsRef.current.filter((a) => a !== audio);
+			};
+		},
+		[voiceEnabled, voiceSpeed]
+	);
+
+	const playFeedback = useCallback(
+		(type: 'correct' | 'wrong' | 'complete' | 'star') => {
+			if (!soundEffectsEnabled) return;
+			try {
+				const audio = new Audio(`/assets/audio/sfx/${type}.mp3`);
+				activeSoundsRef.current.push(audio);
+				audio.play().catch(() => {});
+				audio.onended = () => {
+					activeSoundsRef.current = activeSoundsRef.current.filter((a) => a !== audio);
+				};
+			} catch {
+				// ignore
+			}
+		},
+		[soundEffectsEnabled]
 	);
 
 	const playMusic = useCallback(
@@ -110,6 +152,8 @@ export const AudioProvider: React.FC<AudioProviderProps> = ({ children }) => {
 		playSound,
 		playVoice,
 		playNarrative,
+		playWord,
+		playFeedback,
 		stopAllSounds,
 		playMusic,
 		stopMusic,

@@ -71,7 +71,7 @@ export const LandingPage: React.FC = () => {
             <span className={styles.bullet}>●</span> COMENZAR
           </Button>
 
-          <SoundButton size={70} />
+          <SoundButton size={70} audioSrc="/assets/audio/voices/landing/landing_hero.mp3" />
         </div>
       </motion.div>
     </div>
@@ -102,7 +102,7 @@ export const LandingPage: React.FC = () => {
                   <br />
                   mientras aprendes inglés.
                 </p>
-                <SoundButton size={45} />
+                <SoundButton size={45} audioSrc="/assets/audio/voices/landing/landing_adventures.mp3" />
               </div>
 
               <div className={styles.item}>
@@ -116,7 +116,7 @@ export const LandingPage: React.FC = () => {
                   <br />
                   y mide tu avance.
                 </p>
-                <SoundButton size={45} />
+                <SoundButton size={45} audioSrc="/assets/audio/voices/landing/landing_progress.mp3" />
               </div>
             </div>
 
@@ -144,7 +144,7 @@ export const LandingPage: React.FC = () => {
                   <br />
                   artículos especiales.
                 </p>
-                <SoundButton size={45} />
+                <SoundButton size={45} audioSrc="/assets/audio/voices/landing/landing_rewards.mp3" />
               </div>
 
               <div className={styles.item}>
@@ -158,7 +158,7 @@ export const LandingPage: React.FC = () => {
                   <br />
                   diseñadas para niños.
                 </p>
-                <SoundButton size={45} />
+                <SoundButton size={45} audioSrc="/assets/audio/voices/landing/landing_learn.mp3" />
               </div>
             </div>
           </div>

@@ -20,6 +20,23 @@
   justify-content: space-between;
   overflow: hidden;
   font-family: 'Arial', sans-serif;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 0.6s ease;
+}
+
+.page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    180deg,
+    rgba(168, 216, 240, 0.55) 0%,
+    rgba(91, 141, 190, 0.45) 100%
+  );
+  z-index: 0;
+  pointer-events: none;
 }
 
 /* ===== FONDO CON DECORACIONES ===== */

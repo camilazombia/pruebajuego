@@ -56,6 +56,10 @@ const ChapterMapPage: React.FC = () => {
 		isWorldComplete: boolean;
 	} | null>(null);
 
+	const [showChapterVideo, setShowChapterVideo] = useState(false);
+	const [chapterVideoSrc, setChapterVideoSrc] = useState<string | null>(null);
+	const shownVideos = useRef<Set<string>>(new Set());
+
 	const [sequencePhase, setSequencePhase] = useState<SequencePhase>('idle');
 	const [avatarPos, setAvatarPos] = useState<{ x: number; y: number } | null>(null);
 	const [showDialogue, setShowDialogue] = useState(false);
@@ -86,6 +90,20 @@ const ChapterMapPage: React.FC = () => {
 	const handleCelebrationContinue = () => {
 		setShowCelebration(false);
 		setCelebrationData(null);
+
+		if (guardianCured && state?.nextWorldId) {
+			navigate(`/chapters/${state.nextWorldId}`, { replace: true, state: {} });
+			return;
+		}
+		if (advanceToChapter && worldId) {
+			const chs = getChaptersWithProgress(worldId);
+			const nextIdx = chs.findIndex((c) => c.id === advanceToChapter);
+			if (nextIdx >= 0) {
+				setCurrentChapterNumber(nextIdx + 1);
+			}
+			navigate(`/chapters/${worldId}`, { replace: true, state: {} });
+			return;
+		}
 		if (worldId) {
 			navigate(`/chapters/${worldId}`, { replace: true, state: {} });
 		}
@@ -163,6 +181,25 @@ const ChapterMapPage: React.FC = () => {
 		if (worldId) navigate(`/chapters/${worldId}`, { replace: true, state: {} });
 	};
 
+	// Mostrar video intro cuando se entra a un capítulo nuevo (sin niveles completados)
+	useEffect(() => {
+		if (!worldId || justCompletedLevel || showCelebration) return;
+		const chs = getChaptersWithProgress(worldId);
+		const ch = chs[currentChapterNumber - 1];
+		if (!ch) return;
+
+		if (shownVideos.current.has(ch.id)) return;
+
+		const lvls = getLevelsWithProgress(ch.id);
+		const hasCompletedAny = lvls.some((l) => l.completed);
+		if (!hasCompletedAny) {
+			shownVideos.current.add(ch.id);
+			const videoPath = `/assets/videos/${worldId}/${ch.id}_intro.mp4`;
+			setChapterVideoSrc(videoPath);
+			setShowChapterVideo(true);
+		}
+	}, [worldId, currentChapterNumber, justCompletedLevel, showCelebration]);
+
 	if (!worldId) {
 		return <div className={styles.page}>Mundo no encontrado</div>;
 	}
@@ -187,12 +224,16 @@ const ChapterMapPage: React.FC = () => {
 
 	const handlePrevChapter = () => {
 		if (currentChapterNumber > 1) {
+			setAvatarPos(null);
+			setSequencePhase('idle');
 			setCurrentChapterNumber(currentChapterNumber - 1);
 		}
 	};
 
 	const handleNextChapter = () => {
 		if (currentChapterNumber < chapters.length) {
+			setAvatarPos(null);
+			setSequencePhase('idle');
 			setCurrentChapterNumber(currentChapterNumber + 1);
 		}
 	};
@@ -209,7 +250,12 @@ const ChapterMapPage: React.FC = () => {
 	return (
 		<>
 			<OrientationAlert />
-			<div className={styles.page}>
+			<div
+				className={styles.page}
+				style={{
+					backgroundImage: `url(/assets/images/backgrounds/${chapter.id}.jpg)`,
+				}}
+			>
 			<header className={styles.header}>
 				<ArrowButton
 					direction="left"
@@ -231,6 +277,19 @@ const ChapterMapPage: React.FC = () => {
 					disabled={currentChapterNumber === chapters.length}
 					aria-label="Capítulo siguiente"
 				/>
+
+				<button
+					className={styles.videoReplayButton}
+					onClick={() => {
+						const src = `/assets/videos/${worldId}/${chapter.id}_intro.mp4`;
+						setChapterVideoSrc(src);
+						setShowChapterVideo(true);
+					}}
+					aria-label="Ver video del capítulo"
+				>
+					🎬 Video
+				</button>
+
 				<button
 					className={styles.missionsButton}
 					onClick={() => navigate(`/missions/${worldId}`)}
@@ -351,6 +410,43 @@ const ChapterMapPage: React.FC = () => {
 				onContinue={handleCelebrationContinue}
 			/>
 		)}
+
+		{/* Video introductorio del capítulo */}
+		<AnimatePresence>
+			{showChapterVideo && chapterVideoSrc && (
+				<motion.div
+					className={styles.videoOverlay}
+					initial={{ opacity: 0 }}
+					animate={{ opacity: 1 }}
+					exit={{ opacity: 0 }}
+				>
+					<motion.div
+						className={styles.videoCard}
+						initial={{ scale: 0.8, opacity: 0 }}
+						animate={{ scale: 1, opacity: 1 }}
+						exit={{ scale: 0.8, opacity: 0 }}
+					>
+						<h2 className={styles.videoTitle}>
+							Capítulo {chapter.number}: {chapter.title}
+						</h2>
+						<video
+							className={styles.videoPlayer}
+							src={chapterVideoSrc}
+							controls
+							autoPlay
+							controlsList="nodownload"
+							onEnded={() => setShowChapterVideo(false)}
+						/>
+						<button
+							className={styles.skipButton}
+							onClick={() => setShowChapterVideo(false)}
+						>
+							¡Estoy listo, vamos! →
+						</button>
+					</motion.div>
+				</motion.div>
+			)}
+		</AnimatePresence>
 	</div>
 	</>
 	);

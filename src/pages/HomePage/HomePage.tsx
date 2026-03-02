@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '../../shared/ui/Button/Button';
@@ -6,19 +6,35 @@ import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAl
 import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
 import { useAgeAdaptation } from '../../features/child/hooks/useAgeAdaptation';
 import { useAvatar } from '../../app/providers/AvatarProvider';
+import { useProgressStore } from '../../features/progress/store/progressStore';
+import { WORLDS } from '../../shared/data/worlds';
 import styles from './HomePage.module.css';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
   const { animationSpeed } = useAgeAdaptation();
   const { avatarState } = useAvatar();
-  const [coins] = useState(100);
-  const [progress] = useState({ current: 1, total: 10 });
+  const { unlockedWorlds, completedWorlds, magicCoins } = useProgressStore();
+
+  const currentWorld = useMemo(() => {
+    const sorted = WORLDS
+      .filter((w) => unlockedWorlds.includes(w.id))
+      .sort((a, b) => b.number - a.number);
+    return sorted[0] || WORLDS[0];
+  }, [unlockedWorlds]);
+
+  const bgChapterId = `${currentWorld.id}_chapter_1`;
+  const worldsCompleted = completedWorlds.length;
 
   return (
     <>
       <OrientationAlert />
-      <div className={styles.page}>
+      <div
+        className={styles.page}
+        style={{
+          backgroundImage: `url(/assets/images/backgrounds/${bgChapterId}.jpg)`,
+        }}
+      >
 
       {/* ===== INDICADORES SUPERIORES ===== */}
       <div className={styles.topIndicators}>
@@ -27,7 +43,7 @@ export const HomePage: React.FC = () => {
           <span className={`material-symbols-outlined ${styles.indicatorIcon}`}>
             paid
           </span>
-          <span className={styles.indicatorText}>{coins}</span>
+          <span className={styles.indicatorText}>{magicCoins}</span>
         </div>
 
         {/* Mundos Completados */}
@@ -35,7 +51,7 @@ export const HomePage: React.FC = () => {
           <span className={`material-symbols-outlined ${styles.indicatorIcon} ${styles.worldIcon}`}>
             public
           </span>
-          <span className={styles.indicatorText}>{progress.current}/{progress.total}</span>
+          <span className={styles.indicatorText}>{worldsCompleted}/{WORLDS.length}</span>
         </div>
       </div>
 

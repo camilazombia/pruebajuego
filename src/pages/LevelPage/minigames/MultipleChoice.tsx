@@ -1,7 +1,6 @@
-// Placeholder de mini‑juego de elección múltiple para Mundo Mágico Inglés.
-// Sin scoring real; sirve como actividad interactiva básica.
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useAudio } from '../../../app/providers/AudioProvider';
 import styles from './MiniGames.module.css';
 
 import type { MiniGameWord } from './DragAndDropWords';
@@ -12,11 +11,36 @@ interface MultipleChoiceProps {
 }
 
 export const MultipleChoice: React.FC<MultipleChoiceProps> = ({ words, onComplete }) => {
+	const { playWord, playFeedback, playNarrative } = useAudio();
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
 	const [completed, setCompleted] = useState(false);
+	const [ready, setReady] = useState(false);
+	const initRef = useRef(false);
 
 	const current = words[currentIndex];
+
+	useEffect(() => {
+		if (initRef.current) return;
+		initRef.current = true;
+		playNarrative('/assets/audio/voices/instructions/multiple_choice.mp3')
+			.then(() => {
+				setReady(true);
+				playWord(words[0].english);
+			})
+			.catch(() => {
+				setReady(true);
+				playWord(words[0].english);
+			});
+	}, []);
+
+	useEffect(() => {
+		if (!ready || currentIndex === 0) return;
+		if (current) {
+			const timer = setTimeout(() => playWord(current.english), 300);
+			return () => clearTimeout(timer);
+		}
+	}, [currentIndex, ready]);
 
 	const buildOptions = () => {
 		const wrongs = words.filter((w) => w.spanish !== current.spanish).slice(0, 2);
@@ -25,19 +49,30 @@ export const MultipleChoice: React.FC<MultipleChoiceProps> = ({ words, onComplet
 	};
 
 	const handleOption = (spanish: string) => {
+		if (completed) return;
+
 		if (spanish === current.spanish) {
-			const nextIndex = currentIndex + 1;
-			if (nextIndex >= words.length) {
-				if (!completed) {
-					setCompleted(true);
-					onComplete();
-				}
-			} else {
-				setCurrentIndex(nextIndex);
-			}
 			setFeedback('correct');
+			playFeedback('correct');
+			playWord(current.english);
+			const nextIndex = currentIndex + 1;
+
+			setTimeout(() => {
+				if (nextIndex >= words.length) {
+					if (!completed) {
+						setCompleted(true);
+						playFeedback('star');
+						onComplete();
+					}
+				} else {
+					setCurrentIndex(nextIndex);
+					setFeedback(null);
+				}
+			}, 1200);
 		} else {
 			setFeedback('wrong');
+			playFeedback('wrong');
+			setTimeout(() => setFeedback(null), 1000);
 		}
 	};
 
@@ -47,6 +82,15 @@ export const MultipleChoice: React.FC<MultipleChoiceProps> = ({ words, onComplet
 			<p className={styles.gameSubtitle}>
 				¿Qué significa <strong>{current.english}</strong>?
 			</p>
+
+			<button
+				type="button"
+				onClick={() => playWord(current.english)}
+				className={styles.audioButtonSmall}
+				aria-label="Escuchar palabra"
+			>
+				🔊 Escuchar
+			</button>
 
 			<div className={styles.optionsGrid}>
 				{buildOptions().map((opt) => (
@@ -94,4 +138,3 @@ export const MultipleChoice: React.FC<MultipleChoiceProps> = ({ words, onComplet
 		</div>
 	);
 };
-

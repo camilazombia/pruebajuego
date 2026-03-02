@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import styles from './CelebrationModal.module.css';
 
@@ -43,6 +43,18 @@ export const CelebrationModal: React.FC<CelebrationModalProps> = ({
 }) => {
 	const [confetti] = useState(() => generateConfetti(40));
 	const [visible, setVisible] = useState(true);
+	const audioPlayed = useRef(false);
+
+	useEffect(() => {
+		if (!audioPlayed.current) {
+			audioPlayed.current = true;
+			const src = isWorldComplete
+				? '/assets/audio/sfx/world_complete.mp3'
+				: '/assets/audio/sfx/chapter_complete.mp3';
+			const audio = new Audio(src);
+			audio.play().catch(() => {});
+		}
+	}, [isWorldComplete]);
 
 	useEffect(() => {
 		const handleEsc = (e: KeyboardEvent) => {

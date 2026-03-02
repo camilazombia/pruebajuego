@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useMemo, useRef } from 'react';
 import { motion } from 'framer-motion';
 import { useAudio } from '../../../app/providers/AudioProvider';
 import styles from './MiniGames.module.css';
@@ -15,26 +15,45 @@ interface DragAndDropWordsProps {
 }
 
 export const DragAndDropWords: React.FC<DragAndDropWordsProps> = ({ words, onComplete }) => {
-	const { playNarrative } = useAudio();
+	const { playWord, playFeedback, playNarrative } = useAudio();
 	const [matches, setMatches] = useState<Record<string, string>>({});
 	const [completed, setCompleted] = useState(false);
+	const initRef = useRef(false);
 
-	const playWordAudio = (english: string) => {
-		const audioKey = `word_${english.replace(/\s+/g, '')}`;
-		playNarrative(`/assets/audio/voices/${audioKey}.mp3`).catch(() => {});
-	};
+	const shuffledSpanish = useMemo(
+		() => words.map((w) => ({ english: w.english, spanish: w.spanish, emoji: w.emoji }))
+			.sort(() => Math.random() - 0.5),
+		[words],
+	);
 
-	const handleDrop = (english: string, spanish: string) => {
-		const isCorrect = words.find((w) => w.english === english)?.spanish === spanish;
+	useEffect(() => {
+		if (initRef.current) return;
+		initRef.current = true;
+		playNarrative('/assets/audio/voices/instructions/drag_and_drop.mp3').catch(() => {});
+	}, []);
+
+	const handleDrop = (targetEnglish: string, draggedEnglish: string) => {
+		const draggedWord = words.find((w) => w.english === draggedEnglish);
+		const targetWord = words.find((w) => w.english === targetEnglish);
+		if (!draggedWord || !targetWord) return;
+
+		const isCorrect = draggedWord.spanish === targetWord.spanish
+			&& draggedEnglish === targetEnglish;
+
 		if (isCorrect) {
-			playWordAudio(english);
+			playFeedback('correct');
+			setTimeout(() => playWord(targetEnglish), 300);
+		} else {
+			playFeedback('wrong');
 		}
 
 		setMatches((prev) => {
-			const next = { ...prev, [english]: spanish };
-			const allMatched = words.every((w) => next[w.english] === w.spanish);
+			if (!isCorrect) return prev;
+			const next = { ...prev, [targetEnglish]: draggedEnglish };
+			const allMatched = words.every((w) => next[w.english]);
 			if (allMatched && !completed) {
 				setCompleted(true);
+				setTimeout(() => playFeedback('star'), 500);
 				onComplete();
 			}
 			return next;
@@ -46,24 +65,27 @@ export const DragAndDropWords: React.FC<DragAndDropWordsProps> = ({ words, onCom
 			<h2 className={styles.gameTitle}>Une la palabra en inglés con su pareja en español</h2>
 			<div className={styles.dragDropLayout}>
 				<ul className={styles.dragColumn} aria-label="Palabras en español">
-					{words.map((word) => (
-						<li
-							key={word.spanish}
-							className={styles.draggableItem}
-							draggable
-							onDragStart={(e) => {
-								e.dataTransfer.setData('text/plain', word.spanish);
-							}}
-						>
-							<span className={styles.emoji}>{word.emoji}</span>
-							<span>{word.spanish}</span>
-						</li>
-					))}
+					{shuffledSpanish.map((word) => {
+						const alreadyMatched = !!matches[word.english];
+						return (
+							<li
+								key={word.english}
+								className={`${styles.draggableItem} ${alreadyMatched ? styles.draggableMatched : ''}`}
+								draggable={!alreadyMatched}
+								onDragStart={(e) => {
+									e.dataTransfer.setData('text/plain', word.english);
+								}}
+							>
+								<span className={styles.emoji}>{word.emoji}</span>
+								<span>{word.spanish}</span>
+							</li>
+						);
+					})}
 				</ul>
 
 				<ul className={styles.dropColumn} aria-label="Palabras en inglés">
 					{words.map((word) => {
-						const matched = matches[word.english] === word.spanish;
+						const matched = !!matches[word.english];
 						return (
 							<li
 								key={word.english}
@@ -71,12 +93,16 @@ export const DragAndDropWords: React.FC<DragAndDropWordsProps> = ({ words, onCom
 								onDragOver={(e) => e.preventDefault()}
 								onDrop={(e) => {
 									e.preventDefault();
-									const spanish = e.dataTransfer.getData('text/plain');
-									handleDrop(word.english, spanish);
+									const draggedEnglish = e.dataTransfer.getData('text/plain');
+									handleDrop(word.english, draggedEnglish);
 								}}
 							>
 								<span className={styles.englishLabel}>{word.english}</span>
-								{matched && <span className={styles.matchBadge}>✓ {matches[word.english]}</span>}
+								{matched && (
+									<span className={styles.matchBadge}>
+										✓ {words.find((w) => w.english === matches[word.english])?.spanish}
+									</span>
+								)}
 							</li>
 						);
 					})}
@@ -95,4 +121,3 @@ export const DragAndDropWords: React.FC<DragAndDropWordsProps> = ({ words, onCom
 		</div>
 	);
 };
-

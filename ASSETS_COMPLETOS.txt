@@ -1,0 +1,483 @@
+================================================================================
+ASSETS_COMPLETOS.txt — Mundo Mágico Inglés
+Lista completa de TODOS los assets necesarios: Audio, Video, Imágenes
+================================================================================
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECCIÓN 1: AUDIOS DE EFECTOS DE SONIDO (SFX)
+Carpeta: public/assets/audio/sfx/
+════════════════════════════════════════════════════════════════════════════════
+
+Archivo                  | Descripción / Contenido
+-------------------------|----------------------------------------------------
+correct.mp3              | Sonido corto de acierto (ding/campana alegre, 1-2 seg)
+wrong.mp3                | Sonido corto de error (boop suave, no agresivo, 1 seg)
+star.mp3                 | Sonido de estrella ganada / nivel completado (brillo mágico, 2-3 seg)
+complete.mp3             | Sonido genérico de completar actividad (fanfarria corta, 2 seg)
+chapter_complete.mp3     | Fanfarria de capítulo completado (triunfal, 4-5 seg)
+world_complete.mp3       | Fanfarria de mundo completado (épica, 5-7 seg)
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECCIÓN 2: AUDIOS DE INSTRUCCIONES DE MINIJUEGOS
+Carpeta: public/assets/audio/voices/instructions/
+Idioma: Español (voz amigable de niño/a o personaje infantil)
+════════════════════════════════════════════════════════════════════════════════
+
+Archivo                    | Texto que debe decir (en español)
+---------------------------|----------------------------------------------------
+listen_and_choose.mp3      | "¡Escucha la palabra y elige la imagen correcta!"
+drag_and_drop.mp3          | "¡Arrastra cada palabra en español a su pareja en inglés!"
+multiple_choice.mp3        | "¡Elige la respuesta correcta! ¿Qué significa esta palabra?"
+select_words.mp3           | "¡Toca la palabra correcta en inglés!"
+build_phrase.mp3           | "¡Pon las palabras en orden para construir la frase!"
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECCIÓN 3: AUDIOS DE PALABRAS INDIVIDUALES (pronunciación en INGLÉS)
+Carpeta: public/assets/audio/voices/words/
+Cada archivo = la palabra pronunciada en inglés claramente
+════════════════════════════════════════════════════════════════════════════════
+
+--- MUNDO 1: Fundamentos Mágicos ---
+
+Capítulo 1 - Magic Greetings:
+  hello.mp3               → "Hello"
+  hi.mp3                  → "Hi"
+  goodbye.mp3             → "Goodbye"
+  good_morning.mp3        → "Good morning"
+  good_night.mp3          → "Good night"
+
+Capítulo 2 - Color Spells:
+  red.mp3                 → "Red"
+  blue.mp3                → "Blue"
+  yellow.mp3              → "Yellow"
+  green.mp3               → "Green"
+  orange.mp3              → "Orange"
+
+Capítulo 3 - Magic Toys:
+  ball.mp3                → "Ball"
+  doll.mp3                → "Doll"
+  car.mp3                 → "Car"
+  toy.mp3                 → "Toy"
+  teddy_bear.mp3          → "Teddy bear"
+
+Capítulo 4 - Family Charms:
+  mom.mp3                 → "Mom"
+  dad.mp3                 → "Dad"
+  sister.mp3              → "Sister"
+  brother.mp3             → "Brother"
+  baby.mp3                → "Baby"
+
+Capítulo 5 - Cozy Room:
+  bed.mp3                 → "Bed"
+  chair.mp3               → "Chair"
+  table.mp3               → "Table"
+  lamp.mp3                → "Lamp"
+  window.mp3              → "Window"
+
+
+--- MUNDO 2: Aventuras en la Ciudad ---
+
+Capítulo 1 - At the Park:
+  park.mp3                → "Park"
+  swing.mp3               → "Swing"
+  slide.mp3               → "Slide"
+  tree.mp3                → "Tree"
+  bench.mp3               → "Bench"
+
+Capítulo 2 - On the Street:
+  bus.mp3                 → "Bus"
+  street.mp3              → "Street"
+  traffic_light.mp3       → "Traffic light"
+  crosswalk.mp3           → "Crosswalk"
+  (car.mp3 ya existe del cap 3 mundo 1)
+
+Capítulo 3 - At School:
+  school.mp3              → "School"
+  teacher.mp3             → "Teacher"
+  book.mp3                → "Book"
+  pencil.mp3              → "Pencil"
+  desk.mp3                → "Desk"
+
+Capítulo 4 - At the Store:
+  apple.mp3               → "Apple"
+  banana.mp3              → "Banana"
+  store.mp3               → "Store"
+  milk.mp3                → "Milk"
+  (orange.mp3 ya existe del cap 2 mundo 1)
+
+Capítulo 5 - In the House:
+  kitchen.mp3             → "Kitchen"
+  bedroom.mp3             → "Bedroom"
+  bathroom.mp3            → "Bathroom"
+  living_room.mp3         → "Living room"
+  garden.mp3              → "Garden"
+
+
+--- MUNDO 3: Exploradores Globales ---
+
+Capítulo 1 - Countries & Flags:
+  country.mp3             → "Country"
+  flag.mp3                → "Flag"
+  world.mp3               → "World"
+  map.mp3                 → "Map"
+  continent.mp3           → "Continent"
+
+Capítulo 2 - World Foods:
+  pizza.mp3               → "Pizza"
+  sushi.mp3               → "Sushi"
+  taco.mp3                → "Taco"
+  pasta.mp3               → "Pasta"
+  burger.mp3              → "Burger"
+
+Capítulo 3 - Travel Gear:
+  suitcase.mp3            → "Suitcase"
+  passport.mp3            → "Passport"
+  ticket.mp3              → "Ticket"
+  camera.mp3              → "Camera"
+  (map.mp3 ya existe del cap 1 mundo 3)
+
+Capítulo 4 - Transport Around:
+  plane.mp3               → "Plane"
+  train.mp3               → "Train"
+  ship.mp3                → "Ship"
+  bike.mp3                → "Bike"
+  (car.mp3 ya existe)
+
+Capítulo 5 - Weather Zones:
+  sunny.mp3               → "Sunny"
+  rainy.mp3               → "Rainy"
+  snowy.mp3               → "Snowy"
+  cloudy.mp3              → "Cloudy"
+  windy.mp3               → "Windy"
+
+TOTAL PALABRAS ÚNICAS: ~65 archivos MP3
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECCIÓN 4: AUDIOS DE FRASES (pronunciación en INGLÉS)
+Carpeta: public/assets/audio/voices/phrases/
+Nombre = frase en minúsculas con _ en vez de espacios
+════════════════════════════════════════════════════════════════════════════════
+
+--- MUNDO 1 ---
+hello_!.mp3                          → "Hello!"
+goodbye_!.mp3                        → "Goodbye!"
+good_night_!.mp3                     → "Good night!"
+the_apple_is_red.mp3                 → "The apple is red"
+the_sky_is_blue.mp3                  → "The sky is blue"
+i_have_a_ball.mp3                    → "I have a ball"
+this_is_my_toy.mp3                   → "This is my toy"
+i_love_my_mom.mp3                    → "I love my mom"
+this_is_my_dad.mp3                   → "This is my dad"
+my_bed_is_here.mp3                   → "My bed is here"
+i_sit_on_the_chair.mp3               → "I sit on the chair"
+
+--- MUNDO 2 ---
+i_play_at_the_park.mp3               → "I play at the park"
+the_swing_is_fun.mp3                 → "The swing is fun"
+i_see_a_car.mp3                      → "I see a car"
+the_bus_is_big.mp3                   → "The bus is big"
+i_go_to_school.mp3                   → "I go to school"
+my_teacher_is_nice.mp3               → "My teacher is nice"
+i_buy_an_apple.mp3                   → "I buy an apple"
+the_store_has_food.mp3               → "The store has food"
+i_cook_in_the_kitchen.mp3            → "I cook in the kitchen"
+i_sleep_in_my_bedroom.mp3            → "I sleep in my bedroom"
+
+--- MUNDO 3 ---
+i_see_many_countries.mp3             → "I see many countries"
+each_country_has_a_flag.mp3          → "Each country has a flag"
+i_like_pizza.mp3                     → "I like pizza"
+sushi_is_from_japan.mp3              → "Sushi is from Japan"
+i_pack_my_suitcase.mp3               → "I pack my suitcase"
+i_need_my_passport.mp3               → "I need my passport"
+i_fly_on_a_plane.mp3                 → "I fly on a plane"
+the_train_is_fast.mp3                → "The train is fast"
+today_is_sunny.mp3                   → "Today is sunny"
+it_is_rainy_today.mp3                → "It is rainy today"
+
+TOTAL FRASES: ~31 archivos MP3
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECCIÓN 5: VIDEOS INTRODUCTORIOS POR CAPÍTULO
+Carpeta: public/assets/videos/{world_id}/
+Formato: MP4, resolución 1280x720 (16:9), duración 20-40 segundos
+════════════════════════════════════════════════════════════════════════════════
+
+Cada video es una animación/explicación corta para niños que introduce el tema
+del capítulo. A continuación el contenido y el PROMPT para generar cada video con IA:
+
+--- MUNDO 1: El Bosque Mágico ---
+
+📁 public/assets/videos/world_1/world_1_chapter_1_intro.mp4
+Tema: Magic Greetings (Saludos mágicos)
+Prompt para IA:
+"Animated video for kids aged 3-7, colorful magical forest setting.
+A cute fairy named Sparkle appears and waves. She says 'Hello! Hi! Goodbye!'
+while magical sparkles appear with each word. The forest trees light up as
+she speaks. Style: 2D cartoon, bright colors, no text needed. 20-30 seconds.
+Background music: cheerful and magical. Language: English with slow clear speech."
+
+📁 public/assets/videos/world_1/world_1_chapter_2_intro.mp4
+Tema: Color Spells (Hechizos de colores)
+Prompt para IA:
+"Animated video for kids aged 3-7, magical forest. Sparkle the fairy touches
+flowers that are grey and says color names: 'Red! Blue! Yellow!' Each flower
+bursts into that color with magical particles. Style: 2D cartoon, vivid colors,
+enchanting. 20-30 seconds. Music: whimsical and magical."
+
+📁 public/assets/videos/world_1/world_1_chapter_3_intro.mp4
+Tema: Magic Toys (Juguetes mágicos)
+Prompt para IA:
+"Animated video for kids. Inside a magical toy workshop in the forest.
+Sparkle waves her wand at frozen toys: a ball, doll, car. She says each name
+and they come alive and start bouncing/moving. Style: 2D cartoon, playful.
+20-30 seconds. Music: fun and bouncy."
+
+📁 public/assets/videos/world_1/world_1_chapter_4_intro.mp4
+Tema: Family Charms (Hechizos familiares)
+Prompt para IA:
+"Animated video for kids. A magical family photo frame in the forest.
+Sparkle points at each silhouette: 'Mom! Dad! Sister! Brother!' Each one
+fills with color and waves. Warm family atmosphere. Style: 2D cartoon, soft
+warm colors. 20-30 seconds. Music: gentle and heartwarming."
+
+📁 public/assets/videos/world_1/world_1_chapter_5_intro.mp4
+Tema: Cozy Room (Habitación acogedora)
+Prompt para IA:
+"Animated video for kids. A cozy magical bedroom in a treehouse.
+Sparkle flies through the room pointing at things: 'Bed! Chair! Table! Lamp!'
+Each item glows when named. Style: 2D cartoon, cozy nighttime colors with warm
+lighting. 20-30 seconds. Music: soft lullaby-like."
+
+
+--- MUNDO 2: Aventuras en la Ciudad ---
+
+📁 public/assets/videos/world_2/world_2_chapter_1_intro.mp4
+Tema: At the Park (En el parque)
+Prompt para IA:
+"Animated video for kids. A bear named Benji arrives at a colorful city park.
+He sees swings, slides, trees. He says: 'Park! Swing! Slide!' while playing on
+each one. Style: 2D cartoon, bright outdoors. 20-30 seconds. Music: upbeat."
+
+📁 public/assets/videos/world_2/world_2_chapter_2_intro.mp4
+Tema: On the Street (En la calle)
+Prompt para IA:
+"Animated video for kids. Benji the bear walks along a busy cartoon street.
+Cars, buses, traffic lights. He says: 'Car! Bus! Street!' and waves at
+vehicles. A traffic light changes colors. Style: 2D cartoon, urban setting.
+20-30 seconds. Music: city sounds mixed with fun music."
+
+📁 public/assets/videos/world_2/world_2_chapter_3_intro.mp4
+Tema: At School (En la escuela)
+Prompt para IA:
+"Animated video for kids. Benji the bear enters a colorful school.
+He sees books, a teacher, pencils. He says: 'School! Teacher! Book!' while
+exploring the classroom. Style: 2D cartoon, school setting. 20-30 seconds.
+Music: learning/adventure theme."
+
+📁 public/assets/videos/world_2/world_2_chapter_4_intro.mp4
+Tema: At the Store (En la tienda)
+Prompt para IA:
+"Animated video for kids. Benji the bear visits a fruit store/supermarket.
+Colorful fruits everywhere. He picks up items: 'Apple! Banana! Orange!'
+Style: 2D cartoon, supermarket with lots of colors. 20-30 seconds.
+Music: shopping/fun theme."
+
+📁 public/assets/videos/world_2/world_2_chapter_5_intro.mp4
+Tema: In the House (En la casa)
+Prompt para IA:
+"Animated video for kids. Benji the bear comes home to a cozy house.
+He walks through rooms: 'Kitchen! Bedroom! Bathroom!' Each room lights up
+warmly. Style: 2D cartoon, home setting, warm colors. 20-30 seconds.
+Music: home/cozy theme."
+
+
+--- MUNDO 3: Exploradores Globales ---
+
+📁 public/assets/videos/world_3/world_3_chapter_1_intro.mp4
+Tema: Countries & Flags (Países y banderas)
+Prompt para IA:
+"Animated video for kids. A digital fairy named Zoe floats above a world map.
+She points at different countries: 'Country! Flag! World!' Flags pop up and
+wave. Style: 2D cartoon, globe/map theme with bright colors. 20-30 seconds.
+Music: adventure/world theme."
+
+📁 public/assets/videos/world_3/world_3_chapter_2_intro.mp4
+Tema: World Foods (Comidas del mundo)
+Prompt para IA:
+"Animated video for kids. Zoe the fairy flies around the world visiting food.
+Italy=pizza, Japan=sushi, Mexico=taco. She says each food name while it
+appears with sparkles. Style: 2D cartoon, food art style. 20-30 seconds.
+Music: world cuisine fun theme."
+
+📁 public/assets/videos/world_3/world_3_chapter_3_intro.mp4
+Tema: Travel Gear (Equipo de viaje)
+Prompt para IA:
+"Animated video for kids. Zoe packs for a trip. She puts items in:
+'Suitcase! Passport! Ticket!' Each item flies into her bag with sparkles.
+Airport in the background. Style: 2D cartoon, travel theme. 20-30 seconds.
+Music: adventure/travel theme."
+
+📁 public/assets/videos/world_3/world_3_chapter_4_intro.mp4
+Tema: Transport Around (Transporte)
+Prompt para IA:
+"Animated video for kids. Zoe rides different vehicles around the world.
+'Plane! Train! Ship! Bike!' Each vehicle zooms past with fun effects.
+Style: 2D cartoon, dynamic movement. 20-30 seconds.
+Music: fast-paced adventure theme."
+
+📁 public/assets/videos/world_3/world_3_chapter_5_intro.mp4
+Tema: Weather Zones (Zonas del clima)
+Prompt para IA:
+"Animated video for kids. Zoe flies through different weather zones.
+Sun, rain, snow, clouds appear: 'Sunny! Rainy! Snowy! Cloudy!'
+Each zone has distinct visual style. Style: 2D cartoon, weather effects.
+20-30 seconds. Music: atmospheric/changing mood."
+
+TOTAL VIDEOS: 15 archivos MP4
+
+
+════════════════════════════════════════════════════════════════════════════════
+SECCIÓN 6: IMÁGENES DE FONDO POR CAPÍTULO
+Carpeta: public/assets/images/backgrounds/
+Formato: JPG o PNG, resolución 1920x1080 (16:9)
+Estilo: Ilustración cartoon tipo juego para niños (similar a Mario Bros)
+════════════════════════════════════════════════════════════════════════════════
+
+--- MUNDO 1: El Bosque Mágico ---
+Colores dominantes: verdes, dorados, púrpuras
+
+📁 public/assets/images/backgrounds/world_1_chapter_1.jpg
+Descripción: Bosque mágico con árboles brillantes y un camino iluminado. Hay
+hadas pequeñas volando. El sol intenta despertar (medio dormido). Flores
+abiertas y cerradas. Estilo: cartoon 2D, colores cálidos, fantasía.
+
+📁 public/assets/images/backgrounds/world_1_chapter_2.jpg
+Descripción: Bosque con flores de colores brillantes (rojas, azules, amarillas).
+Arcoíris parcial. Cristales de colores colgando de los árboles.
+Estilo: cartoon 2D, muy colorido, mágico.
+
+📁 public/assets/images/backgrounds/world_1_chapter_3.jpg
+Descripción: Taller de juguetes mágico en el bosque. Cajas de juguetes abiertas,
+pelotas flotando, muñecos animados, carros de juguete en estantes de madera.
+Estilo: cartoon 2D, cálido, fantasía.
+
+📁 public/assets/images/backgrounds/world_1_chapter_4.jpg
+Descripción: Claro del bosque con un árbol familiar gigante. Marcos de fotos
+mágicos colgando de las ramas. Luz cálida del atardecer.
+Estilo: cartoon 2D, cálido, emotivo.
+
+📁 public/assets/images/backgrounds/world_1_chapter_5.jpg
+Descripción: Interior de una casa del árbol acogedora. Cama, silla, mesa
+con lamparita. Ventana con vista al bosque de noche. Estrellas visibles.
+Estilo: cartoon 2D, nocturno acogedor.
+
+
+--- MUNDO 2: Aventuras en la Ciudad ---
+Colores dominantes: azules, naranjas, verdes
+
+📁 public/assets/images/backgrounds/world_2_chapter_1.jpg
+Descripción: Parque de ciudad colorido. Columpios, toboganes, árboles verdes,
+niños jugando (siluetas). Cielo azul con nubes esponjosas. Bancas.
+Estilo: cartoon 2D, alegre, urbano-natural.
+
+📁 public/assets/images/backgrounds/world_2_chapter_2.jpg
+Descripción: Calle de ciudad amigable para niños. Edificios coloridos bajos,
+semáforo grande, paso de cebra, autobús amarillo, carros pequeños.
+Estilo: cartoon 2D, urbano simplificado.
+
+📁 public/assets/images/backgrounds/world_2_chapter_3.jpg
+Descripción: Escuela cartoon. Edificio con campana, pizarra visible, libros,
+jardín escolar. Bandera y reloj en la torre.
+Estilo: cartoon 2D, escolar, acogedor.
+
+📁 public/assets/images/backgrounds/world_2_chapter_4.jpg
+Descripción: Tienda/supermercado colorido. Estantes con frutas, canastas,
+toldo a rayas. Manzanas, bananas, naranjas visibles.
+Estilo: cartoon 2D, mercado animado.
+
+📁 public/assets/images/backgrounds/world_2_chapter_5.jpg
+Descripción: Interior de una casa acogedora. Se ven: cocina con ollas
+humeantes, puerta al dormitorio con cama, puerta al baño con patito de goma.
+Estilo: cartoon 2D, hogar cálido.
+
+
+--- MUNDO 3: Exploradores Globales ---
+Colores dominantes: azules, púrpuras, dorados
+
+📁 public/assets/images/backgrounds/world_3_chapter_1.jpg
+Descripción: Mapa mundial gigante con países coloridos. Banderas pequeñas
+flotando. Globo terráqueo luminoso en el centro. Estrellas decorativas.
+Estilo: cartoon 2D, aventura global.
+
+📁 public/assets/images/backgrounds/world_3_chapter_2.jpg
+Descripción: Mesa larga con comidas del mundo: pizza italiana, sushi japonés,
+tacos mexicanos, pasta. Banderas de países junto a cada plato.
+Estilo: cartoon 2D, comida colorida.
+
+📁 public/assets/images/backgrounds/world_3_chapter_3.jpg
+Descripción: Aeropuerto cartoon con maletas, pasaportes, boletos. Aviones
+visibles por la ventana. Cinta transportadora de equipaje.
+Estilo: cartoon 2D, viaje/aventura.
+
+📁 public/assets/images/backgrounds/world_3_chapter_4.jpg
+Descripción: Paisaje con diferentes transportes: avión en el cielo, tren en
+vías, barco en el mar, bicicleta en el camino. Todo en escena panorámica.
+Estilo: cartoon 2D, dinámico, colorido.
+
+📁 public/assets/images/backgrounds/world_3_chapter_5.jpg
+Descripción: Cielo dividido en 4 cuadrantes: sol brillante, lluvia suave,
+nieve con copos, nubes con viento. Centro: reloj mágico dorado.
+Estilo: cartoon 2D, clima variado, fantástico.
+
+TOTAL FONDOS: 15 archivos JPG
+
+
+════════════════════════════════════════════════════════════════════════════════
+RESUMEN TOTAL DE ASSETS A CREAR
+════════════════════════════════════════════════════════════════════════════════
+
+Tipo            | Cantidad | Carpeta
+----------------|----------|------------------------------------------
+SFX             |    6     | public/assets/audio/sfx/
+Instrucciones   |    5     | public/assets/audio/voices/instructions/
+Palabras        |   ~65    | public/assets/audio/voices/words/
+Frases          |   ~31    | public/assets/audio/voices/phrases/
+Videos capítulo |   15     | public/assets/videos/world_{1,2,3}/
+Fondos          |   15     | public/assets/images/backgrounds/
+----------------|----------|------------------------------------------
+TOTAL           |  ~137    | archivos
+
+════════════════════════════════════════════════════════════════════════════════
+NOTAS IMPORTANTES
+════════════════════════════════════════════════════════════════════════════════
+
+1. AUDIOS DE PALABRAS: Usar ElevenLabs con voz clara, pronunciación lenta y
+   amigable en inglés. Ideal: voz infantil o voz femenina suave.
+
+2. AUDIOS DE FRASES: Misma voz que las palabras. Pronunciación completa de
+   la frase, pausada y clara.
+
+3. AUDIOS DE INSTRUCCIONES: En ESPAÑOL. Voz amigable que explique qué hacer.
+
+4. SFX: Pueden ser royalty-free de sitios como freesound.org o generados.
+   - correct.mp3: "ding" alegre
+   - wrong.mp3: "boop" suave (no aterrador para niños)
+   - star.mp3: sonido de estrella/brillo
+   - chapter_complete.mp3: fanfarria corta
+   - world_complete.mp3: fanfarria épica
+
+5. VIDEOS: Generarlos con IA (Runway, Pika, Sora) usando los prompts dados.
+   Formato MP4, 1280x720, 20-40 seg cada uno.
+
+6. FONDOS: Generarlos con IA (Midjourney, DALL-E, Leonardo.ai).
+   Resolución 1920x1080, estilo cartoon infantil consistente.
+
+7. Los archivos de audio existentes en public/assets/audio/voices/world_X/
+   (intro.mp3, chapter_X.mp3) siguen siendo usados por el sistema de
+   narrativa/diálogo en el ChapterMapPage. NO eliminar.

@@ -1,13 +1,12 @@
-// Minijuego de construir frases arrastrando palabras en orden
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useAudio } from '../../../app/providers/AudioProvider';
 import styles from './MiniGames.module.css';
 
 interface Phrase {
 	englishWords: string[];
 	spanish: string;
 	emoji?: string;
-	audioKey?: string;
 }
 
 interface BuildPhraseProps {
@@ -16,16 +15,30 @@ interface BuildPhraseProps {
 }
 
 export const BuildPhrase: React.FC<BuildPhraseProps> = ({ phrases, onComplete }) => {
+	const { playWord, playFeedback, playNarrative } = useAudio();
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [selectedOrder, setSelectedOrder] = useState<string[]>([]);
 	const [feedback, setFeedback] = useState<'correct' | 'wrong' | null>(null);
 	const [completed, setCompleted] = useState(false);
+	const [shuffledWords, setShuffledWords] = useState<string[]>([]);
+	const initRef = useRef(false);
 
 	const current = phrases[currentIndex];
-	const allWords = current.englishWords.slice().sort(() => Math.random() - 0.5);
+
+	useEffect(() => {
+		if (initRef.current) return;
+		initRef.current = true;
+		playNarrative('/assets/audio/voices/instructions/build_phrase.mp3').catch(() => {});
+	}, []);
+
+	useEffect(() => {
+		setShuffledWords(current.englishWords.slice().sort(() => Math.random() - 0.5));
+	}, [currentIndex]);
 
 	const handleWordClick = (word: string) => {
-		if (selectedOrder.includes(word)) return;
+		if (completed) return;
+		playWord(word);
+
 		const newOrder = [...selectedOrder, word];
 		setSelectedOrder(newOrder);
 
@@ -33,11 +46,16 @@ export const BuildPhrase: React.FC<BuildPhraseProps> = ({ phrases, onComplete })
 			const isCorrect = JSON.stringify(newOrder) === JSON.stringify(current.englishWords);
 			if (isCorrect) {
 				setFeedback('correct');
+				playFeedback('correct');
+				const phrase = current.englishWords.join(' ').toLowerCase().replace(/\s+/g, '_');
+				setTimeout(() => playNarrative(`/assets/audio/voices/phrases/${phrase}.mp3`).catch(() => {}), 400);
+
 				const nextIndex = currentIndex + 1;
 				if (nextIndex >= phrases.length) {
 					if (!completed) {
 						setCompleted(true);
-						onComplete();
+						setTimeout(() => playFeedback('star'), 800);
+						setTimeout(() => onComplete(), 1500);
 					}
 				} else {
 					setTimeout(() => {
@@ -48,6 +66,7 @@ export const BuildPhrase: React.FC<BuildPhraseProps> = ({ phrases, onComplete })
 				}
 			} else {
 				setFeedback('wrong');
+				playFeedback('wrong');
 				setTimeout(() => {
 					setSelectedOrder([]);
 					setFeedback(null);
@@ -67,11 +86,10 @@ export const BuildPhrase: React.FC<BuildPhraseProps> = ({ phrases, onComplete })
 				<span className={styles.emoji}>{current.emoji}</span> {current.spanish}
 			</p>
 
-			{/* Área de construcción */}
 			<div className={styles.phraseBuilder}>
 				<div className={styles.phraseSlot}>
 					{selectedOrder.length === 0 ? (
-						<div className={styles.emptySlot}>Arrastra las palabras aquí</div>
+						<div className={styles.emptySlot}>Toca las palabras en orden</div>
 					) : (
 						selectedOrder.map((word, idx) => (
 							<button
@@ -87,13 +105,16 @@ export const BuildPhrase: React.FC<BuildPhraseProps> = ({ phrases, onComplete })
 					)}
 				</div>
 
-				{/* Palabras disponibles */}
 				<div className={styles.availableWords}>
-					{allWords
-						.filter((w) => !selectedOrder.includes(w))
-						.map((word) => (
+					{shuffledWords
+						.filter((w) => {
+							const usedCount = selectedOrder.filter((s) => s === w).length;
+							const availableCount = shuffledWords.filter((s) => s === w).length;
+							return usedCount < availableCount;
+						})
+						.map((word, i) => (
 							<button
-								key={word}
+								key={`${word}-${i}`}
 								type="button"
 								className={styles.wordButton}
 								onClick={() => handleWordClick(word)}

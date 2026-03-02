@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
@@ -6,7 +6,6 @@ import { getLevelById, getChapterById, getWorldById, WORLDS } from '../../shared
 import { useUnlockLogic } from '../../features/progress/hooks/useUnlockLogic';
 import { useAudio } from '../../app/providers/AudioProvider';
 import { AwakeningLevel } from './AwakeningLevel';
-import { MagicBookGuide } from '../../shared/ui/MagicBookGuide/MagicBookGuide';
 import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
 import styles from './LevelPage.module.css';
 import { DragAndDropWords } from './minigames/DragAndDropWords';
@@ -20,7 +19,7 @@ const LevelPage: React.FC = () => {
 	const { levelId } = useParams<{ levelId: string }>();
 	const navigate = useNavigate();
 	const { handleCompleteLevel } = useUnlockLogic();
-	const { playSound, playNarrative } = useAudio();
+	const { playSound } = useAudio();
 
 	if (!levelId) {
 		return <div className={styles.page}>Nivel no encontrado</div>;
@@ -1156,6 +1155,23 @@ const LevelPage: React.FC = () => {
 
 	const levelData = getLevelData(levelId);
 
+	const instructionForType = (type?: string) => {
+		switch (type) {
+			case 'listenAndChoose': return 'Escucha la palabra y elige la imagen correcta';
+			case 'dragAndDrop': return 'Arrastra cada palabra a su pareja';
+			case 'multipleChoice': return 'Elige la respuesta correcta';
+			case 'selectWords': return 'Selecciona las palabras correctas';
+			case 'buildPhrase': return 'Pon las palabras en orden';
+			default: return '¡Vamos a aprender!';
+		}
+	};
+
+	useEffect(() => {
+		if (levelData?.type) {
+			setAvatarMessage(instructionForType(levelData.type));
+		}
+	}, [levelData?.type]);
+
 	// Si no hay datos para este nivel, mostrar placeholder
 	if (!levelData) {
 		return (
@@ -1183,28 +1199,6 @@ const LevelPage: React.FC = () => {
 	);
 	}
 
-	const getInstructionText = (type?: string) => {
-		switch (type) {
-			case 'listenAndChoose': return 'Escucha la palabra y elige la imagen correcta';
-			case 'dragAndDrop': return 'Arrastra cada palabra a su pareja';
-			case 'multipleChoice': return 'Elige la respuesta correcta';
-			case 'selectWords': return 'Selecciona las palabras correctas';
-			case 'buildPhrase': return 'Pon las palabras en orden';
-			default: return 'Completa el nivel';
-		}
-	};
-
-	const getInstructionAudio = (type?: string) => {
-		switch (type) {
-			case 'listenAndChoose': return '/assets/audio/voices/minigame_listenAndChoose_intro.mp3';
-			case 'dragAndDrop': return '/assets/audio/voices/minigame_dragAndDrop_intro.mp3';
-			case 'multipleChoice': return '/assets/audio/voices/minigame_multipleChoice_intro.mp3';
-			case 'selectWords': return '/assets/audio/voices/minigame_selectWords_intro.mp3';
-			case 'buildPhrase': return '/assets/audio/voices/minigame_buildPhrase_intro.mp3';
-			default: return undefined;
-		}
-	};
-
 	const renderGame = () => {
 		if (!levelData) {
 			return (
@@ -1219,8 +1213,6 @@ const LevelPage: React.FC = () => {
 				return (
 					<ListenAndChoose
 						words={levelData.words || []}
-						introAudioKey={levelData.introAudioKey}
-						wordAudioKeys={levelData.wordAudioKeys || {}}
 						onComplete={handleInteractionComplete}
 					/>
 				);
@@ -1244,7 +1236,12 @@ const LevelPage: React.FC = () => {
 	return (
 		<>
 			<OrientationAlert />
-			<div className={styles.page}>
+			<div
+				className={styles.page}
+				style={{
+					backgroundImage: `url(/assets/images/backgrounds/${chapter.id}.jpg)`,
+				}}
+			>
 				<header className={styles.header}>
 					<button className={styles.backButton} onClick={() => navigate(`/chapters/${world?.id}`)}>
 						← Volver
@@ -1256,21 +1253,19 @@ const LevelPage: React.FC = () => {
 				</header>
 
 				<div className={styles.content}>
-					{/* Panel del avatar siempre visible */}
-					<div className={styles.avatarPanel}>
-						<div className={styles.avatarContainer}>
-							<motion.div
-								animate={isCelebrating ? { scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] } : {}}
-								transition={{ duration: 0.5 }}
-								style={{ width: '200px', height: 'auto' }}
-							>
-								<ChibiAvatar 
-									eyeState={isCelebrating ? 'open' : 'open'}
-									mouthState={isCelebrating ? 'smile' : 'neutral'}
-									size="md"
-								/>
-							</motion.div>
-						</div>
+					{/* Avatar + instrucción arriba centrado */}
+					<div className={styles.avatarBar}>
+						<motion.div
+							animate={isCelebrating ? { scale: [1, 1.1, 1], rotate: [0, 5, -5, 0] } : {}}
+							transition={{ duration: 0.5 }}
+							className={styles.avatarSmall}
+						>
+							<ChibiAvatar
+								eyeState="open"
+								mouthState={isCelebrating ? 'smile' : 'neutral'}
+								size="sm"
+							/>
+						</motion.div>
 						<motion.div
 							key={avatarMessage}
 							initial={{ opacity: 0, y: 10 }}
@@ -1281,14 +1276,11 @@ const LevelPage: React.FC = () => {
 						</motion.div>
 					</div>
 
-				<div className={styles.gamePanel}>
-					<MagicBookGuide
-						instructionText={getInstructionText(levelData?.type)}
-						audioSrc={getInstructionAudio(levelData?.type)}
-					/>
-					<section className={styles.activityContainer}>{renderGame()}</section>
+					<div className={styles.gamePanel}>
+						<section className={styles.activityContainer}>{renderGame()}</section>
+					</div>
 				</div>
-				</div>
+
 			</div>
 		</>
 	);
