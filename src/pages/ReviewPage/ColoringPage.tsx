@@ -19,6 +19,7 @@ interface PaintState {
 const ColoringPage: React.FC = () => {
 	const navigate = useNavigate();
 	const canvasRefs = useRef<{ [key: string]: HTMLCanvasElement | null }>({});
+	const outlineCache = useRef<{ [key: string]: ImageData }>({});
 	const [selectedDrawing, setSelectedDrawing] = useState<string | null>(null);
 	const [paintState, setPaintState] = useState<PaintState>({
 		isDrawing: false,
@@ -69,9 +70,9 @@ const ColoringPage: React.FC = () => {
 		// Llamar función de dibujo específica
 		drawFunction(ctx, width, height);
 
-		// Guardar la imagen con las líneas negras
-		if (!canvasRefs.current[`${canvasId}_outline`]) {
-			canvasRefs.current[`${canvasId}_outline`] = ctx.getImageData(0, 0, width, height);
+		// Guardar la imagen con las líneas negras (para posible reset)
+		if (!outlineCache.current[canvasId]) {
+			outlineCache.current[canvasId] = ctx.getImageData(0, 0, width, height);
 		}
 	};
 

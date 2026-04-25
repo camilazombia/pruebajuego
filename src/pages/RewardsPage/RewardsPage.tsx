@@ -166,7 +166,7 @@ const RewardsPage: React.FC = () => {
         const newState = { ...avatarState, [selectedCategory]: item.id };
         setAvatarState(newState);
         setSavedAvatarState(newState);
-        setGlobalAvatarState(newState);
+        setGlobalAvatarState({ ...globalAvatarState, ...newState });
         if (item.allowsColor && item.defaultColor) {
           setSelectedColor(item.defaultColor);
         }
@@ -182,7 +182,7 @@ const RewardsPage: React.FC = () => {
 
   const handleSave = () => {
     setSavedAvatarState(avatarState);
-    setGlobalAvatarState(avatarState);
+    setGlobalAvatarState({ ...globalAvatarState, ...avatarState });
     showToast('Cambios guardados!', 'success');
   };
 
