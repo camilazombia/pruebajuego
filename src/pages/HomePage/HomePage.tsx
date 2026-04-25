@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '../../shared/ui/Button/Button';
@@ -7,6 +7,8 @@ import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
 import { useAgeAdaptation } from '../../features/child/hooks/useAgeAdaptation';
 import { useAvatar } from '../../app/providers/AvatarProvider';
 import { useProgressStore } from '../../features/progress/store/progressStore';
+import { useAudio } from '../../app/providers/AudioProvider';
+import { useSettingsStore, useSettingsActions } from '../../app/store/settings.store';
 import { WORLDS } from '../../shared/data/worlds';
 import styles from './HomePage.module.css';
 
@@ -15,6 +17,9 @@ export const HomePage: React.FC = () => {
   const { animationSpeed } = useAgeAdaptation();
   const { avatarState } = useAvatar();
   const { unlockedWorlds, completedWorlds, magicCoins } = useProgressStore();
+  const { playMusic, stopMusic, playFeedback } = useAudio();
+  const { musicEnabled, soundEffectsEnabled } = useSettingsStore();
+  const { toggleMusic, toggleSoundEffects } = useSettingsActions();
 
   const currentWorld = useMemo(() => {
     const sorted = WORLDS
@@ -26,19 +31,40 @@ export const HomePage: React.FC = () => {
   const bgChapterId = `${currentWorld.id}_chapter_1`;
   const worldsCompleted = completedWorlds.length;
 
+  useEffect(() => {
+    if (musicEnabled) {
+      playMusic('home_bg');
+    }
+    return () => { stopMusic(); };
+  }, [musicEnabled, playMusic, stopMusic]);
+
+  const handleToggleMusic = () => {
+    toggleMusic();
+    if (musicEnabled) {
+      stopMusic();
+    }
+  };
+
+  const handleToggleSoundEffects = () => {
+    toggleSoundEffects();
+    if (!soundEffectsEnabled) {
+      playFeedback('correct');
+    }
+  };
+
   return (
     <>
       <OrientationAlert />
-      <div
-        className={styles.page}
-        style={{
-          backgroundImage: `url(/assets/images/backgrounds/${bgChapterId}.jpg)`,
-        }}
-      >
+      <div className={styles.page}>
+      <img
+        className={styles.backgroundImage}
+        src={`/assets/images/backgrounds/${bgChapterId}.png`}
+        alt=""
+        aria-hidden="true"
+      />
 
       {/* ===== INDICADORES SUPERIORES ===== */}
       <div className={styles.topIndicators}>
-        {/* Monedas */}
         <div className={styles.indicatorBlock}>
           <span className={`material-symbols-outlined ${styles.indicatorIcon}`}>
             paid
@@ -46,7 +72,6 @@ export const HomePage: React.FC = () => {
           <span className={styles.indicatorText}>{magicCoins}</span>
         </div>
 
-        {/* Mundos Completados */}
         <div className={styles.indicatorBlock}>
           <span className={`material-symbols-outlined ${styles.indicatorIcon} ${styles.worldIcon}`}>
             public
@@ -57,7 +82,6 @@ export const HomePage: React.FC = () => {
 
       {/* ===== PERSONAJE PRINCIPAL Y BOTONES LATERALES ===== */}
       <div className={styles.centerSection}>
-        {/* BOTÓN PREMIOS (izquierda) */}
         <Button
           onClick={() => navigate('/rewards')}
           text="PREMIOS"
@@ -66,7 +90,6 @@ export const HomePage: React.FC = () => {
           className={styles.sideButton}
         />
 
-        {/* PERSONAJE PRINCIPAL */}
         <motion.div
           className={styles.characterContainer}
           animate={{ y: [0, -10, 0] }}
@@ -79,6 +102,13 @@ export const HomePage: React.FC = () => {
               topId={avatarState.top}
               bottomId={avatarState.bottom}
               shoesId={avatarState.shoes}
+              skinId={avatarState.skin}
+              hairId={avatarState.hair}
+              eyesId={avatarState.eyes}
+              eyebrowsId={avatarState.eyebrows}
+              mouthId={avatarState.mouth}
+              glassesId={avatarState.glasses}
+              specialId={avatarState.special}
               accessories={[]}
               isBlinking={true}
               isBreathing={true}
@@ -88,7 +118,6 @@ export const HomePage: React.FC = () => {
           <div className={styles.characterShadow}></div>
         </motion.div>
 
-        {/* BOTÓN JUGAR (derecha) */}
         <Button
           onClick={() => navigate('/worlds')}
           text="JUGAR"
@@ -103,23 +132,26 @@ export const HomePage: React.FC = () => {
         <Button
           title="Música"
           text=""
-          icon="music_note"
-          className={styles.controlButtonStyle}
+          icon={musicEnabled ? 'music_note' : 'music_off'}
+          className={`${styles.controlButtonStyle} ${!musicEnabled ? styles.controlDisabled : ''}`}
           showIconCircle={false}
+          onClick={handleToggleMusic}
         />
         <Button
-          title="Magia"
+          title="Sonido"
           text=""
-          icon="playing_cards"
-          className={styles.controlButtonStyle}
+          icon={soundEffectsEnabled ? 'volume_up' : 'volume_off'}
+          className={`${styles.controlButtonStyle} ${!soundEffectsEnabled ? styles.controlDisabled : ''}`}
           showIconCircle={false}
+          onClick={handleToggleSoundEffects}
         />
         <Button
-          title="Celebración"
+          title="Repaso"
           text=""
-          icon="celebration"
+          icon="menu_book"
           className={styles.controlButtonStyle}
           showIconCircle={false}
+          onClick={() => navigate('/review')}
         />
       </div>
     </div>

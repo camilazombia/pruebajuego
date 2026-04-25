@@ -19,10 +19,11 @@
 
 .dragDropLayout {
 	display: flex;
-	gap: 2rem;
+	gap: 1.5rem;
 	width: 100%;
 	max-width: 800px;
 	justify-content: center;
+	box-sizing: border-box;
 }
 
 .dragColumn,
@@ -43,8 +44,22 @@
 	display: flex;
 	align-items: center;
 	gap: 0.5rem;
-	cursor: grab;
+	cursor: pointer;
 	border: 2px solid rgba(148, 163, 184, 0.3);
+	user-select: none;
+	-webkit-user-select: none;
+	touch-action: manipulation;
+}
+
+.draggableSelected {
+	border-color: #facc15;
+	background: rgba(234, 179, 8, 0.25);
+	box-shadow: 0 0 12px rgba(250, 204, 21, 0.5);
+}
+
+.draggableMatched {
+	opacity: 0.45;
+	cursor: default;
 }
 
 .emoji {
@@ -69,6 +84,14 @@
 	border-style: solid;
 	border-color: #22c55e;
 	background: rgba(34, 197, 94, 0.18);
+}
+
+.dropSlotActive {
+	border-color: #facc15;
+	border-style: dashed;
+	background: rgba(234, 179, 8, 0.12);
+	cursor: pointer;
+	touch-action: manipulation;
 }
 
 .englishLabel {
@@ -271,14 +294,41 @@
 	pointer-events: none;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
 	.dragDropLayout {
-		flex-direction: column;
-		align-items: center;
+		gap: 1rem;
 	}
 
 	.dropSlot {
-		min-width: 160px;
+		min-width: 0;
+		width: 100%;
+	}
+
+	.draggableItem {
+		padding: 0.4rem 0.9rem;
+		font-size: 0.9rem;
+	}
+
+	.dropSlot {
+		min-height: 48px;
+		font-size: 0.9rem;
+	}
+}
+
+@media (max-width: 768px) {
+	.dragDropLayout {
+		flex-direction: column;
+		align-items: stretch;
+	}
+
+	.dragColumn,
+	.dropColumn {
+		width: 100%;
+	}
+
+	.dropSlot {
+		min-width: 0;
+		width: 100%;
 	}
 
 	.bigEmoji {

@@ -45,8 +45,12 @@ const StoriesPage: React.FC = () => {
 								>
 									<div
 										className={styles.storyCover}
-										style={{ backgroundImage: `url(${story.coverImage})` }}
-									/>
+										style={{ backgroundImage: story.coverImage ? `url(${story.coverImage})` : undefined }}
+									>
+										{!story.coverImage && (
+											<span className={styles.coverEmoji}>{(story as { coverEmoji?: string }).coverEmoji ?? '📖'}</span>
+										)}
+									</div>
 									<div className={styles.storyInfo}>
 										<h3 className={styles.storyCardTitle}>{story.title}</h3>
 										{story.titleEn && (

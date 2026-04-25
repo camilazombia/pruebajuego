@@ -7,17 +7,374 @@ import { useUnlockLogic } from '../../features/progress/hooks/useUnlockLogic';
 import { useAudio } from '../../app/providers/AudioProvider';
 import { AwakeningLevel } from './AwakeningLevel';
 import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
+import { useAvatar } from '../../app/providers/AvatarProvider';
 import styles from './LevelPage.module.css';
 import { DragAndDropWords } from './minigames/DragAndDropWords';
 import { MultipleChoice } from './minigames/MultipleChoice';
 import { SelectWords } from './minigames/SelectWords';
 import { ListenAndChoose } from './minigames/ListenAndChoose';
 import { BuildPhrase } from './minigames/BuildPhrase';
+import { ColorAndLearn } from './minigames/ColorAndLearn';
+import { BackgroundImage } from '../../shared/ui/BackgroundImage/BackgroundImage';
 import type { MiniGameWord } from './minigames/DragAndDropWords';
+
+const GENERIC_CHAPTER_WORDS: Record<string, MiniGameWord[]> = {
+	// World 4 - Animals
+	'world_4_chapter_1': [
+		{ english: 'cow', spanish: 'vaca', emoji: '🐄' },
+		{ english: 'pig', spanish: 'cerdo', emoji: '🐷' },
+		{ english: 'chicken', spanish: 'pollo', emoji: '🐔' },
+		{ english: 'horse', spanish: 'caballo', emoji: '🐴' },
+		{ english: 'sheep', spanish: 'oveja', emoji: '🐑' },
+	],
+	'world_4_chapter_2': [
+		{ english: 'lion', spanish: 'leon', emoji: '🦁' },
+		{ english: 'tiger', spanish: 'tigre', emoji: '🐯' },
+		{ english: 'elephant', spanish: 'elefante', emoji: '🐘' },
+		{ english: 'monkey', spanish: 'mono', emoji: '🐵' },
+		{ english: 'bear', spanish: 'oso', emoji: '🐻' },
+	],
+	'world_4_chapter_3': [
+		{ english: 'dog', spanish: 'perro', emoji: '🐶' },
+		{ english: 'cat', spanish: 'gato', emoji: '🐱' },
+		{ english: 'rabbit', spanish: 'conejo', emoji: '🐰' },
+		{ english: 'hamster', spanish: 'hamster', emoji: '🐹' },
+		{ english: 'fish', spanish: 'pez', emoji: '🐟' },
+	],
+	'world_4_chapter_4': [
+		{ english: 'moo', spanish: 'muu', emoji: '🐄' },
+		{ english: 'oink', spanish: 'oinc', emoji: '🐷' },
+		{ english: 'quack', spanish: 'cuac', emoji: '🦆' },
+		{ english: 'woof', spanish: 'guau', emoji: '🐶' },
+		{ english: 'meow', spanish: 'miau', emoji: '🐱' },
+	],
+	'world_4_chapter_5': [
+		{ english: 'farm', spanish: 'granja', emoji: '🚜' },
+		{ english: 'jungle', spanish: 'jungla', emoji: '🌴' },
+		{ english: 'forest', spanish: 'bosque', emoji: '🌲' },
+		{ english: 'river', spanish: 'rio', emoji: '🏞️' },
+		{ english: 'ocean', spanish: 'oceano', emoji: '🌊' },
+	],
+
+	// World 5 - Routines
+	'world_5_chapter_1': [
+		{ english: 'wake up', spanish: 'despertar', emoji: '⏰' },
+		{ english: 'brush', spanish: 'cepillar', emoji: '🪥' },
+		{ english: 'wash', spanish: 'lavar', emoji: '🧼' },
+		{ english: 'dress', spanish: 'vestir', emoji: '👕' },
+		{ english: 'breakfast', spanish: 'desayuno', emoji: '🍳' },
+	],
+	'world_5_chapter_2': [
+		{ english: 'study', spanish: 'estudiar', emoji: '📘' },
+		{ english: 'read', spanish: 'leer', emoji: '📖' },
+		{ english: 'write', spanish: 'escribir', emoji: '✍️' },
+		{ english: 'play', spanish: 'jugar', emoji: '⚽' },
+		{ english: 'lunch', spanish: 'almuerzo', emoji: '🍽️' },
+	],
+	'world_5_chapter_3': [
+		{ english: 'dinner', spanish: 'cena', emoji: '🍲' },
+		{ english: 'bath', spanish: 'bano', emoji: '🛁' },
+		{ english: 'pajamas', spanish: 'pijama', emoji: '🧸' },
+		{ english: 'sleep', spanish: 'dormir', emoji: '😴' },
+		{ english: 'night', spanish: 'noche', emoji: '🌙' },
+	],
+	'world_5_chapter_4': [
+		{ english: 'monday', spanish: 'lunes', emoji: '📅' },
+		{ english: 'tuesday', spanish: 'martes', emoji: '📅' },
+		{ english: 'wednesday', spanish: 'miercoles', emoji: '📅' },
+		{ english: 'thursday', spanish: 'jueves', emoji: '📅' },
+		{ english: 'friday', spanish: 'viernes', emoji: '📅' },
+	],
+	'world_5_chapter_5': [
+		{ english: 'morning', spanish: 'manana', emoji: '🌞' },
+		{ english: 'afternoon', spanish: 'tarde', emoji: '🌤️' },
+		{ english: 'evening', spanish: 'atardecer', emoji: '🌆' },
+		{ english: 'night', spanish: 'noche', emoji: '🌙' },
+		{ english: 'clock', spanish: 'reloj', emoji: '🕒' },
+	],
+
+	// World 6 - Emotions
+	'world_6_chapter_1': [
+		{ english: 'happy', spanish: 'feliz', emoji: '😊' },
+		{ english: 'smile', spanish: 'sonrisa', emoji: '😁' },
+		{ english: 'laugh', spanish: 'reir', emoji: '😄' },
+		{ english: 'joy', spanish: 'alegria', emoji: '🌟' },
+		{ english: 'fun', spanish: 'diversion', emoji: '🎉' },
+	],
+	'world_6_chapter_2': [
+		{ english: 'sad', spanish: 'triste', emoji: '😢' },
+		{ english: 'cry', spanish: 'llorar', emoji: '😭' },
+		{ english: 'tears', spanish: 'lagrimas', emoji: '💧' },
+		{ english: 'blue', spanish: 'azul', emoji: '🔵' },
+		{ english: 'comfort', spanish: 'consuelo', emoji: '🤗' },
+	],
+	'world_6_chapter_3': [
+		{ english: 'angry', spanish: 'enojado', emoji: '😠' },
+		{ english: 'calm', spanish: 'calma', emoji: '😌' },
+		{ english: 'breathe', spanish: 'respirar', emoji: '🫁' },
+		{ english: 'relax', spanish: 'relajar', emoji: '🧘' },
+		{ english: 'peace', spanish: 'paz', emoji: '🕊️' },
+	],
+	'world_6_chapter_4': [
+		{ english: 'scared', spanish: 'asustado', emoji: '😨' },
+		{ english: 'brave', spanish: 'valiente', emoji: '🦸' },
+		{ english: 'safe', spanish: 'seguro', emoji: '🛡️' },
+		{ english: 'light', spanish: 'luz', emoji: '🔦' },
+		{ english: 'friend', spanish: 'amigo', emoji: '🧑‍🤝‍🧑' },
+	],
+	'world_6_chapter_5': [
+		{ english: 'kind', spanish: 'amable', emoji: '💖' },
+		{ english: 'help', spanish: 'ayuda', emoji: '🤝' },
+		{ english: 'hug', spanish: 'abrazo', emoji: '🫂' },
+		{ english: 'okay', spanish: 'bien', emoji: '👌' },
+		{ english: 'better', spanish: 'mejor', emoji: '✨' },
+	],
+
+	// World 7 - Weather and Clothes
+	'world_7_chapter_1': [
+		{ english: 'sunny', spanish: 'soleado', emoji: '☀️' },
+		{ english: 'rainy', spanish: 'lluvioso', emoji: '🌧️' },
+		{ english: 'cloudy', spanish: 'nublado', emoji: '☁️' },
+		{ english: 'windy', spanish: 'ventoso', emoji: '💨' },
+		{ english: 'snowy', spanish: 'nevado', emoji: '❄️' },
+	],
+	'world_7_chapter_2': [
+		{ english: 'shirt', spanish: 'camiseta', emoji: '👕' },
+		{ english: 'pants', spanish: 'pantalon', emoji: '👖' },
+		{ english: 'dress', spanish: 'vestido', emoji: '👗' },
+		{ english: 'shoes', spanish: 'zapatos', emoji: '👟' },
+		{ english: 'hat', spanish: 'sombrero', emoji: '🧢' },
+	],
+	'world_7_chapter_3': [
+		{ english: 'spring', spanish: 'primavera', emoji: '🌸' },
+		{ english: 'summer', spanish: 'verano', emoji: '🏖️' },
+		{ english: 'autumn', spanish: 'otono', emoji: '🍂' },
+		{ english: 'winter', spanish: 'invierno', emoji: '⛄' },
+		{ english: 'season', spanish: 'estacion', emoji: '🗓️' },
+	],
+	'world_7_chapter_4': [
+		{ english: 'jacket', spanish: 'chaqueta', emoji: '🧥' },
+		{ english: 'scarf', spanish: 'bufanda', emoji: '🧣' },
+		{ english: 'gloves', spanish: 'guantes', emoji: '🧤' },
+		{ english: 'boots', spanish: 'botas', emoji: '🥾' },
+		{ english: 'umbrella', spanish: 'sombrilla', emoji: '☂️' },
+	],
+	'world_7_chapter_5': [
+		{ english: 'hot', spanish: 'caliente', emoji: '🔥' },
+		{ english: 'cold', spanish: 'frio', emoji: '🧊' },
+		{ english: 'warm', spanish: 'templado', emoji: '🌤️' },
+		{ english: 'cool', spanish: 'fresco', emoji: '🍃' },
+		{ english: 'weather', spanish: 'clima', emoji: '🌈' },
+	],
+
+	// World 8 - Ocean
+	'world_8_chapter_1': [
+		{ english: 'fish', spanish: 'pez', emoji: '🐟' },
+		{ english: 'dolphin', spanish: 'delfin', emoji: '🐬' },
+		{ english: 'whale', spanish: 'ballena', emoji: '🐋' },
+		{ english: 'shark', spanish: 'tiburon', emoji: '🦈' },
+		{ english: 'turtle', spanish: 'tortuga', emoji: '🐢' },
+	],
+	'world_8_chapter_2': [
+		{ english: 'octopus', spanish: 'pulpo', emoji: '🐙' },
+		{ english: 'jellyfish', spanish: 'medusa', emoji: '🎐' },
+		{ english: 'seahorse', spanish: 'caballito de mar', emoji: '🐠' },
+		{ english: 'crab', spanish: 'cangrejo', emoji: '🦀' },
+		{ english: 'starfish', spanish: 'estrella de mar', emoji: '⭐' },
+	],
+	'world_8_chapter_3': [
+		{ english: 'beach', spanish: 'playa', emoji: '🏖️' },
+		{ english: 'sand', spanish: 'arena', emoji: '🏝️' },
+		{ english: 'shell', spanish: 'concha', emoji: '🐚' },
+		{ english: 'boat', spanish: 'barco', emoji: '⛵' },
+		{ english: 'island', spanish: 'isla', emoji: '🏝️' },
+	],
+	'world_8_chapter_4': [
+		{ english: 'coral', spanish: 'coral', emoji: '🪸' },
+		{ english: 'reef', spanish: 'arrecife', emoji: '🌊' },
+		{ english: 'blue', spanish: 'azul', emoji: '🔵' },
+		{ english: 'green', spanish: 'verde', emoji: '🟢' },
+		{ english: 'purple', spanish: 'morado', emoji: '🟣' },
+	],
+	'world_8_chapter_5': [
+		{ english: 'swim', spanish: 'nadar', emoji: '🏊' },
+		{ english: 'dive', spanish: 'bucear', emoji: '🤿' },
+		{ english: 'float', spanish: 'flotar', emoji: '🛟' },
+		{ english: 'wave', spanish: 'ola', emoji: '🌊' },
+		{ english: 'ocean', spanish: 'oceano', emoji: '🌊' },
+	],
+
+	// World 9 - Body and Family
+	'world_9_chapter_1': [
+		{ english: 'head', spanish: 'cabeza', emoji: '🙂' },
+		{ english: 'arms', spanish: 'brazos', emoji: '💪' },
+		{ english: 'hands', spanish: 'manos', emoji: '👐' },
+		{ english: 'legs', spanish: 'piernas', emoji: '🦵' },
+		{ english: 'feet', spanish: 'pies', emoji: '🦶' },
+	],
+	'world_9_chapter_2': [
+		{ english: 'eyes', spanish: 'ojos', emoji: '👀' },
+		{ english: 'nose', spanish: 'nariz', emoji: '👃' },
+		{ english: 'mouth', spanish: 'boca', emoji: '👄' },
+		{ english: 'ears', spanish: 'orejas', emoji: '👂' },
+		{ english: 'hair', spanish: 'cabello', emoji: '🧑' },
+	],
+	'world_9_chapter_3': [
+		{ english: 'mom', spanish: 'mama', emoji: '👩' },
+		{ english: 'dad', spanish: 'papa', emoji: '👨' },
+		{ english: 'brother', spanish: 'hermano', emoji: '👦' },
+		{ english: 'sister', spanish: 'hermana', emoji: '👧' },
+		{ english: 'family', spanish: 'familia', emoji: '👨‍👩‍👧‍👦' },
+	],
+	'world_9_chapter_4': [
+		{ english: 'tall', spanish: 'alto', emoji: '📏' },
+		{ english: 'short', spanish: 'bajo', emoji: '📐' },
+		{ english: 'big', spanish: 'grande', emoji: '🔍' },
+		{ english: 'small', spanish: 'pequeno', emoji: '🔎' },
+		{ english: 'strong', spanish: 'fuerte', emoji: '💪' },
+	],
+	'world_9_chapter_5': [
+		{ english: 'mirror', spanish: 'espejo', emoji: '🪞' },
+		{ english: 'smile', spanish: 'sonreir', emoji: '🙂' },
+		{ english: 'point', spanish: 'senalar', emoji: '👉' },
+		{ english: 'touch', spanish: 'tocar', emoji: '✋' },
+		{ english: 'show', spanish: 'mostrar', emoji: '👋' },
+	],
+
+	// World 10 - Academy
+	'world_10_chapter_1': [
+		{ english: 'run', spanish: 'correr', emoji: '🏃' },
+		{ english: 'jump', spanish: 'saltar', emoji: '🦘' },
+		{ english: 'walk', spanish: 'caminar', emoji: '🚶' },
+		{ english: 'dance', spanish: 'bailar', emoji: '💃' },
+		{ english: 'sing', spanish: 'cantar', emoji: '🎤' },
+	],
+	'world_10_chapter_2': [
+		{ english: 'can', spanish: 'puedo', emoji: '✅' },
+		{ english: 'cannot', spanish: 'no puedo', emoji: '🚫' },
+		{ english: 'open', spanish: 'abrir', emoji: '📂' },
+		{ english: 'close', spanish: 'cerrar', emoji: '📕' },
+		{ english: 'try', spanish: 'intentar', emoji: '✨' },
+	],
+	'world_10_chapter_3': [
+		{ english: 'subject', spanish: 'sujeto', emoji: '🧩' },
+		{ english: 'verb', spanish: 'verbo', emoji: '⚙️' },
+		{ english: 'object', spanish: 'objeto', emoji: '🎯' },
+		{ english: 'sentence', spanish: 'oracion', emoji: '📝' },
+		{ english: 'order', spanish: 'orden', emoji: '↔️' },
+	],
+	'world_10_chapter_4': [
+		{ english: 'what', spanish: 'que', emoji: '❓' },
+		{ english: 'where', spanish: 'donde', emoji: '📍' },
+		{ english: 'who', spanish: 'quien', emoji: '🧑' },
+		{ english: 'when', spanish: 'cuando', emoji: '⏱️' },
+		{ english: 'why', spanish: 'por que', emoji: '🤔' },
+	],
+	'world_10_chapter_5': [
+		{ english: 'challenge', spanish: 'reto', emoji: '🏆' },
+		{ english: 'review', spanish: 'repaso', emoji: '🔁' },
+		{ english: 'practice', spanish: 'practica', emoji: '🧠' },
+		{ english: 'success', spanish: 'exito', emoji: '🌟' },
+		{ english: 'graduate', spanish: 'graduar', emoji: '🎓' },
+	],
+
+	// World 11 - Travel
+	'world_11_chapter_1': [
+		{ english: 'park', spanish: 'parque', emoji: '🏞️' },
+		{ english: 'school', spanish: 'escuela', emoji: '🏫' },
+		{ english: 'museum', spanish: 'museo', emoji: '🏛️' },
+		{ english: 'library', spanish: 'biblioteca', emoji: '📚' },
+		{ english: 'hospital', spanish: 'hospital', emoji: '🏥' },
+	],
+	'world_11_chapter_2': [
+		{ english: 'bus', spanish: 'bus', emoji: '🚌' },
+		{ english: 'train', spanish: 'tren', emoji: '🚆' },
+		{ english: 'plane', spanish: 'avion', emoji: '✈️' },
+		{ english: 'bike', spanish: 'bicicleta', emoji: '🚲' },
+		{ english: 'car', spanish: 'carro', emoji: '🚗' },
+	],
+	'world_11_chapter_3': [
+		{ english: 'left', spanish: 'izquierda', emoji: '⬅️' },
+		{ english: 'right', spanish: 'derecha', emoji: '➡️' },
+		{ english: 'straight', spanish: 'recto', emoji: '⬆️' },
+		{ english: 'near', spanish: 'cerca', emoji: '📌' },
+		{ english: 'far', spanish: 'lejos', emoji: '📍' },
+	],
+	'world_11_chapter_4': [
+		{ english: 'stop', spanish: 'alto', emoji: '🛑' },
+		{ english: 'go', spanish: 'ir', emoji: '🟢' },
+		{ english: 'crosswalk', spanish: 'paso peatonal', emoji: '🚸' },
+		{ english: 'traffic light', spanish: 'semaforo', emoji: '🚦' },
+		{ english: 'station', spanish: 'estacion', emoji: '🚉' },
+	],
+	'world_11_chapter_5': [
+		{ english: 'ticket', spanish: 'boleto', emoji: '🎫' },
+		{ english: 'map', spanish: 'mapa', emoji: '🗺️' },
+		{ english: 'suitcase', spanish: 'maleta', emoji: '🧳' },
+		{ english: 'passport', spanish: 'pasaporte', emoji: '📘' },
+		{ english: 'travel', spanish: 'viajar', emoji: '🌍' },
+	],
+
+	// World 12 - Storytelling
+	'world_12_chapter_1': [
+		{ english: 'hero', spanish: 'heroe', emoji: '🦸' },
+		{ english: 'explorer', spanish: 'explorador', emoji: '🧭' },
+		{ english: 'friend', spanish: 'amigo', emoji: '🧑‍🤝‍🧑' },
+		{ english: 'wizard', spanish: 'mago', emoji: '🧙' },
+		{ english: 'guardian', spanish: 'guardian', emoji: '🛡️' },
+	],
+	'world_12_chapter_2': [
+		{ english: 'forest', spanish: 'bosque', emoji: '🌲' },
+		{ english: 'city', spanish: 'ciudad', emoji: '🏙️' },
+		{ english: 'ocean', spanish: 'oceano', emoji: '🌊' },
+		{ english: 'castle', spanish: 'castillo', emoji: '🏰' },
+		{ english: 'mountain', spanish: 'montana', emoji: '🏔️' },
+	],
+	'world_12_chapter_3': [
+		{ english: 'find', spanish: 'encontrar', emoji: '🔎' },
+		{ english: 'help', spanish: 'ayudar', emoji: '🤝' },
+		{ english: 'save', spanish: 'salvar', emoji: '🛟' },
+		{ english: 'build', spanish: 'construir', emoji: '🧱' },
+		{ english: 'create', spanish: 'crear', emoji: '🎨' },
+	],
+	'world_12_chapter_4': [
+		{ english: 'problem', spanish: 'problema', emoji: '⚠️' },
+		{ english: 'solution', spanish: 'solucion', emoji: '💡' },
+		{ english: 'first', spanish: 'primero', emoji: '1️⃣' },
+		{ english: 'next', spanish: 'despues', emoji: '2️⃣' },
+		{ english: 'finally', spanish: 'finalmente', emoji: '🏁' },
+	],
+	'world_12_chapter_5': [
+		{ english: 'celebrate', spanish: 'celebrar', emoji: '🎉' },
+		{ english: 'win', spanish: 'ganar', emoji: '🏆' },
+		{ english: 'star', spanish: 'estrella', emoji: '⭐' },
+		{ english: 'magic', spanish: 'magia', emoji: '✨' },
+		{ english: 'thank you', spanish: 'gracias', emoji: '💛' },
+	],
+};
+
+const buildGenericPhrases = (words: MiniGameWord[]) => {
+	const first = words[0];
+	const second = words[1] ?? words[0];
+
+	return [
+		{
+			englishWords: ['I', 'see', first.english],
+			spanish: `Veo ${first.spanish}`,
+			emoji: first.emoji,
+		},
+		{
+			englishWords: ['I', 'like', second.english],
+			spanish: `Me gusta ${second.spanish}`,
+			emoji: second.emoji,
+		},
+	];
+};
 
 const LevelPage: React.FC = () => {
 	const { levelId } = useParams<{ levelId: string }>();
 	const navigate = useNavigate();
+	const { avatarState } = useAvatar();
 	const { handleCompleteLevel } = useUnlockLogic();
 	const { playSound } = useAudio();
 
@@ -28,6 +385,9 @@ const LevelPage: React.FC = () => {
 	const level = getLevelById(levelId);
 	if (!level) {
 		return <div className={styles.page}>Nivel no encontrado</div>;
+	}
+	if (!level.chapterId) {
+		return <div className={styles.page}>Capítulo no encontrado</div>;
 	}
 
 	const chapter = getChapterById(level.chapterId);
@@ -145,7 +505,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_1_chapter_1_level_6') {
 			return {
-				type: 'selectWords',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'hi', spanish: 'hola', emoji: '👋' },
 					{ english: 'hello', spanish: 'hola', emoji: '👋' },
@@ -215,7 +575,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_1_chapter_2_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'red', spanish: 'rojo', emoji: '🔴' },
 					{ english: 'blue', spanish: 'azul', emoji: '🔵' },
@@ -286,7 +646,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_1_chapter_3_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'ball', spanish: 'pelota', emoji: '⚽' },
 					{ english: 'doll', spanish: 'muñeca', emoji: '🧸' },
@@ -356,7 +716,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_1_chapter_4_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'mom', spanish: 'mamá', emoji: '👩' },
 					{ english: 'dad', spanish: 'papá', emoji: '👨' },
@@ -427,7 +787,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_1_chapter_5_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'bed', spanish: 'cama', emoji: '🛏️' },
 					{ english: 'chair', spanish: 'silla', emoji: '🪑' },
@@ -499,7 +859,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_2_chapter_1_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
 					{ english: 'swing', spanish: 'columpio', emoji: '🛝' },
@@ -570,7 +930,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_2_chapter_2_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'car', spanish: 'carro', emoji: '🚗' },
 					{ english: 'bus', spanish: 'autobús', emoji: '🚌' },
@@ -641,7 +1001,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_2_chapter_3_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'school', spanish: 'escuela', emoji: '🏫' },
 					{ english: 'teacher', spanish: 'maestro', emoji: '👩‍🏫' },
@@ -712,7 +1072,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_2_chapter_4_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'apple', spanish: 'manzana', emoji: '🍎' },
 					{ english: 'banana', spanish: 'plátano', emoji: '🍌' },
@@ -783,7 +1143,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_2_chapter_5_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'kitchen', spanish: 'cocina', emoji: '🍳' },
 					{ english: 'bedroom', spanish: 'dormitorio', emoji: '🛏️' },
@@ -855,7 +1215,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_3_chapter_1_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'country', spanish: 'país', emoji: '🌍' },
 					{ english: 'flag', spanish: 'bandera', emoji: '🚩' },
@@ -926,7 +1286,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_3_chapter_2_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'pizza', spanish: 'pizza', emoji: '🍕' },
 					{ english: 'sushi', spanish: 'sushi', emoji: '🍣' },
@@ -997,7 +1357,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_3_chapter_3_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'suitcase', spanish: 'maleta', emoji: '🧳' },
 					{ english: 'passport', spanish: 'pasaporte', emoji: '📘' },
@@ -1068,7 +1428,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_3_chapter_4_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'plane', spanish: 'avión', emoji: '✈️' },
 					{ english: 'train', spanish: 'tren', emoji: '🚆' },
@@ -1139,7 +1499,7 @@ const LevelPage: React.FC = () => {
 		}
 		if (levelId === 'world_3_chapter_5_level_6') {
 			return {
-				type: 'multipleChoice',
+				type: 'colorAndLearn',
 				words: [
 					{ english: 'sunny', spanish: 'soleado', emoji: '☀️' },
 					{ english: 'rainy', spanish: 'lluvioso', emoji: '🌧️' },
@@ -1149,8 +1509,38 @@ const LevelPage: React.FC = () => {
 			};
 		}
 
-		// Default fallback
-		return null;
+		// Fallback generico para mundos/capitulos nuevos
+		const parsed = levelId.match(/^world_(\d+)_chapter_(\d+)_level_(\d+)$/);
+		if (!parsed) return null;
+
+		const worldNum = Number(parsed[1]);
+		const chapterNum = Number(parsed[2]);
+		const levelNum = Number(parsed[3]);
+		const chapterKey = `world_${worldNum}_chapter_${chapterNum}`;
+		const words = GENERIC_CHAPTER_WORDS[chapterKey];
+		if (!words || words.length < 3) return null;
+
+		const normalizedLevel = ((levelNum - 1) % 6) + 1;
+		const shortWords = words.slice(0, 3);
+		const mediumWords = words.slice(0, 4);
+		const fullWords = words.slice(0, 5);
+
+		switch (normalizedLevel) {
+			case 1:
+				return { type: 'listenAndChoose', words: shortWords as MiniGameWord[] };
+			case 2:
+				return { type: 'dragAndDrop', words: mediumWords as MiniGameWord[] };
+			case 3:
+				return { type: 'multipleChoice', words: fullWords as MiniGameWord[] };
+			case 4:
+				return { type: 'selectWords', words: shortWords as MiniGameWord[] };
+			case 5:
+				return { type: 'buildPhrase', phrases: buildGenericPhrases(fullWords) };
+			case 6:
+				return { type: 'colorAndLearn', words: shortWords as MiniGameWord[] };
+			default:
+				return { type: 'multipleChoice', words: fullWords as MiniGameWord[] };
+		}
 	};
 
 	const levelData = getLevelData(levelId);
@@ -1162,6 +1552,7 @@ const LevelPage: React.FC = () => {
 			case 'multipleChoice': return 'Elige la respuesta correcta';
 			case 'selectWords': return 'Selecciona las palabras correctas';
 			case 'buildPhrase': return 'Pon las palabras en orden';
+			case 'colorAndLearn': return 'Colorea el dibujo y aprende la palabra';
 			default: return '¡Vamos a aprender!';
 		}
 	};
@@ -1224,6 +1615,8 @@ const LevelPage: React.FC = () => {
 				return <SelectWords words={levelData.words || []} onComplete={handleInteractionComplete} />;
 			case 'buildPhrase':
 				return <BuildPhrase phrases={levelData.phrases || []} onComplete={handleInteractionComplete} />;
+			case 'colorAndLearn':
+				return <ColorAndLearn words={levelData.words || []} onComplete={handleInteractionComplete} />;
 			default:
 				return (
 					<div className={styles.activityPlaceholder}>
@@ -1236,12 +1629,8 @@ const LevelPage: React.FC = () => {
 	return (
 		<>
 			<OrientationAlert />
-			<div
-				className={styles.page}
-				style={{
-					backgroundImage: `url(/assets/images/backgrounds/${chapter.id}.jpg)`,
-				}}
-			>
+			<div className={styles.page}>
+				<BackgroundImage chapterId={chapter.id} className={styles.backgroundImage} />
 				<header className={styles.header}>
 					<button className={styles.backButton} onClick={() => navigate(`/chapters/${world?.id}`)}>
 						← Volver
@@ -1263,6 +1652,13 @@ const LevelPage: React.FC = () => {
 							<ChibiAvatar
 								eyeState="open"
 								mouthState={isCelebrating ? 'smile' : 'neutral'}
+								skinId={avatarState.skin}
+								hairId={avatarState.hair}
+								eyesId={avatarState.eyes}
+								eyebrowsId={avatarState.eyebrows}
+								mouthId={avatarState.mouth}
+								glassesId={avatarState.glasses}
+								specialId={avatarState.special}
 								size="sm"
 							/>
 						</motion.div>

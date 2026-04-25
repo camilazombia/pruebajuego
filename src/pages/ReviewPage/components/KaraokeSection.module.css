@@ -1,0 +1,209 @@
+.section {
+	padding: 1rem 0;
+}
+
+.sectionHeader {
+	display: flex;
+	align-items: center;
+	gap: 0.75rem;
+	margin-bottom: 1.2rem;
+}
+
+.sectionNote {
+	font-size: 2.4rem;
+	animation: noteBounce 1.8s ease-in-out infinite;
+}
+
+@keyframes noteBounce {
+	0%, 100% { transform: translateY(0) rotate(-8deg); }
+	50% { transform: translateY(-6px) rotate(8deg); }
+}
+
+.sectionTitle {
+	margin: 0;
+	font-size: 1.5rem;
+	font-weight: 900;
+	background: linear-gradient(135deg, #fde68a, #f472b6);
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+}
+
+.sectionSub {
+	margin: 0;
+	font-size: 0.82rem;
+	color: rgba(255, 255, 255, 0.5);
+	font-weight: 600;
+}
+
+/* ── Recursos Adicionales ── */
+.recursosGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+	gap: 0.9rem;
+}
+
+.recursoCard {
+	background: rgba(255, 255, 255, 0.06);
+	border: 2px solid rgba(255, 255, 255, 0.12);
+	border-radius: 1.25rem;
+	padding: 1.1rem 1.2rem;
+	display: flex;
+	align-items: center;
+	gap: 1rem;
+	position: relative;
+	overflow: hidden;
+	transition: border-color 0.15s, background 0.15s;
+}
+
+.recursoCard::before {
+	content: '';
+	position: absolute;
+	inset: 0;
+	background: var(--card-color);
+	opacity: 0.08;
+	pointer-events: none;
+}
+
+.recursoCard:hover {
+	border-color: rgba(255, 255, 255, 0.28);
+	background: rgba(255, 255, 255, 0.1);
+}
+
+.recursoEmoji {
+	font-size: 2.8rem;
+	line-height: 1;
+	flex-shrink: 0;
+}
+
+.recursoInfo {
+	flex: 1;
+	min-width: 0;
+}
+
+.recursoLabel {
+	margin: 0;
+	font-size: 0.95rem;
+	font-weight: 800;
+	color: #ffffff;
+	line-height: 1.2;
+}
+
+.recursoSub {
+	margin: 0.1rem 0 0;
+	font-size: 0.72rem;
+	color: rgba(255, 255, 255, 0.5);
+	font-weight: 600;
+}
+
+.recursoBtns {
+	display: flex;
+	flex-direction: column;
+	gap: 0.35rem;
+	flex-shrink: 0;
+}
+
+/* ── World grid ── */
+.worldGrid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+	gap: 0.75rem;
+}
+
+.worldCard {
+	background: rgba(255, 255, 255, 0.05);
+	border: 1.5px solid rgba(255, 255, 255, 0.1);
+	border-radius: 1.1rem;
+	padding: 1rem 0.8rem;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	text-align: center;
+	transition: border-color 0.15s, background 0.15s;
+}
+
+.worldCard:not(.worldCardLocked):hover {
+	border-color: rgba(253, 230, 138, 0.4);
+	background: rgba(255, 255, 255, 0.08);
+}
+
+.worldCardLocked {
+	opacity: 0.45;
+}
+
+.worldEmoji {
+	font-size: 2.2rem;
+	line-height: 1;
+}
+
+.worldLabel {
+	margin: 0;
+	font-size: 0.72rem;
+	font-weight: 700;
+	color: rgba(255, 255, 255, 0.8);
+	line-height: 1.3;
+}
+
+.worldBtns {
+	display: flex;
+	flex-direction: column;
+	gap: 0.4rem;
+	width: 100%;
+}
+
+.listenBtn,
+.singBtn {
+	width: 100%;
+	padding: 0.4rem 0.5rem;
+	border: none;
+	border-radius: 0.7rem;
+	font-size: 0.78rem;
+	font-weight: 800;
+	cursor: pointer;
+	transition: transform 0.12s, box-shadow 0.12s;
+}
+
+.listenBtn {
+	background: linear-gradient(135deg, #0ea5e9, #6366f1);
+	color: #fff;
+	box-shadow: 0 3px 10px rgba(14, 165, 233, 0.35);
+}
+
+.singBtn {
+	background: linear-gradient(135deg, #ec4899, #a855f7);
+	color: #fff;
+	box-shadow: 0 3px 10px rgba(236, 72, 153, 0.35);
+}
+
+.listenBtn:hover,
+.singBtn:hover {
+	transform: scale(1.04);
+}
+
+.lockedText {
+	margin: 0;
+	font-size: 0.75rem;
+	color: rgba(255, 255, 255, 0.4);
+	font-weight: 600;
+}
+
+@media (max-width: 600px) {
+	.recursosGrid {
+		grid-template-columns: 1fr;
+	}
+
+	.recursoCard {
+		padding: 0.9rem 1rem;
+	}
+
+	.recursoEmoji {
+		font-size: 2.2rem;
+	}
+}
+
+@media (max-width: 480px) {
+	.worldGrid {
+		grid-template-columns: repeat(2, 1fr);
+	}
+}

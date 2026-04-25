@@ -297,7 +297,9 @@ const FlashcardsPage: React.FC = () => {
 	}, [currentIndex, flashcards.length]);
 
 	const handlePlaySound = () => {
-		console.log(`Playing sound: ${currentCard.sound}`);
+		if (!currentCard?.sound) return;
+		const audio = new Audio(`/assets/audio/voices/words/${currentCard.sound}.mp3`);
+		audio.play().catch(() => {});
 	};
 
 	const handleNext = () => {

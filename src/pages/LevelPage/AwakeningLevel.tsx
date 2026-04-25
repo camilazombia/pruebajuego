@@ -150,18 +150,17 @@ export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionCom
 				</div>
 
 				{/* Floating coins */}
-				{coins.map((coin) => (
-					<div
-						key={coin.id}
-						className={styles.floatingCoin}
-						style={{
-							'--coin-x': `${coin.x}%`,
-							'--coin-y': `${coin.y}%`,
-						} as React.CSSProperties}
-					>
-						💰
-					</div>
-				))}
+				{coins.map((coin) => {
+					const safeId = coin.id.replace(/[^a-z0-9-]/gi, '_');
+					return (
+						<React.Fragment key={coin.id}>
+							<style>{`[data-coin-id="${safeId}"] { --coin-x: ${coin.x}%; --coin-y: ${coin.y}%; }`}</style>
+							<div className={styles.floatingCoin} data-coin-id={safeId}>
+								💰
+							</div>
+						</React.Fragment>
+					);
+				})}
 
 				{/* Pulse effects */}
 				{showPulse && (
@@ -192,6 +191,13 @@ export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionCom
 						topId={avatarState.top}
 						bottomId={avatarState.bottom}
 						shoesId={avatarState.shoes}
+						skinId={avatarState.skin}
+						hairId={avatarState.hair}
+						eyesId={avatarState.eyes}
+						eyebrowsId={avatarState.eyebrows}
+						mouthId={avatarState.mouth}
+						glassesId={avatarState.glasses}
+						specialId={avatarState.special}
 						accessories={[]}
 						isBlinking={interactionCount > 0}
 						isBreathing={true}

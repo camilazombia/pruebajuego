@@ -1,0 +1,1228 @@
+================================================================================
+ASSETS_MANIFEST.txt - Mundo Magico Ingles (MUNDOS 4 AL 12)
+Formato organizado igual a ASSETS_COMPLETOS.txt
+================================================================================
+
+Este documento contiene SOLO lo que falta crear para MUNDOS 4-12,
+manteniendo exactamente la estructura de carpetas del proyecto.
+
+
+========================================================================
+SECCION 1: AUDIOS DE EFECTOS (SFX)
+Carpeta: public/assets/audio/sfx/
+========================================================================
+
+Archivo                  | Descripcion / Contenido
+-------------------------|----------------------------------------------------
+correct.mp3              | Sonido corto de acierto (si no existe o deseas mejorar)
+wrong.mp3                | Sonido corto de error suave
+star.mp3                 | Sonido de estrella ganada
+chapter_complete.mp3     | Fanfarria capitulo completado
+world_complete.mp3       | Fanfarria mundo completado
+
+Nota:
+- Si ya existen estos archivos y suenan bien, NO necesitas recrearlos.
+
+
+========================================================================
+SECCION 2: AUDIOS DE INSTRUCCIONES DE MINIJUEGO
+Carpeta: public/assets/audio/voices/instructions/
+Idioma: Espanol amigable para ninos menores de 10 anos
+========================================================================
+
+Archivo                    | Texto exacto sugerido
+---------------------------|----------------------------------------------------
+listen_and_choose.mp3      | "Explorer, escucha la palabra y elige la imagen correcta."
+drag_and_drop.mp3          | "Hero, arrastra cada palabra a su pareja."
+multiple_choice.mp3        | "Explorer, elige la respuesta correcta."
+select_words.mp3           | "Hero, toca la palabra correcta."
+build_phrase.mp3           | "Explorer, construye la frase correcta."
+
+Nota:
+- Si ya existen estos audios, mantener los nombres.
+- Puedes regenerarlos con voz infantil/femenina clara.
+
+
+========================================================================
+SECCION 3: AUDIOS NARRATIVOS POR MUNDO
+Carpeta: public/assets/audio/voices/world_{n}/
+========================================================================
+
+Por cada mundo del 4 al 12 crear:
+- intro.mp3
+- chapter_1.mp3
+- chapter_2.mp3
+- chapter_3.mp3
+- chapter_4.mp3
+- chapter_5.mp3
+
+Ejemplo de textos:
+- intro.mp3: "Welcome Explorer. Let us start this world."
+- chapter_X.mp3: "Hero, welcome to chapter X. Let us play and learn."
+
+Rutas exactas por mundo:
+- public/assets/audio/voices/world_4/
+- public/assets/audio/voices/world_5/
+- public/assets/audio/voices/world_6/
+- public/assets/audio/voices/world_7/
+- public/assets/audio/voices/world_8/
+- public/assets/audio/voices/world_9/
+- public/assets/audio/voices/world_10/
+- public/assets/audio/voices/world_11/
+- public/assets/audio/voices/world_12/
+
+
+========================================================================
+SECCION 4: AUDIOS DE PALABRAS (INGLES) POR CAPITULO
+Carpeta: public/assets/audio/voices/words/
+Formato de nombre: palabra_en_ingles.mp3 (con _ si hay espacios)
+========================================================================
+
+--- MUNDO 4: La Granja Ruidosa ---
+
+Capitulo 1 - Farm Animals:
+  cow.mp3                 -> "cow"
+  pig.mp3                 -> "pig"
+  chicken.mp3             -> "chicken"
+  horse.mp3               -> "horse"
+  sheep.mp3               -> "sheep"
+
+Capitulo 2 - Wild Animals:
+  lion.mp3                -> "lion"
+  tiger.mp3               -> "tiger"
+  elephant.mp3            -> "elephant"
+  monkey.mp3              -> "monkey"
+  bear.mp3                -> "bear"
+
+Capitulo 3 - Pets:
+  dog.mp3                 -> "dog"
+  cat.mp3                 -> "cat"
+  rabbit.mp3              -> "rabbit"
+  hamster.mp3             -> "hamster"
+  fish.mp3                -> "fish"
+
+Capitulo 4 - Animal Sounds:
+  moo.mp3                 -> "moo"
+  oink.mp3                -> "oink"
+  quack.mp3               -> "quack"
+  woof.mp3                -> "woof"
+  meow.mp3                -> "meow"
+
+Capitulo 5 - Habitats:
+  farm.mp3                -> "farm"
+  jungle.mp3              -> "jungle"
+  forest.mp3              -> "forest"
+  river.mp3               -> "river"
+  ocean.mp3               -> "ocean"
+
+
+--- MUNDO 5: El Reloj Congelado ---
+
+Capitulo 1 - Morning Routine:
+  wake_up.mp3             -> "wake up"
+  brush.mp3               -> "brush"
+  wash.mp3                -> "wash"
+  dress.mp3               -> "dress"
+  breakfast.mp3           -> "breakfast"
+
+Capitulo 2 - Afternoon Routine:
+  study.mp3               -> "study"
+  read.mp3                -> "read"
+  write.mp3               -> "write"
+  play.mp3                -> "play"
+  lunch.mp3               -> "lunch"
+
+Capitulo 3 - Night Routine:
+  dinner.mp3              -> "dinner"
+  bath.mp3                -> "bath"
+  pajamas.mp3             -> "pajamas"
+  sleep.mp3               -> "sleep"
+  night.mp3               -> "night"
+
+Capitulo 4 - Days of Week:
+  monday.mp3              -> "monday"
+  tuesday.mp3             -> "tuesday"
+  wednesday.mp3           -> "wednesday"
+  thursday.mp3            -> "thursday"
+  friday.mp3              -> "friday"
+
+Capitulo 5 - Time Words:
+  morning.mp3             -> "morning"
+  afternoon.mp3           -> "afternoon"
+  evening.mp3             -> "evening"
+  night.mp3               -> "night"
+  clock.mp3               -> "clock"
+
+
+--- MUNDO 6: El Castillo de las Emociones ---
+
+Capitulo 1 - Happy:
+  happy.mp3               -> "happy"
+  smile.mp3               -> "smile"
+  laugh.mp3               -> "laugh"
+  joy.mp3                 -> "joy"
+  fun.mp3                 -> "fun"
+
+Capitulo 2 - Sad:
+  sad.mp3                 -> "sad"
+  cry.mp3                 -> "cry"
+  tears.mp3               -> "tears"
+  blue.mp3                -> "blue"
+  comfort.mp3             -> "comfort"
+
+Capitulo 3 - Angry:
+  angry.mp3               -> "angry"
+  calm.mp3                -> "calm"
+  breathe.mp3             -> "breathe"
+  relax.mp3               -> "relax"
+  peace.mp3               -> "peace"
+
+Capitulo 4 - Scared and Brave:
+  scared.mp3              -> "scared"
+  brave.mp3               -> "brave"
+  safe.mp3                -> "safe"
+  light.mp3               -> "light"
+  friend.mp3              -> "friend"
+
+Capitulo 5 - Kind Actions:
+  kind.mp3                -> "kind"
+  help.mp3                -> "help"
+  hug.mp3                 -> "hug"
+  okay.mp3                -> "okay"
+  better.mp3              -> "better"
+
+
+--- MUNDO 7: La Montana del Clima ---
+
+Capitulo 1 - Weather:
+  sunny.mp3               -> "sunny"
+  rainy.mp3               -> "rainy"
+  cloudy.mp3              -> "cloudy"
+  windy.mp3               -> "windy"
+  snowy.mp3               -> "snowy"
+
+Capitulo 2 - Clothes:
+  shirt.mp3               -> "shirt"
+  pants.mp3               -> "pants"
+  dress.mp3               -> "dress"
+  shoes.mp3               -> "shoes"
+  hat.mp3                 -> "hat"
+
+Capitulo 3 - Seasons:
+  spring.mp3              -> "spring"
+  summer.mp3              -> "summer"
+  autumn.mp3              -> "autumn"
+  winter.mp3              -> "winter"
+  season.mp3              -> "season"
+
+Capitulo 4 - Accessories:
+  jacket.mp3              -> "jacket"
+  scarf.mp3               -> "scarf"
+  gloves.mp3              -> "gloves"
+  boots.mp3               -> "boots"
+  umbrella.mp3            -> "umbrella"
+
+Capitulo 5 - Temperature:
+  hot.mp3                 -> "hot"
+  cold.mp3                -> "cold"
+  warm.mp3                -> "warm"
+  cool.mp3                -> "cool"
+  weather.mp3             -> "weather"
+
+
+--- MUNDO 8: El Oceano de los Colores ---
+
+Capitulo 1 - Sea Animals:
+  fish.mp3                -> "fish"
+  dolphin.mp3             -> "dolphin"
+  whale.mp3               -> "whale"
+  shark.mp3               -> "shark"
+  turtle.mp3              -> "turtle"
+
+Capitulo 2 - Deep Sea:
+  octopus.mp3             -> "octopus"
+  jellyfish.mp3           -> "jellyfish"
+  seahorse.mp3            -> "seahorse"
+  crab.mp3                -> "crab"
+  starfish.mp3            -> "starfish"
+
+Capitulo 3 - Beach Objects:
+  beach.mp3               -> "beach"
+  sand.mp3                -> "sand"
+  shell.mp3               -> "shell"
+  boat.mp3                -> "boat"
+  island.mp3              -> "island"
+
+Capitulo 4 - Reef Colors:
+  coral.mp3               -> "coral"
+  reef.mp3                -> "reef"
+  blue.mp3                -> "blue"
+  green.mp3               -> "green"
+  purple.mp3              -> "purple"
+
+Capitulo 5 - Ocean Actions:
+  swim.mp3                -> "swim"
+  dive.mp3                -> "dive"
+  float.mp3               -> "float"
+  wave.mp3                -> "wave"
+  ocean.mp3               -> "ocean"
+
+
+--- MUNDO 9: La Casa de los Espejos ---
+
+Capitulo 1 - Body Parts:
+  head.mp3                -> "head"
+  arms.mp3                -> "arms"
+  hands.mp3               -> "hands"
+  legs.mp3                -> "legs"
+  feet.mp3                -> "feet"
+
+Capitulo 2 - Face Parts:
+  eyes.mp3                -> "eyes"
+  nose.mp3                -> "nose"
+  mouth.mp3               -> "mouth"
+  ears.mp3                -> "ears"
+  hair.mp3                -> "hair"
+
+Capitulo 3 - Family:
+  mom.mp3                 -> "mom"
+  dad.mp3                 -> "dad"
+  brother.mp3             -> "brother"
+  sister.mp3              -> "sister"
+  family.mp3              -> "family"
+
+Capitulo 4 - Descriptions:
+  tall.mp3                -> "tall"
+  short.mp3               -> "short"
+  big.mp3                 -> "big"
+  small.mp3               -> "small"
+  strong.mp3              -> "strong"
+
+Capitulo 5 - Mirror Actions:
+  mirror.mp3              -> "mirror"
+  smile.mp3               -> "smile"
+  point.mp3               -> "point"
+  touch.mp3               -> "touch"
+  show.mp3                -> "show"
+
+
+--- MUNDO 10: La Academia Suprema ---
+
+Capitulo 1 - Action Verbs:
+  run.mp3                 -> "run"
+  jump.mp3                -> "jump"
+  walk.mp3                -> "walk"
+  dance.mp3               -> "dance"
+  sing.mp3                -> "sing"
+
+Capitulo 2 - Can / Cannot:
+  can.mp3                 -> "can"
+  cannot.mp3              -> "cannot"
+  open.mp3                -> "open"
+  close.mp3               -> "close"
+  try.mp3                 -> "try"
+
+Capitulo 3 - Sentence Order:
+  subject.mp3             -> "subject"
+  verb.mp3                -> "verb"
+  object.mp3              -> "object"
+  sentence.mp3            -> "sentence"
+  order.mp3               -> "order"
+
+Capitulo 4 - Questions:
+  what.mp3                -> "what"
+  where.mp3               -> "where"
+  who.mp3                 -> "who"
+  when.mp3                -> "when"
+  why.mp3                 -> "why"
+
+Capitulo 5 - Final Challenge:
+  challenge.mp3           -> "challenge"
+  review.mp3              -> "review"
+  practice.mp3            -> "practice"
+  success.mp3             -> "success"
+  graduate.mp3            -> "graduate"
+
+
+--- MUNDO 11: Viajes y Lugares ---
+
+Capitulo 1 - Places:
+  park.mp3                -> "park"
+  school.mp3              -> "school"
+  museum.mp3              -> "museum"
+  library.mp3             -> "library"
+  hospital.mp3            -> "hospital"
+
+Capitulo 2 - Transport:
+  bus.mp3                 -> "bus"
+  train.mp3               -> "train"
+  plane.mp3               -> "plane"
+  bike.mp3                -> "bike"
+  car.mp3                 -> "car"
+
+Capitulo 3 - Directions:
+  left.mp3                -> "left"
+  right.mp3               -> "right"
+  straight.mp3            -> "straight"
+  near.mp3                -> "near"
+  far.mp3                 -> "far"
+
+Capitulo 4 - Signs:
+  stop.mp3                -> "stop"
+  go.mp3                  -> "go"
+  crosswalk.mp3           -> "crosswalk"
+  traffic_light.mp3       -> "traffic light"
+  station.mp3             -> "station"
+
+Capitulo 5 - Travel Items:
+  ticket.mp3              -> "ticket"
+  map.mp3                 -> "map"
+  suitcase.mp3            -> "suitcase"
+  passport.mp3            -> "passport"
+  travel.mp3              -> "travel"
+
+
+--- MUNDO 12: Reino Creador ---
+
+Capitulo 1 - Characters:
+  hero.mp3                -> "hero"
+  explorer.mp3            -> "explorer"
+  friend.mp3              -> "friend"
+  wizard.mp3              -> "wizard"
+  guardian.mp3            -> "guardian"
+
+Capitulo 2 - Settings:
+  forest.mp3              -> "forest"
+  city.mp3                -> "city"
+  ocean.mp3               -> "ocean"
+  castle.mp3              -> "castle"
+  mountain.mp3            -> "mountain"
+
+Capitulo 3 - Actions:
+  find.mp3                -> "find"
+  help.mp3                -> "help"
+  save.mp3                -> "save"
+  build.mp3               -> "build"
+  create.mp3              -> "create"
+
+Capitulo 4 - Problem and Solution:
+  problem.mp3             -> "problem"
+  solution.mp3            -> "solution"
+  first.mp3               -> "first"
+  next.mp3                -> "next"
+  finally.mp3             -> "finally"
+
+Capitulo 5 - Celebration:
+  celebrate.mp3           -> "celebrate"
+  win.mp3                 -> "win"
+  star.mp3                -> "star"
+  magic.mp3               -> "magic"
+  thank_you.mp3           -> "thank you"
+
+/*****hecho hasta aca/*****//
+========================================================================
+SECCION 5: AUDIOS DE FRASES (INGLES) PARA BUILD PHRASE
+Carpeta: public/assets/audio/voices/phrases/
+Regla de nombre: frase en minusculas con "_" entre palabras
+========================================================================
+
+Patron usado en codigo para mundos 4-12:
+- i_see_{palabra}.mp3
+- i_like_{palabra}.mp3
+
+Ejemplos:
+- i_see_cow.mp3
+- i_like_pig.mp3
+- i_see_wake_up.mp3
+- i_like_brush.mp3
+- i_see_traffic_light.mp3
+- i_like_station.mp3
+
+Importante:
+- Para cada capitulo crear al menos 2 frases:
+  1) i_see_{primerapalabra}.mp3
+  2) i_like_{segundapalabra}.mp3
+
+
+========================================================================
+SECCION 6: VIDEOS INTRO POR CAPITULO (10 SEGUNDOS)
+Carpeta: public/assets/videos/world_{n}/
+Formato: MP4, 1280x720, 10s, cartoon 2D infantil
+========================================================================
+
+--- MUNDO 4 ---
+public/assets/videos/world_4/world_4_chapter_1_intro.mp4 -> mostrar: cow, pig, chicken, horse, sheep
+public/assets/videos/world_4/world_4_chapter_2_intro.mp4 -> mostrar: lion, tiger, elephant, monkey, bear
+public/assets/videos/world_4/world_4_chapter_3_intro.mp4 -> mostrar: dog, cat, rabbit, hamster, fish
+public/assets/videos/world_4/world_4_chapter_4_intro.mp4 -> mostrar: cow/moo, pig/oink, duck/quack, dog/woof, cat/meow
+public/assets/videos/world_4/world_4_chapter_5_intro.mp4 -> mostrar: farm, jungle, forest, river, ocean
+
+--- MUNDO 5 ---
+public/assets/videos/world_5/world_5_chapter_1_intro.mp4 -> mostrar: wake up, brush, wash, dress, breakfast
+public/assets/videos/world_5/world_5_chapter_2_intro.mp4 -> mostrar: study, read, write, play, lunch
+public/assets/videos/world_5/world_5_chapter_3_intro.mp4 -> mostrar: dinner, bath, pajamas, sleep, night
+public/assets/videos/world_5/world_5_chapter_4_intro.mp4 -> mostrar: monday, tuesday, wednesday, thursday, friday
+public/assets/videos/world_5/world_5_chapter_5_intro.mp4 -> mostrar: morning, afternoon, evening, night, clock
+
+--- MUNDO 6 ---
+public/assets/videos/world_6/world_6_chapter_1_intro.mp4 -> mostrar: happy, smile, laugh, joy, fun
+public/assets/videos/world_6/world_6_chapter_2_intro.mp4 -> mostrar: sad, cry, tears, blue, comfort
+public/assets/videos/world_6/world_6_chapter_3_intro.mp4 -> mostrar: angry, calm, breathe, relax, peace
+public/assets/videos/world_6/world_6_chapter_4_intro.mp4 -> mostrar: scared, brave, safe, light, friend
+public/assets/videos/world_6/world_6_chapter_5_intro.mp4 -> mostrar: kind, help, hug, okay, better
+
+--- MUNDO 7 ---
+public/assets/videos/world_7/world_7_chapter_1_intro.mp4 -> mostrar: sunny, rainy, cloudy, windy, snowy
+public/assets/videos/world_7/world_7_chapter_2_intro.mp4 -> mostrar: shirt, pants, dress, shoes, hat
+public/assets/videos/world_7/world_7_chapter_3_intro.mp4 -> mostrar: spring, summer, autumn, winter, season
+public/assets/videos/world_7/world_7_chapter_4_intro.mp4 -> mostrar: jacket, scarf, gloves, boots, umbrella
+public/assets/videos/world_7/world_7_chapter_5_intro.mp4 -> mostrar: hot, cold, warm, cool, weather
+
+--- MUNDO 8 ---
+public/assets/videos/world_8/world_8_chapter_1_intro.mp4 -> mostrar: fish, dolphin, whale, shark, turtle
+public/assets/videos/world_8/world_8_chapter_2_intro.mp4 -> mostrar: octopus, jellyfish, seahorse, crab, starfish
+public/assets/videos/world_8/world_8_chapter_3_intro.mp4 -> mostrar: beach, sand, shell, boat, island
+public/assets/videos/world_8/world_8_chapter_4_intro.mp4 -> mostrar: coral, reef, blue, green, purple
+public/assets/videos/world_8/world_8_chapter_5_intro.mp4 -> mostrar: swim, dive, float, wave, ocean
+
+--- MUNDO 9 ---
+public/assets/videos/world_9/world_9_chapter_1_intro.mp4 -> mostrar: head, arms, hands, legs, feet
+public/assets/videos/world_9/world_9_chapter_2_intro.mp4 -> mostrar: eyes, nose, mouth, ears, hair
+public/assets/videos/world_9/world_9_chapter_3_intro.mp4 -> mostrar: mom, dad, brother, sister, family
+public/assets/videos/world_9/world_9_chapter_4_intro.mp4 -> mostrar: tall, short, big, small, strong
+public/assets/videos/world_9/world_9_chapter_5_intro.mp4 -> mostrar: mirror, smile, point, touch, show
+
+--- MUNDO 10 ---
+public/assets/videos/world_10/world_10_chapter_1_intro.mp4 -> mostrar: run, jump, walk, dance, sing
+public/assets/videos/world_10/world_10_chapter_2_intro.mp4 -> mostrar: can, cannot, open, close, try
+public/assets/videos/world_10/world_10_chapter_3_intro.mp4 -> mostrar: subject, verb, object, sentence, order
+public/assets/videos/world_10/world_10_chapter_4_intro.mp4 -> mostrar: what, where, who, when, why
+public/assets/videos/world_10/world_10_chapter_5_intro.mp4 -> mostrar: challenge, review, practice, success, graduate
+
+//////*******ACA VOYYY********//////
+
+--- MUNDO 11 ---
+public/assets/videos/world_11/world_11_chapter_1_intro.mp4 -> mostrar: park, school, museum, library, hospital
+public/assets/videos/world_11/world_11_chapter_2_intro.mp4 -> mostrar: bus, train, plane, bike, car
+public/assets/videos/world_11/world_11_chapter_3_intro.mp4 -> mostrar: left, right, straight, near, far
+public/assets/videos/world_11/world_11_chapter_4_intro.mp4 -> mostrar: stop, go, crosswalk, traffic light, station
+public/assets/videos/world_11/world_11_chapter_5_intro.mp4 -> mostrar: ticket, map, suitcase, passport, travel
+
+--- MUNDO 12 ---
+public/assets/videos/world_12/world_12_chapter_1_intro.mp4 -> mostrar: hero, explorer, friend, wizard, guardian
+public/assets/videos/world_12/world_12_chapter_2_intro.mp4 -> mostrar: forest, city, ocean, castle, mountain
+public/assets/videos/world_12/world_12_chapter_3_intro.mp4 -> mostrar: find, help, save, build, create
+public/assets/videos/world_12/world_12_chapter_4_intro.mp4 -> mostrar: problem, solution, first, next, finally
+public/assets/videos/world_12/world_12_chapter_5_intro.mp4 -> mostrar: celebrate, win, star, magic, thank you
+
+Prompt base recomendado para todos:
+"Animated 2D cartoon video for kids ages 4-9, bright colors, clear character actions,
+show exactly these 5 vocabulary items: [LISTA], no text on screen, playful style, 10 seconds."
+
+
+========================================================================
+SECCION 7: FONDOS POR CAPITULO
+Carpeta: public/assets/images/backgrounds/
+Formato: PNG 1920x1080
+Prompt base: "2D cartoon scene for kids 4-9, bright colors, soft gradients,
+same visual style as mundo magico ingles worlds 1-3, no text, 1920x1080"
+========================================================================
+
+--- MUNDO 4: La Granja Ruidosa (colores tierra, espantapajaros, animales) ---
+world_4_chapter_1.png  -> Granja con establo, vacas, cerdos, gallinas, caballos y ovejas
+world_4_chapter_2.png  -> Sabana/jungla con leon, tigre, elefante, mono y oso
+world_4_chapter_3.png  -> Casa/jardin con perro, gato, conejo, hamster y pecera
+world_4_chapter_4.png  -> Granja de dia con animales haciendo sonidos (mu-mu, oink, cuac)
+world_4_chapter_5.png  -> Granja completa con habitats: corral, jungla, bosque, rio, ocean
+
+--- MUNDO 5: El Reloj Congelado (tonos azul/turquesa, relojes, rutinas) ---
+world_5_chapter_1.png  -> Dormitorio manana: cama, banero, desayuno, rutina de despertar
+world_5_chapter_2.png  -> Sala/taller de tarde: libros, juegos, estudio, almuerzo
+world_5_chapter_3.png  -> Dormitorio noche: banera, pijamas, luna, estrellas, cama
+world_5_chapter_4.png  -> Calendario grande con los 7 dias de la semana
+world_5_chapter_5.png  -> Reloj gigante, manana/tarde/noche, senor tiempo durmiendo
+
+--- MUNDO 6: El Castillo de las Emociones (tonos morado, castillo, fantasmas) ---
+world_6_chapter_1.png  -> Sala feliz del castillo: sonrisas, risas, alegria, colores calidos
+world_6_chapter_2.png  -> Sala triste: lágrimas suaves, consuelo, nubes grises
+world_6_chapter_3.png  -> Sala de enojo: lugar para respirar, calmarse, paz
+world_6_chapter_4.png  -> Sala valiente: luz contra oscuridad, amigos, seguridad
+world_6_chapter_5.png  -> Castillo iluminado completo: amabilidad, abrazos, final feliz
+
+--- MUNDO 7: La Montaña del Clima (tonos azul claro, yeti, nieve) ---
+world_7_chapter_1.png  -> Paisaje con sol, nubes, lluvia, viento, nieve
+world_7_chapter_2.png  -> Guardarropa/armario: camisas, pantalones, vestido, zapatos, gorro
+world_7_chapter_3.png  -> Las 4 estaciones: primavera, verano, otono, invierno
+world_7_chapter_4.png  -> Yeti con chaqueta, bufanda, guantes, botas, paraguas
+world_7_chapter_5.png  -> Cumbre de montana, clima variado, yeti feliz vestido
+
+--- MUNDO 8: El Oceano de los Colores (tonos azul/turquesa, sirena, mar) ---
+world_8_chapter_1.png  -> Peces coloridos nadando: rojo, azul, amarillo, arcoiris
+world_8_chapter_2.png  -> Mar profundo: pulpo, medusa, caballito de mar, cangrejo, estrella de mar
+world_8_chapter_3.png  -> Playa: arena, conchas, bote, isla al fondo
+world_8_chapter_4.png  -> Arrecife de coral con colores vibrantes: coral, reef, azul, verde, morado
+world_8_chapter_5.png  -> Oceano abierto: nadar, bucear, flotar, olas, sirena con colores
+
+--- MUNDO 9: La Casa de los Espejos (tonos rosa, espejos, reflejos) ---
+world_9_chapter_1.png  -> Nino/niña mostrando cabeza, brazos, manos, piernas, pies
+world_9_chapter_2.png  -> Rostro de cerca: ojos, nariz, boca, orejas, cabello
+world_9_chapter_3.png  -> Familia en salon: mama, papa, hermanos, abuelos
+world_9_chapter_4.png  -> Personas de diferentes alturas y tamanos: alto, bajo, grande, pequeno
+world_9_chapter_5.png  -> Espejo magico en casa, nino senalando, tocar, mostrar
+
+--- MUNDO 10: La Academia Suprema (tonos morado, mago, academia) ---
+world_10_chapter_1.png -> Sala de verbos: correr, saltar, caminar, bailar, cantar
+world_10_chapter_2.png -> Biblioteca de repaso: palabras de todos los mundos
+world_10_chapter_3.png -> Taller de oraciones: sujeto, verbo, objeto en orden
+world_10_chapter_4.png -> Desafio final: preguntas what, where, who, when, why
+world_10_chapter_5.png -> Ceremonia de graduacion: titulo de Mago del Ingles
+
+--- MUNDO 11: Viajes y Lugares (tonos verde, brujula, mapa) ---
+world_11_chapter_1.png -> Ciudad: parque, escuela, museo, biblioteca, hospital
+world_11_chapter_2.png -> Estacion: autobus, tren, avion, bicicleta, carro
+world_11_chapter_3.png -> Calle con direcciones: izquierda, derecha, recto, cerca, lejos
+world_11_chapter_4.png -> Calles con senales: stop, go, paso peatonal, semaforo, estacion
+world_11_chapter_5.png -> Viaje: boleto, mapa, maleta, pasaporte, equipaje
+
+--- MUNDO 12: Reino Creador (tonos naranja/dorado, reina, corona) ---
+world_12_chapter_1.png -> Heroe, explorador, amigo, mago, guardian
+world_12_chapter_2.png -> Escenarios: bosque, ciudad, oceano, castillo, montana
+world_12_chapter_3.png -> Acciones: encontrar, ayudar, salvar, construir, crear
+world_12_chapter_4.png -> Problema y solucion: reto, respuesta, first, next, finally
+world_12_chapter_5.png -> Celebracion final: celebrar, ganar, estrellas, magia, thank you
+
+Total fondos nuevos: 45
+
+
+========================================================================
+SECCION 8: FONDOS PARA MISSIONS MAP (W11-W12)
+Carpeta: public/assets/images/backgrounds/
+Formato: JPG (sin guion bajo en nombre). El codigo usa world11.jpg y world12.jpg
+========================================================================
+
+world11.jpg -> Fondo para mapa de misiones del Mundo 11 (Viajes y Lugares).
+               Escena: mapa de mundo, brujula, lugares, transporte, direcciones.
+               Estilo: 2D cartoon, colores verde/turquesa, apto ninos 4-9.
+
+world12.jpg -> Fondo para mapa de misiones del Mundo 12 (Reino Creador).
+               Escena: reino magico, corona, todos los personajes guardianes.
+               Estilo: 2D cartoon, colores naranja/dorado, celebracion final.
+
+
+========================================================================
+RESUMEN TOTAL A CREAR (MUNDOS 4-12)
+========================================================================
+
+Tipo                      | Cantidad | Carpeta
+--------------------------|----------|------------------------------------------
+Videos de capitulo        |   45     | public/assets/videos/world_{4..12}/
+Fondos de capitulo        |   45     | public/assets/images/backgrounds/
+Fondos mission map extra  |    2     | public/assets/images/backgrounds/
+Narrativa world/chapter   |   54     | public/assets/audio/voices/world_{4..12}/
+Palabras (ingles)         |  225     | public/assets/audio/voices/words/
+Frases build_phrase       |   90     | public/assets/audio/voices/phrases/
+--------------------------|----------|------------------------------------------
+TOTAL NUEVO               |  461     | archivos
+
+
+========================================================================
+NOTAS FINALES
+========================================================================
+
+1) Mantener exactamente estos nombres para que se reproduzca automatico.
+2) Todo el contenido debe ser apto para ninos menores de 10 anos.
+3) Mantener estilo visual consistente con mundos 1-3 (cartoon 2D, colores claros).
+4) Personaje neutral en narrativas: "Explorer" o "Hero".
+
+Fin del manifiesto.
+# ASSETS_MANIFEST (EXACTO POR CAPITULO)
+
+Proyecto: Mundo Magico Ingles
+Alcance: Mundos 4 al 12
+Publico: ninos menores de 10 anos
+Estructura fija: 5 capitulos por mundo, 6 niveles por capitulo, 1 video por capitulo.
+
+IMPORTANTE:
+- Este documento usa la estructura real del proyecto (NO cambia carpetas).
+- Cada capitulo abajo trae:
+  1) Video exacto (archivo + ruta + que debe aparecer)
+  2) Palabras exactas en ingles para actividades
+  3) Audios de palabras (nombres de archivos .mp3)
+
+=====================================================================
+RUTAS FIJAS (YA USADAS EN TU PROYECTO)
+=====================================================================
+
+Videos por capitulo:
+- public/assets/videos/world_{n}/world_{n}_chapter_{c}_intro.mp4
+
+Fondos por capitulo:
+- public/assets/images/backgrounds/world_{n}_chapter_{c}.png
+
+Audios de palabras en ingles:
+- public/assets/audio/voices/words/{word}.mp3
+
+Audio narrativo por mundo:
+- public/assets/audio/voices/world_{n}/intro.mp3
+- public/assets/audio/voices/world_{n}/chapter_{c}.mp3
+
+=====================================================================
+WORLD 4 - LA GRANJA RUIDOSA
+=====================================================================
+
+W4-C1 Farm Animals
+- Video: public/assets/videos/world_4/world_4_chapter_1_intro.mp4
+- Debe aparecer exacto: cow, pig, chicken, horse, sheep
+- Prompt video (10s):
+  "2D cartoon farm for kids, show exactly: cow, pig, chicken, horse, sheep, bright colors, playful motion, no text, 10 seconds."
+- Palabras de actividad: cow, pig, chicken, horse, sheep
+- Audios palabras:
+  cow.mp3, pig.mp3, chicken.mp3, horse.mp3, sheep.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_4_chapter_1.png
+
+W4-C2 Wild Animals
+- Video: public/assets/videos/world_4/world_4_chapter_2_intro.mp4
+- Debe aparecer exacto: lion, tiger, elephant, monkey, bear
+- Prompt:
+  "2D cartoon jungle for children, show exactly: lion, tiger, elephant, monkey, bear, soft friendly style, no text, 10 seconds."
+- Palabras: lion, tiger, elephant, monkey, bear
+- Audios:
+  lion.mp3, tiger.mp3, elephant.mp3, monkey.mp3, bear.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_4_chapter_2.png
+
+W4-C3 Pets
+- Video: public/assets/videos/world_4/world_4_chapter_3_intro.mp4
+- Debe aparecer exacto: dog, cat, rabbit, hamster, fish
+- Prompt:
+  "2D cartoon pet room for kids, show exactly: dog, cat, rabbit, hamster, fish, colorful, no text, 10 seconds."
+- Palabras: dog, cat, rabbit, hamster, fish
+- Audios:
+  dog.mp3, cat.mp3, rabbit.mp3, hamster.mp3, fish.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_4_chapter_3.png
+
+W4-C4 Animal Sounds
+- Video: public/assets/videos/world_4/world_4_chapter_4_intro.mp4
+- Debe aparecer exacto: cow (moo), pig (oink), duck (quack), dog (woof), cat (meow)
+- Prompt:
+  "2D cartoon scene with animals and sound bubbles: moo, oink, quack, woof, meow, very clear association animal-sound, no text, 10 seconds."
+- Palabras: moo, oink, quack, woof, meow
+- Audios:
+  moo.mp3, oink.mp3, quack.mp3, woof.mp3, meow.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_4_chapter_4.png
+
+W4-C5 Habitats
+- Video: public/assets/videos/world_4/world_4_chapter_5_intro.mp4
+- Debe aparecer exacto: farm, jungle, forest, river, ocean
+- Prompt:
+  "2D cartoon habitat map for kids, show exactly: farm, jungle, forest, river, ocean, bright and simple, no text, 10 seconds."
+- Palabras: farm, jungle, forest, river, ocean
+- Audios:
+  farm.mp3, jungle.mp3, forest.mp3, river.mp3, ocean.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_4_chapter_5.png
+
+=====================================================================
+WORLD 5 - EL RELOJ CONGELADO
+=====================================================================
+
+W5-C1 Morning Routine
+- Video: public/assets/videos/world_5/world_5_chapter_1_intro.mp4
+- Debe aparecer exacto: wake up, brush, wash, dress, breakfast
+- Prompt:
+  "2D cartoon morning routine for children, show exactly: wake up, brush, wash, dress, breakfast, no text, 10 seconds."
+- Palabras: wake_up, brush, wash, dress, breakfast
+- Audios:
+  wake_up.mp3, brush.mp3, wash.mp3, dress.mp3, breakfast.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_5_chapter_1.png
+
+W5-C2 Afternoon Routine
+- Video: public/assets/videos/world_5/world_5_chapter_2_intro.mp4
+- Debe aparecer exacto: study, read, write, play, lunch
+- Prompt:
+  "2D cartoon afternoon school/home routine, show exactly: study, read, write, play, lunch, no text, 10 seconds."
+- Palabras: study, read, write, play, lunch
+- Audios:
+  study.mp3, read.mp3, write.mp3, play.mp3, lunch.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_5_chapter_2.png
+
+W5-C3 Night Routine
+- Video: public/assets/videos/world_5/world_5_chapter_3_intro.mp4
+- Debe aparecer exacto: dinner, bath, pajamas, sleep, night
+- Prompt:
+  "2D cartoon night routine for kids, show exactly: dinner, bath, pajamas, sleep, night, cozy style, no text, 10 seconds."
+- Palabras: dinner, bath, pajamas, sleep, night
+- Audios:
+  dinner.mp3, bath.mp3, pajamas.mp3, sleep.mp3, night.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_5_chapter_3.png
+
+W5-C4 Days of Week
+- Video: public/assets/videos/world_5/world_5_chapter_4_intro.mp4
+- Debe aparecer exacto: monday, tuesday, wednesday, thursday, friday
+- Prompt:
+  "2D cartoon calendar for children, show exactly: monday, tuesday, wednesday, thursday, friday, playful icons, no text, 10 seconds."
+- Palabras: monday, tuesday, wednesday, thursday, friday
+- Audios:
+  monday.mp3, tuesday.mp3, wednesday.mp3, thursday.mp3, friday.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_5_chapter_4.png
+
+W5-C5 Time Words
+- Video: public/assets/videos/world_5/world_5_chapter_5_intro.mp4
+- Debe aparecer exacto: morning, afternoon, evening, night, clock
+- Prompt:
+  "2D cartoon time scene for kids, show exactly: morning, afternoon, evening, night, clock, no text, 10 seconds."
+- Palabras: morning, afternoon, evening, night, clock
+- Audios:
+  morning.mp3, afternoon.mp3, evening.mp3, night.mp3, clock.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_5_chapter_5.png
+
+=====================================================================
+WORLD 6 - CASTILLO DE EMOCIONES
+=====================================================================
+
+W6-C1 Happy
+- Video: public/assets/videos/world_6/world_6_chapter_1_intro.mp4
+- Debe aparecer exacto: happy, smile, laugh, joy, fun
+- Prompt:
+  "2D cartoon happy room for kids, show exactly: happy, smile, laugh, joy, fun, bright yellow mood, no text, 10 seconds."
+- Palabras: happy, smile, laugh, joy, fun
+- Audios:
+  happy.mp3, smile.mp3, laugh.mp3, joy.mp3, fun.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_6_chapter_1.png
+
+W6-C2 Sad
+- Video: public/assets/videos/world_6/world_6_chapter_2_intro.mp4
+- Debe aparecer exacto: sad, cry, tears, blue, comfort
+- Prompt:
+  "2D cartoon sad-but-safe room for kids, show exactly: sad, cry, tears, blue, comfort, no text, 10 seconds."
+- Palabras: sad, cry, tears, blue, comfort
+- Audios:
+  sad.mp3, cry.mp3, tears.mp3, blue.mp3, comfort.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_6_chapter_2.png
+
+W6-C3 Angry
+- Video: public/assets/videos/world_6/world_6_chapter_3_intro.mp4
+- Debe aparecer exacto: angry, calm, breathe, relax, peace
+- Prompt:
+  "2D cartoon emotion regulation scene for children, show exactly: angry, calm, breathe, relax, peace, no text, 10 seconds."
+- Palabras: angry, calm, breathe, relax, peace
+- Audios:
+  angry.mp3, calm.mp3, breathe.mp3, relax.mp3, peace.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_6_chapter_3.png
+
+W6-C4 Scared and Brave
+- Video: public/assets/videos/world_6/world_6_chapter_4_intro.mp4
+- Debe aparecer exacto: scared, brave, safe, light, friend
+- Prompt:
+  "2D cartoon brave scene for kids, show exactly: scared, brave, safe, light, friend, warm reassuring tone, no text, 10 seconds."
+- Palabras: scared, brave, safe, light, friend
+- Audios:
+  scared.mp3, brave.mp3, safe.mp3, light.mp3, friend.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_6_chapter_4.png
+
+W6-C5 Kind Actions
+- Video: public/assets/videos/world_6/world_6_chapter_5_intro.mp4
+- Debe aparecer exacto: kind, help, hug, okay, better
+- Prompt:
+  "2D cartoon kindness scene for children, show exactly: kind, help, hug, okay, better, no text, 10 seconds."
+- Palabras: kind, help, hug, okay, better
+- Audios:
+  kind.mp3, help.mp3, hug.mp3, okay.mp3, better.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_6_chapter_5.png
+
+=====================================================================
+WORLD 7 - MONTANA DEL CLIMA
+=====================================================================
+
+W7-C1 Weather
+- Video: public/assets/videos/world_7/world_7_chapter_1_intro.mp4
+- Debe aparecer exacto: sunny, rainy, cloudy, windy, snowy
+- Prompt:
+  "2D cartoon weather mountain for kids, show exactly: sunny, rainy, cloudy, windy, snowy, no text, 10 seconds."
+- Palabras: sunny, rainy, cloudy, windy, snowy
+- Audios:
+  sunny.mp3, rainy.mp3, cloudy.mp3, windy.mp3, snowy.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_7_chapter_1.png
+
+W7-C2 Clothes
+- Video: public/assets/videos/world_7/world_7_chapter_2_intro.mp4
+- Debe aparecer exacto: shirt, pants, dress, shoes, hat
+- Prompt:
+  "2D cartoon wardrobe for kids, show exactly: shirt, pants, dress, shoes, hat, no text, 10 seconds."
+- Palabras: shirt, pants, dress, shoes, hat
+- Audios:
+  shirt.mp3, pants.mp3, dress.mp3, shoes.mp3, hat.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_7_chapter_2.png
+
+W7-C3 Seasons
+- Video: public/assets/videos/world_7/world_7_chapter_3_intro.mp4
+- Debe aparecer exacto: spring, summer, autumn, winter, season
+- Prompt:
+  "2D cartoon four seasons scene for children, show exactly: spring, summer, autumn, winter, season, no text, 10 seconds."
+- Palabras: spring, summer, autumn, winter, season
+- Audios:
+  spring.mp3, summer.mp3, autumn.mp3, winter.mp3, season.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_7_chapter_3.png
+*//////////////////////////////ACA VOY*************************************************************///////////////////////////////////////////////////
+COPIAR ESTO EN GEMINI GENERA PROMPT E IMAGEN EN GROK
+W7-C4 Accessories
+- Video: public/assets/videos/world_7/world_7_chapter_4_intro.mp4
+- Debe aparecer exacto: jacket, scarf, gloves, boots, umbrella
+- Prompt:
+  "2D cartoon accessories scene for kids, show exactly: jacket, scarf, gloves, boots, umbrella, no text, 10 seconds."
+- Palabras: jacket, scarf, gloves, boots, umbrella
+- Audios:
+  jacket.mp3, scarf.mp3, gloves.mp3, boots.mp3, umbrella.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_7_chapter_4.png
+
+W7-C5 Temperature
+- Video: public/assets/videos/world_7/world_7_chapter_5_intro.mp4
+- Debe aparecer exacto: hot, cold, warm, cool, weather
+- Prompt:
+  "2D cartoon temperature scene for children, show exactly: hot, cold, warm, cool, weather, no text, 10 seconds."
+- Palabras: hot, cold, warm, cool, weather
+- Audios:
+  hot.mp3, cold.mp3, warm.mp3, cool.mp3, weather.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_7_chapter_5.png
+
+=====================================================================
+WORLD 8 - OCEANO DE LOS COLORES
+=====================================================================
+
+W8-C1 Sea Animals
+- Video: public/assets/videos/world_8/world_8_chapter_1_intro.mp4
+- Debe aparecer exacto: fish, dolphin, whale, shark, turtle
+- Prompt:
+  "2D cartoon ocean for kids, show exactly: fish, dolphin, whale, shark, turtle, colorful reef, no text, 10 seconds."
+- Palabras: fish, dolphin, whale, shark, turtle
+- Audios:
+  fish.mp3, dolphin.mp3, whale.mp3, shark.mp3, turtle.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_8_chapter_1.png
+
+W8-C2 Deep Sea
+- Video: public/assets/videos/world_8/world_8_chapter_2_intro.mp4
+- Debe aparecer exacto: octopus, jellyfish, seahorse, crab, starfish
+- Prompt:
+  "2D cartoon deep sea scene for kids, show exactly: octopus, jellyfish, seahorse, crab, starfish, no text, 10 seconds."
+- Palabras: octopus, jellyfish, seahorse, crab, starfish
+- Audios:
+  octopus.mp3, jellyfish.mp3, seahorse.mp3, crab.mp3, starfish.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_8_chapter_2.png
+
+W8-C3 Beach Objects
+- Video: public/assets/videos/world_8/world_8_chapter_3_intro.mp4
+- Debe aparecer exacto: beach, sand, shell, boat, island
+- Prompt:
+  "2D cartoon beach scene for children, show exactly: beach, sand, shell, boat, island, no text, 10 seconds."
+- Palabras: beach, sand, shell, boat, island
+- Audios:
+  beach.mp3, sand.mp3, shell.mp3, boat.mp3, island.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_8_chapter_3.png
+
+W8-C4 Reef Colors
+- Video: public/assets/videos/world_8/world_8_chapter_4_intro.mp4
+- Debe aparecer exacto: coral, reef, blue, green, purple
+- Prompt:
+  "2D cartoon coral reef for kids, show exactly: coral, reef, blue, green, purple, no text, 10 seconds."
+- Palabras: coral, reef, blue, green, purple
+- Audios:
+  coral.mp3, reef.mp3, blue.mp3, green.mp3, purple.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_8_chapter_4.png
+
+W8-C5 Ocean Actions
+- Video: public/assets/videos/world_8/world_8_chapter_5_intro.mp4
+- Debe aparecer exacto: swim, dive, float, wave, ocean
+- Prompt:
+  "2D cartoon ocean action scene for children, show exactly: swim, dive, float, wave, ocean, no text, 10 seconds."
+- Palabras: swim, dive, float, wave, ocean
+- Audios:
+  swim.mp3, dive.mp3, float.mp3, wave.mp3, ocean.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_8_chapter_5.png
+
+=====================================================================
+WORLD 9 - CASA DE LOS ESPEJOS
+=====================================================================
+
+W9-C1 Body Parts
+- Video: public/assets/videos/world_9/world_9_chapter_1_intro.mp4
+- Debe aparecer exacto: head, arms, hands, legs, feet
+- Prompt:
+  "2D cartoon body parts lesson for kids, show exactly: head, arms, hands, legs, feet, no text, 10 seconds."
+- Palabras: head, arms, hands, legs, feet
+- Audios:
+  head.mp3, arms.mp3, hands.mp3, legs.mp3, feet.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_9_chapter_1.png
+
+W9-C2 Face Parts
+- Video: public/assets/videos/world_9/world_9_chapter_2_intro.mp4
+- Debe aparecer exacto: eyes, nose, mouth, ears, hair
+- Prompt:
+  "2D cartoon face parts scene for children, show exactly: eyes, nose, mouth, ears, hair, no text, 10 seconds."
+- Palabras: eyes, nose, mouth, ears, hair
+- Audios:
+  eyes.mp3, nose.mp3, mouth.mp3, ears.mp3, hair.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_9_chapter_2.png
+
+W9-C3 Family
+- Video: public/assets/videos/world_9/world_9_chapter_3_intro.mp4
+- Debe aparecer exacto: mom, dad, brother, sister, family
+- Prompt:
+  "2D cartoon family scene for kids, show exactly: mom, dad, brother, sister, family, warm colors, no text, 10 seconds."
+- Palabras: mom, dad, brother, sister, family
+- Audios:
+  mom.mp3, dad.mp3, brother.mp3, sister.mp3, family.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_9_chapter_3.png
+
+W9-C4 Descriptions
+- Video: public/assets/videos/world_9/world_9_chapter_4_intro.mp4
+- Debe aparecer exacto: tall, short, big, small, strong
+- Prompt:
+  "2D cartoon comparison scene for children, show exactly: tall, short, big, small, strong, no text, 10 seconds."
+- Palabras: tall, short, big, small, strong
+- Audios:
+  tall.mp3, short.mp3, big.mp3, small.mp3, strong.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_9_chapter_4.png
+
+W9-C5 Mirror Actions
+- Video: public/assets/videos/world_9/world_9_chapter_5_intro.mp4
+- Debe aparecer exacto: mirror, smile, point, touch, show
+- Prompt:
+  "2D cartoon mirror game for kids, show exactly: mirror, smile, point, touch, show, no text, 10 seconds."
+- Palabras: mirror, smile, point, touch, show
+- Audios:
+  mirror.mp3, smile.mp3, point.mp3, touch.mp3, show.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_9_chapter_5.png
+
+=====================================================================
+WORLD 10 - ACADEMIA SUPREMA
+=====================================================================
+
+W10-C1 Action Verbs
+- Video: public/assets/videos/world_10/world_10_chapter_1_intro.mp4
+- Debe aparecer exacto: run, jump, walk, dance, sing
+- Prompt:
+  "2D cartoon action verbs for children, show exactly: run, jump, walk, dance, sing, energetic style, no text, 10 seconds."
+- Palabras: run, jump, walk, dance, sing
+- Audios:
+  run.mp3, jump.mp3, walk.mp3, dance.mp3, sing.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_10_chapter_1.png
+
+W10-C2 Can/Cannot
+- Video: public/assets/videos/world_10/world_10_chapter_2_intro.mp4
+- Debe aparecer exacto: can, cannot, open, close, try
+- Prompt:
+  "2D cartoon can/cannot scene for kids, show exactly: can, cannot, open, close, try, no text, 10 seconds."
+- Palabras: can, cannot, open, close, try
+- Audios:
+  can.mp3, cannot.mp3, open.mp3, close.mp3, try.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_10_chapter_2.png
+
+W10-C3 Sentence Order
+- Video: public/assets/videos/world_10/world_10_chapter_3_intro.mp4
+- Debe aparecer exacto: subject, verb, object, sentence, order
+- Prompt:
+  "2D cartoon word blocks for kids, show exactly: subject, verb, object, sentence, order, no text, 10 seconds."
+- Palabras: subject, verb, object, sentence, order
+- Audios:
+  subject.mp3, verb.mp3, object.mp3, sentence.mp3, order.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_10_chapter_3.png
+
+W10-C4 Questions
+- Video: public/assets/videos/world_10/world_10_chapter_4_intro.mp4
+- Debe aparecer exacto: what, where, who, when, why
+- Prompt:
+  "2D cartoon question scene for children, show exactly: what, where, who, when, why, no text, 10 seconds."
+- Palabras: what, where, who, when, why
+- Audios:
+  what.mp3, where.mp3, who.mp3, when.mp3, why.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_10_chapter_4.png
+
+W10-C5 Final Challenge
+- Video: public/assets/videos/world_10/world_10_chapter_5_intro.mp4
+- Debe aparecer exacto: challenge, review, practice, success, graduate
+- Prompt:
+  "2D cartoon academy final scene for kids, show exactly: challenge, review, practice, success, graduate, no text, 10 seconds."
+- Palabras: challenge, review, practice, success, graduate
+- Audios:
+  challenge.mp3, review.mp3, practice.mp3, success.mp3, graduate.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_10_chapter_5.png
+
+=====================================================================
+WORLD 11 - VIAJES Y LUGARES
+=====================================================================
+
+W11-C1 Places
+- Video: public/assets/videos/world_11/world_11_chapter_1_intro.mp4
+- Debe aparecer exacto: park, school, museum, library, hospital
+- Prompt:
+  "2D cartoon city map for kids, show exactly: park, school, museum, library, hospital, no text, 10 seconds."
+- Palabras: park, school, museum, library, hospital
+- Audios:
+  park.mp3, school.mp3, museum.mp3, library.mp3, hospital.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_11_chapter_1.png
+
+W11-C2 Transport
+- Video: public/assets/videos/world_11/world_11_chapter_2_intro.mp4
+- Debe aparecer exacto: bus, train, plane, bike, car
+- Prompt:
+  "2D cartoon transport scene for children, show exactly: bus, train, plane, bike, car, no text, 10 seconds."
+- Palabras: bus, train, plane, bike, car
+- Audios:
+  bus.mp3, train.mp3, plane.mp3, bike.mp3, car.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_11_chapter_2.png
+
+W11-C3 Directions
+- Video: public/assets/videos/world_11/world_11_chapter_3_intro.mp4
+- Debe aparecer exacto: left, right, straight, near, far
+- Prompt:
+  "2D cartoon direction arrows for kids, show exactly: left, right, straight, near, far, no text, 10 seconds."
+- Palabras: left, right, straight, near, far
+- Audios:
+  left.mp3, right.mp3, straight.mp3, near.mp3, far.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_11_chapter_3.png
+
+W11-C4 Signs
+- Video: public/assets/videos/world_11/world_11_chapter_4_intro.mp4
+- Debe aparecer exacto: stop, go, crosswalk, traffic light, station
+- Prompt:
+  "2D cartoon street signs for children, show exactly: stop, go, crosswalk, traffic light, station, no text, 10 seconds."
+- Palabras: stop, go, crosswalk, traffic_light, station
+- Audios:
+  stop.mp3, go.mp3, crosswalk.mp3, traffic_light.mp3, station.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_11_chapter_4.png
+
+W11-C5 Travel Items
+- Video: public/assets/videos/world_11/world_11_chapter_5_intro.mp4
+- Debe aparecer exacto: ticket, map, suitcase, passport, travel
+- Prompt:
+  "2D cartoon travel prep for kids, show exactly: ticket, map, suitcase, passport, travel, no text, 10 seconds."
+- Palabras: ticket, map, suitcase, passport, travel
+- Audios:
+  ticket.mp3, map.mp3, suitcase.mp3, passport.mp3, travel.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_11_chapter_5.png
+
+=====================================================================
+WORLD 12 - REINO CREADOR
+=====================================================================
+
+W12-C1 Characters
+- Video: public/assets/videos/world_12/world_12_chapter_1_intro.mp4
+- Debe aparecer exacto: hero, explorer, friend, wizard, guardian
+- Prompt:
+  "2D cartoon fantasy characters for kids, show exactly: hero, explorer, friend, wizard, guardian, no text, 10 seconds."
+- Palabras: hero, explorer, friend, wizard, guardian
+- Audios:
+  hero.mp3, explorer.mp3, friend.mp3, wizard.mp3, guardian.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_12_chapter_1.png
+
+W12-C2 Settings
+- Video: public/assets/videos/world_12/world_12_chapter_2_intro.mp4
+- Debe aparecer exacto: forest, city, ocean, castle, mountain
+- Prompt:
+  "2D cartoon story settings for children, show exactly: forest, city, ocean, castle, mountain, no text, 10 seconds."
+- Palabras: forest, city, ocean, castle, mountain
+- Audios:
+  forest.mp3, city.mp3, ocean.mp3, castle.mp3, mountain.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_12_chapter_2.png
+
+W12-C3 Actions
+- Video: public/assets/videos/world_12/world_12_chapter_3_intro.mp4
+- Debe aparecer exacto: find, help, save, build, create
+- Prompt:
+  "2D cartoon story actions for kids, show exactly: find, help, save, build, create, no text, 10 seconds."
+- Palabras: find, help, save, build, create
+- Audios:
+  find.mp3, help.mp3, save.mp3, build.mp3, create.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_12_chapter_3.png
+
+W12-C4 Problem and Solution
+- Video: public/assets/videos/world_12/world_12_chapter_4_intro.mp4
+- Debe aparecer exacto: problem, solution, first, next, finally
+- Prompt:
+  "2D cartoon story sequence for children, show exactly: problem, solution, first, next, finally, no text, 10 seconds."
+- Palabras: problem, solution, first, next, finally
+- Audios:
+  problem.mp3, solution.mp3, first.mp3, next.mp3, finally.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_12_chapter_4.png
+
+W12-C5 Celebration
+- Video: public/assets/videos/world_12/world_12_chapter_5_intro.mp4
+- Debe aparecer exacto: celebrate, win, star, magic, thank you
+- Prompt:
+  "2D cartoon final celebration for kids, show exactly: celebrate, win, star, magic, thank you, joyful finale, no text, 10 seconds."
+- Palabras: celebrate, win, star, magic, thank_you
+- Audios:
+  celebrate.mp3, win.mp3, star.mp3, magic.mp3, thank_you.mp3
+- Fondo:
+  public/assets/images/backgrounds/world_12_chapter_5.png
+
+=====================================================================
+AUDIO NARRATIVO POR MUNDO (W4-W12)
+=====================================================================
+
+Para cada mundo (4 al 12) crear:
+- public/assets/audio/voices/world_{n}/intro.mp3
+- public/assets/audio/voices/world_{n}/chapter_1.mp3
+- public/assets/audio/voices/world_{n}/chapter_2.mp3
+- public/assets/audio/voices/world_{n}/chapter_3.mp3
+- public/assets/audio/voices/world_{n}/chapter_4.mp3
+- public/assets/audio/voices/world_{n}/chapter_5.mp3
+
+Texto corto sugerido (nino menor de 10):
+- intro.mp3: "Welcome Explorer! Let us start this world."
+- chapter_X.mp3: "Hero, welcome to chapter X. Let us play and learn."
+
+=====================================================================
+CHECKLIST RAPIDO (SIN DUDA)
+=====================================================================
+
+Por cada capitulo (W4-W12):
+[ ] 1 video intro de 10s con los 5 elementos exactos
+[ ] 1 fondo world_n_chapter_c.png
+[ ] 5 audios de palabras en ingles (los nombres listados)
+
+Con esto, la asociacion visual + ingles queda exacta.
+
+Fin.

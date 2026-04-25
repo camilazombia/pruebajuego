@@ -1,10 +1,16 @@
 import React from 'react';
+import { getPreviewUrl, type DiceBearAvatarOptions } from '../../../shared/utils/dicebearAvatar';
 import styles from './ItemVariants.module.css';
 import type { CustomizationItem } from '../types';
+
+const DICEBEAR_CATEGORIES = new Set([
+  'skin', 'hair', 'eyes', 'eyebrows', 'mouth', 'glasses', 'special',
+]);
 
 interface ItemVariantsProps {
   items: CustomizationItem[];
   equippedItemId: string | null;
+  currentAvatarOpts?: DiceBearAvatarOptions;
   onItemSelect: (item: CustomizationItem) => void;
   onItemRemove: (itemId: string) => void;
   onBuyClick: (item: CustomizationItem) => void;
@@ -13,6 +19,7 @@ interface ItemVariantsProps {
 export const ItemVariants: React.FC<ItemVariantsProps> = ({
   items,
   equippedItemId,
+  currentAvatarOpts,
   onItemSelect,
   onItemRemove,
   onBuyClick,
@@ -31,6 +38,7 @@ export const ItemVariants: React.FC<ItemVariantsProps> = ({
         const isEquipped = equippedItemId === item.id;
         const isOwned = item.isUnlocked || item.price === 0;
         const isLocked = !isOwned;
+        const hasDiceBearPreview = DICEBEAR_CATEGORIES.has(item.category) && currentAvatarOpts;
 
         return (
           <div
@@ -59,12 +67,21 @@ export const ItemVariants: React.FC<ItemVariantsProps> = ({
             )}
 
             <div className={styles.imageContainer}>
-              <div className={styles.imagePlaceholder}>
-                <span className={styles.icon}>&#128444;&#65039;</span>
-              </div>
+              {hasDiceBearPreview ? (
+                <img
+                  className={styles.previewImg}
+                  src={getPreviewUrl(item.category, item.id, currentAvatarOpts!, 96)}
+                  alt={item.name}
+                  loading="lazy"
+                  draggable={false}
+                />
+              ) : (
+                <div className={styles.imagePlaceholder}>
+                  <span className={styles.itemLabel}>{item.name}</span>
+                </div>
+              )}
             </div>
 
-            {/* Locked: overlay con precio */}
             {isLocked && (
               <div className={styles.priceOverlay}>
                 <div className={styles.priceIcon}>&#129689;</div>
@@ -72,14 +89,12 @@ export const ItemVariants: React.FC<ItemVariantsProps> = ({
               </div>
             )}
 
-            {/* Owned + equipped: badge "Puesto" */}
             {isOwned && isEquipped && (
               <div className={styles.statusBadge + ' ' + styles.badgeEquipped}>
                 &#10003; Puesto
               </div>
             )}
 
-            {/* Owned + not equipped: badge "Equipar" */}
             {isOwned && !isEquipped && (
               <div className={styles.statusBadge + ' ' + styles.badgeEquip}>
                 Equipar

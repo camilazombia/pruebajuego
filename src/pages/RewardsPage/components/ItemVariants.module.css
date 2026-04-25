@@ -69,6 +69,23 @@
   font-size: 40px;
 }
 
+.previewImg {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.itemLabel {
+  font-size: 13px;
+  font-weight: 700;
+  color: #4f46e5;
+  text-align: center;
+  padding: 4px;
+  line-height: 1.2;
+}
+
 .icon {
   opacity: 0.8;
 }

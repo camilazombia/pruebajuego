@@ -6,9 +6,13 @@ import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAl
 import { CelebrationModal } from '../../shared/ui/CelebrationModal/CelebrationModal';
 import { useProgressAdaptedContent } from '../../features/child/hooks/useProgressAdaptedContent';
 import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
+import { useAvatar } from '../../app/providers/AvatarProvider';
 import { DialogueBox } from '../../shared/ui/DialogueBox/DialogueBox';
 import { getNarrativeForChapter } from '../../shared/data/narrative';
 import { getWorldById } from '../../shared/data/worlds';
+import { BackgroundImage } from '../../shared/ui/BackgroundImage/BackgroundImage';
+import KaraokeModal from '../../shared/ui/KaraokeModal/KaraokeModal';
+import { KARAOKE_SONGS_BY_WORLD } from '../../shared/lib/karaoke/songCatalog';
 import styles from './ChapterMapPage.module.css';
 
 type LevelPosition = {
@@ -28,11 +32,13 @@ const STANDARD_LEVEL_POSITIONS: LevelPosition[] = [
 ];
 
 type SequencePhase = 'idle' | 'walk' | 'celebrate' | 'dialogue' | 'done';
+type KaraokeMode = 'listen' | 'sing';
 
 const ChapterMapPage: React.FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { worldId } = useParams<{ worldId: string }>();
+	const { avatarState } = useAvatar();
 	const { getChaptersWithProgress, getLevelsWithProgress } = useProgressAdaptedContent();
 
 	const state = location.state as {
@@ -59,6 +65,8 @@ const ChapterMapPage: React.FC = () => {
 	const [showChapterVideo, setShowChapterVideo] = useState(false);
 	const [chapterVideoSrc, setChapterVideoSrc] = useState<string | null>(null);
 	const shownVideos = useRef<Set<string>>(new Set());
+	const [showKaraokeModal, setShowKaraokeModal] = useState(false);
+	const [karaokeInitialMode, setKaraokeInitialMode] = useState<KaraokeMode>('listen');
 
 	const [sequencePhase, setSequencePhase] = useState<SequencePhase>('idle');
 	const [avatarPos, setAvatarPos] = useState<{ x: number; y: number } | null>(null);
@@ -250,12 +258,8 @@ const ChapterMapPage: React.FC = () => {
 	return (
 		<>
 			<OrientationAlert />
-			<div
-				className={styles.page}
-				style={{
-					backgroundImage: `url(/assets/images/backgrounds/${chapter.id}.jpg)`,
-				}}
-			>
+			<div className={styles.page}>
+			<BackgroundImage chapterId={chapter.id} className={styles.backgroundImage} />
 			<header className={styles.header}>
 				<ArrowButton
 					direction="left"
@@ -297,6 +301,16 @@ const ChapterMapPage: React.FC = () => {
 				>
 					Misiones
 				</button>
+				<button
+					className={styles.karaokeButton}
+					onClick={() => {
+						setKaraokeInitialMode('listen');
+						setShowKaraokeModal(true);
+					}}
+					aria-label="Abrir karaoke"
+				>
+					🎵 Karaoke
+				</button>
 			</header>
 
 			<div className={styles.mapContainer}>
@@ -335,6 +349,13 @@ const ChapterMapPage: React.FC = () => {
 							size="sm"
 							animationMode={sequencePhase === 'walk' ? 'walk' : sequencePhase === 'celebrate' ? 'celebrate' : 'idle'}
 							mouthState={sequencePhase === 'celebrate' || sequencePhase === 'dialogue' ? 'smile' : 'neutral'}
+							skinId={avatarState.skin}
+							hairId={avatarState.hair}
+							eyesId={avatarState.eyes}
+							eyebrowsId={avatarState.eyebrows}
+							mouthId={avatarState.mouth}
+							glassesId={avatarState.glasses}
+							specialId={avatarState.special}
 						/>
 					</motion.div>
 				)}
@@ -445,6 +466,17 @@ const ChapterMapPage: React.FC = () => {
 						</button>
 					</motion.div>
 				</motion.div>
+			)}
+		</AnimatePresence>
+
+		<AnimatePresence>
+			{showKaraokeModal && (
+				<KaraokeModal
+					worldTitle={getWorldById(worldId)?.title ?? worldId}
+					songs={KARAOKE_SONGS_BY_WORLD[worldId] ?? []}
+					initialMode={karaokeInitialMode}
+					onClose={() => setShowKaraokeModal(false)}
+				/>
 			)}
 		</AnimatePresence>
 	</div>

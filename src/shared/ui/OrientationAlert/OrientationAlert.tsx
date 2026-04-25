@@ -47,6 +47,7 @@ export const OrientationAlert: React.FC = () => {
 
   // Solo mostrar en mobile y en orientación vertical
   if (!isMobile || !isPortrait) return null;
+  if (localStorage.getItem('__e2e_no_orientation_alert__')) return null;
 
   return (
     <motion.div

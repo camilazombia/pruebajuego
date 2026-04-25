@@ -1,0 +1,26 @@
+.page {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem 1rem 2rem;
+	color: #fff;
+}
+
+.backButton {
+	align-self: flex-start;
+	background: rgba(255, 255, 255, 0.08);
+	border: 1.5px solid rgba(255, 255, 255, 0.15);
+	color: rgba(255, 255, 255, 0.7);
+	padding: 0.5rem 1rem;
+	border-radius: 0.75rem;
+	font-size: 0.9rem;
+	font-weight: 700;
+	cursor: pointer;
+	transition: background 0.15s, color 0.15s;
+	margin-bottom: 1.2rem;
+}
+
+.backButton:hover {
+	background: rgba(255, 255, 255, 0.14);
+	color: #fff;
+}

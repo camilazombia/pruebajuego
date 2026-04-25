@@ -1,0 +1,47 @@
+Mundo 1 - Fundamentos Magicos
+Tema exacto: Magic Greetings + Color Spells + Magic Toys + Family Charms + Cozy Room (hello, hi, goodbye, good morning, good night, red, blue, yellow, green, orange, ball, doll, car, toy, teddy bear, mom, dad, sister, brother, baby, bed, chair, table, lamp, window).
+Prompt Suno: Cancion infantil educativa en espanol con palabras clave en ingles. Incluir EXACTAMENTE este vocabulario: hello, hi, goodbye, good morning, good night, red, blue, yellow, green, orange, ball, doll, car, toy, teddy bear, mom, dad, sister, brother, baby, bed, chair, table, lamp, window. Estilo pop kids alegre, voz clara, coro repetitivo, 2 minutos, facil de cantar.
+
+Mundo 2 - Aventuras en la Ciudad
+Tema exacto: At the Park + On the Street + At School + At the Store + In the House (park, swing, slide, tree, bench, bus, street, traffic light, crosswalk, car, school, teacher, book, pencil, desk, apple, banana, store, milk, orange, kitchen, bedroom, bathroom, living room, garden).
+Prompt Suno: Cancion infantil urbana y divertida en espanol con ingles educativo. Incluir EXACTAMENTE este vocabulario: park, swing, slide, tree, bench, bus, street, traffic light, crosswalk, car, school, teacher, book, pencil, desk, apple, banana, store, milk, orange, kitchen, bedroom, bathroom, living room, garden. Ritmo pop infantil, pronunciacion clara, coro facil.
+
+Mundo 3 - Exploradores Globales
+Tema exacto: Countries & Flags + World Foods + Travel Gear + Transport Around + Weather Zones (country, flag, world, map, continent, pizza, sushi, taco, pasta, burger, suitcase, passport, ticket, camera, plane, train, ship, bike, car, sunny, rainy, snowy, cloudy, windy).
+Prompt Suno: Cancion infantil de viaje por el mundo en espanol con ingles. Incluir EXACTAMENTE este vocabulario: country, flag, world, map, continent, pizza, sushi, taco, pasta, burger, suitcase, passport, ticket, camera, plane, train, ship, bike, car, sunny, rainy, snowy, cloudy, windy. Estilo pop-aventura, energia media-alta, coro pegajoso.
+
+Mundo 4 - La Granja Ruidosa
+Tema exacto: Farm Animals + Wild Animals + Pets + Animal Sounds + Habitats (cow, pig, chicken, horse, sheep, lion, tiger, elephant, monkey, bear, dog, cat, rabbit, hamster, fish, moo, oink, quack, woof, meow, farm, jungle, forest, river, ocean).
+Prompt Suno: Cancion infantil de granja en espanol con vocabulario ingles. Incluir EXACTAMENTE este vocabulario: cow, pig, chicken, horse, sheep, lion, tiger, elephant, monkey, bear, dog, cat, rabbit, hamster, fish, moo, oink, quack, woof, meow, farm, jungle, forest, river, ocean. Estilo country-pop kids, ritmo animado, participativa.
+
+Mundo 5 - El Reloj Congelado
+Tema exacto: Morning Routine + Afternoon Routine + Night Routine + Days of Week + Time Words (wake up, brush, wash, dress, breakfast, study, read, write, play, lunch, dinner, bath, pajamas, sleep, night, monday, tuesday, wednesday, thursday, friday, morning, afternoon, evening, clock).
+Prompt Suno: Cancion infantil de rutinas y tiempo en espanol con ingles. Incluir EXACTAMENTE este vocabulario: wake up, brush, wash, dress, breakfast, study, read, write, play, lunch, dinner, bath, pajamas, sleep, night, monday, tuesday, wednesday, thursday, friday, morning, afternoon, evening, clock. Estilo pop infantil moderno, estructura manana-tarde-noche.
+
+Mundo 6 - El Castillo de las Emociones
+Tema exacto: Happy + Sad + Angry + Scared and Brave + Kind Actions (happy, smile, laugh, joy, fun, sad, cry, tears, blue, comfort, angry, calm, breathe, relax, peace, scared, brave, safe, light, friend, kind, help, hug, okay, better).
+Prompt Suno: Cancion infantil socioemocional en espanol con ingles. Incluir EXACTAMENTE este vocabulario: happy, smile, laugh, joy, fun, sad, cry, tears, blue, comfort, angry, calm, breathe, relax, peace, scared, brave, safe, light, friend, kind, help, hug, okay, better. Estilo pop-balada kids, tono empatico y positivo.
+
+Mundo 7 - La Montana del Clima
+Tema exacto: Weather + Clothes + Seasons + Accessories + Temperature (sunny, rainy, cloudy, windy, snowy, shirt, pants, dress, shoes, hat, spring, summer, autumn, winter, season, jacket, scarf, gloves, boots, umbrella, hot, cold, warm, cool, weather).
+Prompt Suno: Cancion infantil de clima y ropa en espanol con ingles. Incluir EXACTAMENTE este vocabulario: sunny, rainy, cloudy, windy, snowy, shirt, pants, dress, shoes, hat, spring, summer, autumn, winter, season, jacket, scarf, gloves, boots, umbrella, hot, cold, warm, cool, weather. Estilo dance-pop kids, energica, clara.
+
+Mundo 8 - El Oceano de los Colores
+Tema exacto: Sea Animals + Deep Sea + Beach Objects + Reef Colors + Ocean Actions (fish, dolphin, whale, shark, turtle, octopus, jellyfish, seahorse, crab, starfish, beach, sand, shell, boat, island, coral, reef, blue, green, purple, swim, dive, float, wave, ocean).
+Prompt Suno: Cancion infantil marina en espanol con ingles. Incluir EXACTAMENTE este vocabulario: fish, dolphin, whale, shark, turtle, octopus, jellyfish, seahorse, crab, starfish, beach, sand, shell, boat, island, coral, reef, blue, green, purple, swim, dive, float, wave, ocean. Estilo pop tropical infantil, melodico y alegre.
+
+Mundo 9 - La Casa de los Espejos
+Tema exacto: Body Parts + Face Parts + Family + Descriptions + Mirror Actions (head, arms, hands, legs, feet, eyes, nose, mouth, ears, hair, mom, dad, brother, sister, family, tall, short, big, small, strong, mirror, smile, point, touch, show).
+Prompt Suno: Cancion infantil corporal y familiar en espanol con ingles. Incluir EXACTAMENTE este vocabulario: head, arms, hands, legs, feet, eyes, nose, mouth, ears, hair, mom, dad, brother, sister, family, tall, short, big, small, strong, mirror, smile, point, touch, show. Estilo pop-acustico kids, ritmo medio para gestos.
+
+Mundo 10 - La Academia Suprema
+Tema exacto: Action Verbs + Can/Cannot + Sentence Order + Questions + Final Challenge (run, jump, walk, dance, sing, can, cannot, open, close, try, subject, verb, object, sentence, order, what, where, who, when, why, challenge, review, practice, success, graduate).
+Prompt Suno: Cancion infantil de repaso final en espanol con ingles. Incluir EXACTAMENTE este vocabulario: run, jump, walk, dance, sing, can, cannot, open, close, try, subject, verb, object, sentence, order, what, where, who, when, why, challenge, review, practice, success, graduate. Estilo himno pop kids, final motivador.
+
+Mundo 11 - Viajes y Lugares
+Tema exacto: Places + Transport + Directions + Signs + Travel Items (park, school, museum, library, hospital, bus, train, plane, bike, car, left, right, straight, near, far, stop, go, crosswalk, traffic light, station, ticket, map, suitcase, passport, travel).
+Prompt Suno: Cancion infantil de viaje en espanol con ingles. Incluir EXACTAMENTE este vocabulario: park, school, museum, library, hospital, bus, train, plane, bike, car, left, right, straight, near, far, stop, go, crosswalk, traffic light, station, ticket, map, suitcase, passport, travel. Estilo pop-aventura, ritmo constante y claro.
+
+Mundo 12 - Reino Creador
+Tema exacto: Characters + Settings + Actions + Problem and Solution + Celebration (hero, explorer, friend, wizard, guardian, forest, city, ocean, castle, mountain, find, help, save, build, create, problem, solution, first, next, finally, celebrate, win, star, magic, thank you).
+Prompt Suno: Cancion infantil de cierre final en espanol con ingles. Incluir EXACTAMENTE este vocabulario: hero, explorer, friend, wizard, guardian, forest, city, ocean, castle, mountain, find, help, save, build, create, problem, solution, first, next, finally, celebrate, win, star, magic, thank you. Estilo pop epico infantil, celebracion final.

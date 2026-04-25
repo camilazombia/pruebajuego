@@ -33,6 +33,8 @@ export const SoundButton: React.FC<SoundButtonProps> = ({
     [audioSrc, onClick],
   );
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const motionProps = props as any;
   return (
     <motion.button
       className={`${styles.soundButton} ${className || ''}`}
@@ -41,7 +43,7 @@ export const SoundButton: React.FC<SoundButtonProps> = ({
       whileTap={{ y: 2 }}
       transition={{ duration: 0.2 }}
       onClick={handleClick}
-      {...props}
+      {...motionProps}
     >
       <div className={styles.innerCircle}>
         <VolumeUpIcon className={styles.icon} />

@@ -2,7 +2,8 @@
 .pageContainer {
   width: 100vw;
   height: 100vh;
-  background: url('/assets/images/backgrounds/cozy_room.png') center/cover;
+  background: url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&w=1280&q=80') center/cover,
+              linear-gradient(135deg, #1a1a2e 0%, #16213e 40%, #0f3460 100%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -86,6 +87,14 @@
   border: 5px solid white;
 }
 
+.objectColored {
+  filter: grayscale(0%);
+}
+
+.objectGray {
+  filter: grayscale(100%);
+}
+
 .objectName {
   font-size: 1.2rem;
   font-weight: 600;
@@ -151,4 +160,209 @@
 .mapButton:hover {
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+/* --- Emoji on color objects --- */
+.objectEmoji {
+  font-size: 3rem;
+  line-height: 1;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+}
+
+/* ── Listen & Choose ──────────────────────────────────── */
+.listenIntro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: #fff;
+  text-align: center;
+  font-size: 1.4rem;
+  font-weight: 700;
+}
+
+.listenIntroIcon {
+  font-size: 5rem;
+  animation: bounceSlow 1.5s ease-in-out infinite;
+}
+
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.listenGame {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 480px;
+}
+
+.roundDots {
+  display: flex;
+  gap: 0.6rem;
+}
+
+.roundDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.25);
+  transition: all 0.3s;
+}
+
+.roundDotActive {
+  background: #fde68a;
+  transform: scale(1.3);
+  box-shadow: 0 0 8px rgba(253, 230, 138, 0.7);
+}
+
+.roundDotDone {
+  background: #4ade80;
+}
+
+.listenWordBox {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.6rem;
+  background: rgba(0, 0, 0, 0.4);
+  border: 2px solid rgba(255, 255, 255, 0.15);
+  border-radius: 1.5rem;
+  padding: 1.2rem 2rem;
+  width: 100%;
+}
+
+.listenLabel {
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin: 0;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.listenWord {
+  font-size: 2.8rem;
+  font-weight: 900;
+  color: #fde68a;
+  margin: 0;
+  text-shadow: 0 2px 16px rgba(253, 230, 138, 0.5);
+  letter-spacing: 0.02em;
+}
+
+.repeatBtn {
+  background: rgba(255, 255, 255, 0.12);
+  border: 1.5px solid rgba(255, 255, 255, 0.2);
+  color: #fff;
+  padding: 0.45rem 1.2rem;
+  border-radius: 999px;
+  font-size: 0.9rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.repeatBtn:hover {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.optionsGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+  width: 100%;
+}
+
+.optionBtn {
+  aspect-ratio: 1;
+  border-radius: 1.2rem;
+  border: 3px solid rgba(255, 255, 255, 0.15);
+  background: rgba(255, 255, 255, 0.08);
+  font-size: 3.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.15s;
+  box-shadow: 0 4px 16px rgba(0,0,0,0.25);
+}
+
+.optionBtn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: scale(1.05);
+}
+
+.optionBtn:disabled {
+  cursor: default;
+}
+
+.optionCorrect {
+  background: rgba(74, 222, 128, 0.3) !important;
+  border-color: #4ade80 !important;
+  box-shadow: 0 0 20px rgba(74, 222, 128, 0.5) !important;
+  transform: scale(1.08) !important;
+}
+
+.optionWrong {
+  background: rgba(251, 113, 133, 0.3) !important;
+  border-color: #fb7185 !important;
+  box-shadow: 0 0 16px rgba(251, 113, 133, 0.4) !important;
+}
+
+.feedbackMsg {
+  font-size: 1.3rem;
+  font-weight: 800;
+  border-radius: 999px;
+  padding: 0.6rem 1.8rem;
+}
+
+.feedbackOk {
+  background: rgba(74, 222, 128, 0.25);
+  color: #4ade80;
+  border: 2px solid rgba(74, 222, 128, 0.4);
+}
+
+.feedbackBad {
+  background: rgba(251, 113, 133, 0.25);
+  color: #fb7185;
+  border: 2px solid rgba(251, 113, 133, 0.4);
+}
+
+.finishedEmoji {
+  font-size: 4.5rem;
+  line-height: 1;
+}
+
+.scoreText {
+  font-size: 1.4rem;
+  color: #fde68a;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* ── Responsive ───────────────────────────────────────── */
+@media (max-width: 480px) {
+  .objectsArea {
+    gap: 1.5rem;
+  }
+  .object {
+    width: 100px;
+    height: 100px;
+  }
+  .objectEmoji {
+    font-size: 2.2rem;
+  }
+  .optionBtn {
+    font-size: 2.5rem;
+  }
+  .listenWord {
+    font-size: 2.2rem;
+  }
+  .optionsGrid {
+    gap: 0.75rem;
+  }
 }

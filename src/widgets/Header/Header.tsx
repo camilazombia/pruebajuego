@@ -1,4 +1,4 @@
-import React from 'react';
+import type {} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useProgressStore } from '../../features/progress/context/ProgressContext';
 import styles from './Header.module.css';

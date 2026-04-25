@@ -2,8 +2,47 @@ import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { getStoryById } from '../../shared/data/stories';
+import { getWorldGradient } from '../../shared/data/worldImages';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
 import styles from './StoriesPage.module.css';
+
+/** One slide's image with emoji fallback */
+const SlideImage: React.FC<{ imageUrl: string; emoji?: string; worldId?: string }> = ({
+	imageUrl,
+	emoji,
+	worldId,
+}) => {
+	const [failed, setFailed] = useState(!imageUrl);
+
+	useEffect(() => {
+		setFailed(!imageUrl);
+	}, [imageUrl]);
+
+	if (failed) {
+		const bg = worldId ? getWorldGradient(worldId) : 'linear-gradient(135deg,#1a1a2e,#0f3460)';
+		return (
+			<div
+				className={styles.slideImage}
+				style={{ background: bg, display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+			>
+				<span style={{ fontSize: '5rem' }}>{emoji ?? '📖'}</span>
+			</div>
+		);
+	}
+
+	// Hidden img to detect load errors; visual shown as background-image div
+	return (
+		<>
+			<img
+				src={imageUrl}
+				alt=""
+				style={{ display: 'none' }}
+				onError={() => setFailed(true)}
+			/>
+			<div className={styles.slideImage} style={{ backgroundImage: `url(${imageUrl})` }} />
+		</>
+	);
+};
 
 const StoryDetailPage: React.FC = () => {
 	const { storyId } = useParams<{ storyId: string }>();
@@ -66,11 +105,10 @@ const StoryDetailPage: React.FC = () => {
 								exit={{ opacity: 0, x: -20 }}
 								transition={{ duration: 0.3 }}
 							>
-								<div
-									className={styles.slideImage}
-									style={{
-										backgroundImage: `url(${currentSlide.imageUrl})`,
-									}}
+								<SlideImage
+									imageUrl={currentSlide.imageUrl}
+									emoji={currentSlide.emoji ?? story.coverEmoji}
+									worldId={story.worldId}
 								/>
 								<p className={styles.slideTextEs}>{currentSlide.textEs}</p>
 								<p className={styles.slideTextEn}>{currentSlide.textEn}</p>

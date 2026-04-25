@@ -18,54 +18,23 @@
   height: 100%;
 }
 
-/* Background Classes for Different Pages */
-.bgHome {
-  background: transparent;
-}
 
-.bgWorlds {
-  background: url('/assets/images/backgrounds/background-worlds.jpg') center/cover no-repeat fixed;
-}
-
-.bgRewards {
-  background: url('/assets/images/backgrounds/background-rewards.jpg') center/cover no-repeat fixed;
-}
-
-.bgReview {
-  background: url('/assets/images/backgrounds/background-review.jpg') center/cover no-repeat fixed;
-}
-
-.bgHelp {
-  background: url('/assets/images/backgrounds/background-help.jpg') center/cover no-repeat fixed;
-}
-
-.bgChapters {
-  background: url('/assets/images/backgrounds/background-chapters.jpg') center/cover no-repeat fixed;
-}
-
-/* Responsive para tablets - reduce padding */
+/* Tablet y móvil — sidebar pasa a bottom nav de ~76px */
 @media (max-width: 1024px) {
   .main {
-    padding: 0 !important;
-    width: 100%;
-    overflow-x: hidden;
-  }
-}
-
-/* Responsive para mobile - remove all padding */
-@media (max-width: 768px) {
-  .main {
-    padding: 0 !important;
+    padding: 0 0 84px 0 !important;
+    padding-bottom: calc(84px + env(safe-area-inset-bottom, 0px)) !important;
     width: 100%;
     overflow-x: hidden;
     height: auto;
   }
 }
 
-/* Responsive para mobile pequeño */
+/* Móvil pequeño — bottom nav ~68px */
 @media (max-width: 480px) {
   .main {
-    padding: 0 !important;
+    padding: 0 0 72px 0 !important;
+    padding-bottom: calc(72px + env(safe-area-inset-bottom, 0px)) !important;
     width: 100%;
     overflow-x: hidden;
     height: auto;

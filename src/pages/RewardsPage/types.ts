@@ -20,24 +20,13 @@ export interface ColorPaletteItem {
 }
 
 export const CATEGORY_INFO: Record<string, { name: string; icon: string; allowsColor: boolean }> = {
-  skin: { name: 'Piel', icon: '👶', allowsColor: true },
-  body: { name: 'Cuerpo', icon: '🫀', allowsColor: true },
-  hair: { name: 'Cabello', icon: '💇', allowsColor: true },
-  hairAcc: { name: 'Accs. Pelo', icon: '🎀', allowsColor: true },
-  eyes: { name: 'Ojos', icon: '👀', allowsColor: true },
-  eyebrows: { name: 'Cejas', icon: '🤨', allowsColor: true },
-  mouth: { name: 'Boca', icon: '👄', allowsColor: true },
-  top: { name: 'Camiseta', icon: '👕', allowsColor: true },
-  jacket: { name: 'Chaqueta', icon: '🧥', allowsColor: true },
-  bottom: { name: 'Pantalón', icon: '👖', allowsColor: true },
-  shoes: { name: 'Zapatos', icon: '👟', allowsColor: true },
-  socks: { name: 'Calcetines', icon: '🧦', allowsColor: true },
-  hat: { name: 'Sombrero', icon: '🎩', allowsColor: true },
-  glasses: { name: 'Gafas', icon: '🥽', allowsColor: true },
-  jewelry: { name: 'Joyas', icon: '💎', allowsColor: true },
-  accessories: { name: 'Accesorios', icon: '✨', allowsColor: true },
-  special: { name: 'Especiales', icon: '⭐', allowsColor: true },
-  effects: { name: 'Efectos', icon: '🌟', allowsColor: true },
+  skin: { name: 'Piel', icon: '👶', allowsColor: false },
+  hair: { name: 'Cabello', icon: '💇', allowsColor: false },
+  eyes: { name: 'Ojos', icon: '👀', allowsColor: false },
+  eyebrows: { name: 'Cejas', icon: '🤨', allowsColor: false },
+  mouth: { name: 'Boca', icon: '👄', allowsColor: false },
+  glasses: { name: 'Gafas', icon: '🥽', allowsColor: false },
+  special: { name: 'Especiales', icon: '⭐', allowsColor: false },
 };
 
 export const COLOR_PALETTE: ColorPaletteItem[] = [

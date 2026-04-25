@@ -18,7 +18,8 @@ import ReviewPage from '../../pages/ReviewPage/ReviewPage';
 import FlashcardsPage from '../../pages/ReviewPage/FlashcardsPage';
 import StoriesPage from '../../pages/ReviewPage/StoriesPage';
 import StoryDetailPage from '../../pages/ReviewPage/StoryDetailPage';
-import ColoringPage from '../../pages/ReviewPage/ColoringPage';
+import MemoryPage from '../../pages/ReviewPage/MemoryPage';
+import KaraokePage from '../../pages/ReviewPage/KaraokePage';
 import HelpPage from '../../pages/HelpPage/HelpPage';
 import ParentZonePage from '../../pages/ParentZonePage/ParentZonePage';
 
@@ -67,7 +68,8 @@ export const AppRouter: React.FC = () => {
           <Route path="/review/flashcards" element={<FlashcardsPage />} />
           <Route path="/review/stories" element={<StoriesPage />} />
           <Route path="/review/stories/:storyId" element={<StoryDetailPage />} />
-          <Route path="/review/coloring" element={<ColoringPage />} />
+          <Route path="/review/memory" element={<MemoryPage />} />
+          <Route path="/review/karaoke" element={<KaraokePage />} />
           <Route path="/help" element={<HelpPage />} />
           <Route path="/parent-zone" element={<ParentZonePage />} />
         </Route>

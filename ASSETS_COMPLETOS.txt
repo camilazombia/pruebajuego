@@ -210,7 +210,7 @@ Formato: MP4, resolución 1280x720 (16:9), duración 20-40 segundos
 
 Cada video es una animación/explicación corta para niños que introduce el tema
 del capítulo. A continuación el contenido y el PROMPT para generar cada video con IA:
-
+	
 --- MUNDO 1: El Bosque Mágico ---
 
 📁 public/assets/videos/world_1/world_1_chapter_1_intro.mp4

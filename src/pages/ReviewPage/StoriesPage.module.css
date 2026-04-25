@@ -99,6 +99,15 @@
 	background-size: cover;
 	background-position: center;
 	background-color: rgba(11, 18, 32, 0.5);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.coverEmoji {
+	font-size: 4rem;
+	line-height: 1;
+	filter: drop-shadow(0 2px 8px rgba(0,0,0,0.4));
 }
 
 .storyInfo {

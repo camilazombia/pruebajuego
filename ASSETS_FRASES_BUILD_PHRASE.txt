@@ -1,0 +1,394 @@
+================================================================================
+ASSETS_FRASES_BUILD_PHRASE.txt
+Frases exactas para el minijuego "Build Phrase" (Mundos 4-12)
+================================================================================
+
+Que es esto:
+- En el minijuego "Build Phrase" el nino ordena palabras para formar una frase.
+- Cuando la frase es correcta, se reproduce un audio con la frase completa.
+- Necesitas crear 1 audio MP3 por cada frase listada abajo.
+
+Carpeta donde van:
+- public/assets/audio/voices/phrases/
+
+Regla de nombre:
+- La frase en ingles, todo minusculas, espacios reemplazados por "_"
+- Ejemplo: "I see cow" -> i_see_cow.mp3
+
+Formato:
+- MP3, voz clara en INGLES, pronunciacion lenta y amigable para ninos.
+
+Como se usa en el codigo:
+- El nino ordena las palabras: ["I", "see", "cow"]
+- Si es correcto, el juego reproduce: /assets/audio/voices/phrases/i_see_cow.mp3
+
+
+========================================================================
+MUNDO 4 - La Granja Ruidosa
+========================================================================
+
+Capitulo 1 - Farm Animals:
+  Archivo: i_see_cow.mp3
+  Texto que debe decir: "I see cow"
+
+  Archivo: i_like_pig.mp3
+  Texto que debe decir: "I like pig"
+
+Capitulo 2 - Wild Animals:
+  Archivo: i_see_lion.mp3
+  Texto que debe decir: "I see lion"
+
+  Archivo: i_like_tiger.mp3
+  Texto que debe decir: "I like tiger"
+
+Capitulo 3 - Pets:
+  Archivo: i_see_dog.mp3
+  Texto que debe decir: "I see dog"
+
+  Archivo: i_like_cat.mp3
+  Texto que debe decir: "I like cat"
+
+Capitulo 4 - Animal Sounds:
+  Archivo: i_see_moo.mp3
+  Texto que debe decir: "I see moo"
+
+  Archivo: i_like_oink.mp3
+  Texto que debe decir: "I like oink"
+
+Capitulo 5 - Habitats:
+  Archivo: i_see_farm.mp3
+  Texto que debe decir: "I see farm"
+
+  Archivo: i_like_jungle.mp3
+  Texto que debe decir: "I like jungle"
+
+
+========================================================================
+MUNDO 5 - El Reloj Congelado
+========================================================================
+
+Capitulo 1 - Morning Routine:
+  Archivo: i_see_wake_up.mp3
+  Texto que debe decir: "I see wake up"
+
+  Archivo: i_like_brush.mp3
+  Texto que debe decir: "I like brush"
+
+Capitulo 2 - Afternoon Routine:
+  Archivo: i_see_study.mp3
+  Texto que debe decir: "I see study"
+
+  Archivo: i_like_read.mp3
+  Texto que debe decir: "I like read"
+
+Capitulo 3 - Night Routine:
+  Archivo: i_see_dinner.mp3
+  Texto que debe decir: "I see dinner"
+
+  Archivo: i_like_bath.mp3
+  Texto que debe decir: "I like bath"
+
+Capitulo 4 - Days of Week:
+  Archivo: i_see_monday.mp3
+  Texto que debe decir: "I see monday"
+
+  Archivo: i_like_tuesday.mp3
+  Texto que debe decir: "I like tuesday"
+
+Capitulo 5 - Time Words:
+  Archivo: i_see_morning.mp3
+  Texto que debe decir: "I see morning"
+
+  Archivo: i_like_afternoon.mp3
+  Texto que debe decir: "I like afternoon"
+
+
+========================================================================
+MUNDO 6 - El Castillo de las Emociones
+========================================================================
+
+Capitulo 1 - Happy:
+  Archivo: i_see_happy.mp3
+  Texto que debe decir: "I see happy"
+
+  Archivo: i_like_smile.mp3
+  Texto que debe decir: "I like smile"
+
+Capitulo 2 - Sad:
+  Archivo: i_see_sad.mp3
+  Texto que debe decir: "I see sad"
+
+  Archivo: i_like_cry.mp3
+  Texto que debe decir: "I like cry"
+
+Capitulo 3 - Angry:
+  Archivo: i_see_angry.mp3
+  Texto que debe decir: "I see angry"
+
+  Archivo: i_like_calm.mp3
+  Texto que debe decir: "I like calm"
+
+Capitulo 4 - Scared and Brave:
+  Archivo: i_see_scared.mp3
+  Texto que debe decir: "I see scared"
+
+  Archivo: i_like_brave.mp3
+  Texto que debe decir: "I like brave"
+
+Capitulo 5 - Kind Actions:
+  Archivo: i_see_kind.mp3
+  Texto que debe decir: "I see kind"
+
+  Archivo: i_like_help.mp3
+  Texto que debe decir: "I like help"
+
+
+========================================================================
+MUNDO 7 - La Montana del Clima
+========================================================================
+
+Capitulo 1 - Weather:
+  Archivo: i_see_sunny.mp3
+  Texto que debe decir: "I see sunny"
+
+  Archivo: i_like_rainy.mp3
+  Texto que debe decir: "I like rainy"
+
+Capitulo 2 - Clothes:
+  Archivo: i_see_shirt.mp3
+  Texto que debe decir: "I see shirt"
+
+  Archivo: i_like_pants.mp3
+  Texto que debe decir: "I like pants"
+
+Capitulo 3 - Seasons:
+  Archivo: i_see_spring.mp3
+  Texto que debe decir: "I see spring"
+
+  Archivo: i_like_summer.mp3
+  Texto que debe decir: "I like summer"
+
+Capitulo 4 - Accessories:
+  Archivo: i_see_jacket.mp3
+  Texto que debe decir: "I see jacket"
+
+  Archivo: i_like_scarf.mp3
+  Texto que debe decir: "I like scarf"
+
+Capitulo 5 - Temperature:
+  Archivo: i_see_hot.mp3
+  Texto que debe decir: "I see hot"
+
+  Archivo: i_like_cold.mp3
+  Texto que debe decir: "I like cold"
+
+
+========================================================================
+MUNDO 8 - El Oceano de los Colores
+========================================================================
+
+Capitulo 1 - Sea Animals:
+  Archivo: i_see_fish.mp3
+  Texto que debe decir: "I see fish"
+
+  Archivo: i_like_dolphin.mp3
+  Texto que debe decir: "I like dolphin"
+
+Capitulo 2 - Deep Sea:
+  Archivo: i_see_octopus.mp3
+  Texto que debe decir: "I see octopus"
+
+  Archivo: i_like_jellyfish.mp3
+  Texto que debe decir: "I like jellyfish"
+
+Capitulo 3 - Beach Objects:
+  Archivo: i_see_beach.mp3
+  Texto que debe decir: "I see beach"
+
+  Archivo: i_like_sand.mp3
+  Texto que debe decir: "I like sand"
+
+Capitulo 4 - Reef Colors:
+  Archivo: i_see_coral.mp3
+  Texto que debe decir: "I see coral"
+
+  Archivo: i_like_reef.mp3
+  Texto que debe decir: "I like reef"
+
+Capitulo 5 - Ocean Actions:
+  Archivo: i_see_swim.mp3
+  Texto que debe decir: "I see swim"
+
+  Archivo: i_like_dive.mp3
+  Texto que debe decir: "I like dive"
+
+
+========================================================================
+MUNDO 9 - La Casa de los Espejos
+========================================================================
+
+Capitulo 1 - Body Parts:
+  Archivo: i_see_head.mp3
+  Texto que debe decir: "I see head"
+
+  Archivo: i_like_arms.mp3
+  Texto que debe decir: "I like arms"
+
+Capitulo 2 - Face Parts:
+  Archivo: i_see_eyes.mp3
+  Texto que debe decir: "I see eyes"
+
+  Archivo: i_like_nose.mp3
+  Texto que debe decir: "I like nose"
+
+Capitulo 3 - Family:
+  Archivo: i_see_mom.mp3
+  Texto que debe decir: "I see mom"
+
+  Archivo: i_like_dad.mp3
+  Texto que debe decir: "I like dad"
+
+Capitulo 4 - Descriptions:
+  Archivo: i_see_tall.mp3
+  Texto que debe decir: "I see tall"
+
+  Archivo: i_like_short.mp3
+  Texto que debe decir: "I like short"
+
+Capitulo 5 - Mirror Actions:
+  Archivo: i_see_mirror.mp3
+  Texto que debe decir: "I see mirror"
+
+  Archivo: i_like_smile.mp3
+  Texto que debe decir: "I like smile"
+
+
+========================================================================
+MUNDO 10 - La Academia Suprema
+========================================================================
+
+Capitulo 1 - Action Verbs:
+  Archivo: i_see_run.mp3
+  Texto que debe decir: "I see run"
+
+  Archivo: i_like_jump.mp3
+  Texto que debe decir: "I like jump"
+
+Capitulo 2 - Can / Cannot:
+  Archivo: i_see_can.mp3
+  Texto que debe decir: "I see can"
+
+  Archivo: i_like_cannot.mp3
+  Texto que debe decir: "I like cannot"
+
+Capitulo 3 - Sentence Order:
+  Archivo: i_see_subject.mp3
+  Texto que debe decir: "I see subject"
+
+  Archivo: i_like_verb.mp3
+  Texto que debe decir: "I like verb"
+
+Capitulo 4 - Questions:
+  Archivo: i_see_what.mp3
+  Texto que debe decir: "I see what"
+
+  Archivo: i_like_where.mp3
+  Texto que debe decir: "I like where"
+
+Capitulo 5 - Final Challenge:
+  Archivo: i_see_challenge.mp3
+  Texto que debe decir: "I see challenge"
+
+  Archivo: i_like_review.mp3
+  Texto que debe decir: "I like review"
+
+
+========================================================================
+MUNDO 11 - Viajes y Lugares
+========================================================================
+
+Capitulo 1 - Places:
+  Archivo: i_see_park.mp3
+  Texto que debe decir: "I see park"
+
+  Archivo: i_like_school.mp3
+  Texto que debe decir: "I like school"
+
+Capitulo 2 - Transport:
+  Archivo: i_see_bus.mp3
+  Texto que debe decir: "I see bus"
+
+  Archivo: i_like_train.mp3
+  Texto que debe decir: "I like train"
+
+Capitulo 3 - Directions:
+  Archivo: i_see_left.mp3
+  Texto que debe decir: "I see left"
+
+  Archivo: i_like_right.mp3
+  Texto que debe decir: "I like right"
+
+Capitulo 4 - Signs:
+  Archivo: i_see_stop.mp3
+  Texto que debe decir: "I see stop"
+
+  Archivo: i_like_go.mp3
+  Texto que debe decir: "I like go"
+
+Capitulo 5 - Travel Items:
+  Archivo: i_see_ticket.mp3
+  Texto que debe decir: "I see ticket"
+
+  Archivo: i_like_map.mp3
+  Texto que debe decir: "I like map"
+
+
+========================================================================
+MUNDO 12 - Reino Creador
+========================================================================
+
+Capitulo 1 - Characters:
+  Archivo: i_see_hero.mp3
+  Texto que debe decir: "I see hero"
+
+  Archivo: i_like_explorer.mp3
+  Texto que debe decir: "I like explorer"
+
+Capitulo 2 - Settings:
+  Archivo: i_see_forest.mp3
+  Texto que debe decir: "I see forest"
+
+  Archivo: i_like_city.mp3
+  Texto que debe decir: "I like city"
+
+Capitulo 3 - Actions:
+  Archivo: i_see_find.mp3
+  Texto que debe decir: "I see find"
+
+  Archivo: i_like_help.mp3
+  Texto que debe decir: "I like help"
+
+Capitulo 4 - Problem and Solution:
+  Archivo: i_see_problem.mp3
+  Texto que debe decir: "I see problem"
+
+  Archivo: i_like_solution.mp3
+  Texto que debe decir: "I like solution"
+
+Capitulo 5 - Celebration:
+  Archivo: i_see_celebrate.mp3
+  Texto que debe decir: "I see celebrate"
+
+  Archivo: i_like_win.mp3
+  Texto que debe decir: "I like win"
+
+
+========================================================================
+RESUMEN RAPIDO
+========================================================================
+
+Total archivos de frases a crear: 90 (2 por capitulo x 45 capitulos)
+Carpeta: public/assets/audio/voices/phrases/
+Formato: MP3, ingles claro, pronunciacion lenta.
+
+Fin.

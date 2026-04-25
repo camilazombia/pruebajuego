@@ -6,6 +6,7 @@ import { useProgressStore } from '../../features/progress/context/ProgressContex
 import { getMissionsForWorld } from '../../shared/data/missions';
 import { getWorldById } from '../../shared/data/worlds';
 import { ChibiAvatar } from '../../assets/svg/ChibiAvatar';
+import { useAvatar } from '../../app/providers/AvatarProvider';
 import { DialogueBox } from '../../shared/ui/DialogueBox/DialogueBox';
 import { getNarrativeForMission } from '../../shared/data/narrative';
 import styles from './MissionsMapPage.module.css';
@@ -25,6 +26,7 @@ const MissionsMapPage: React.FC = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 	const { worldId } = useParams<{ worldId: string }>();
+	const { avatarState } = useAvatar();
 	const { isChapterUnlocked, isMissionCompleted } = useProgressStore();
 
 	const state = location.state as { justCompletedMission?: string } | undefined;
@@ -139,6 +141,13 @@ const MissionsMapPage: React.FC = () => {
 								size="sm"
 								animationMode={sequencePhase === 'walk' ? 'walk' : sequencePhase === 'celebrate' ? 'celebrate' : 'idle'}
 								mouthState={sequencePhase === 'celebrate' || sequencePhase === 'dialogue' ? 'smile' : 'neutral'}
+								skinId={avatarState.skin}
+								hairId={avatarState.hair}
+								eyesId={avatarState.eyes}
+								eyebrowsId={avatarState.eyebrows}
+								mouthId={avatarState.mouth}
+								glassesId={avatarState.glasses}
+								specialId={avatarState.special}
 							/>
 						</motion.div>
 					)}
@@ -161,7 +170,8 @@ const MissionsMapPage: React.FC = () => {
 									<article
 										key={mission.id}
 										className={`${styles.missionMarker} ${completed ? styles.completed : ''} ${locked ? styles.locked : ''}`}
-										style={{ left: `${pos.x}%`, top: `${pos.y}%` }}
+										data-x={pos.x}
+										data-y={pos.y}
 										onClick={() => handleMissionClick(mission.id, locked)}
 										role="button"
 										tabIndex={locked ? -1 : 0}
@@ -184,10 +194,10 @@ const MissionsMapPage: React.FC = () => {
 										<div className={styles.tooltip}>
 											<div className={styles.tooltipName}>{mission.title}</div>
 											{mission.description && (
-												<div style={{ fontSize: '0.8rem', color: '#cbd5e1' }}>{mission.description}</div>
+												<div className={styles.tooltipDescription}>{mission.description}</div>
 											)}
 											{completed && <div className={styles.tooltipBadge}>Completada</div>}
-											{locked && <div style={{ fontSize: '0.8rem', color: '#94a3b8' }}>Desbloquea el capítulo primero</div>}
+											{locked && <div className={styles.tooltipLocked}>Desbloquea el capítulo primero</div>}
 										</div>
 									</article>
 								);

@@ -17,13 +17,15 @@ export const Button: React.FC<ButtonProps> = ({
   className,
   ...props
 }) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const motionProps = props as any;
   return (
     <motion.button
       className={cn(styles.button, className)}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.2 }}
-      {...props}
+      {...motionProps}
     >
       {showIconCircle ? (
         <span className={styles.iconCircle}>

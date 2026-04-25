@@ -1,0 +1,251 @@
+.container {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 1rem;
+	width: 100%;
+	max-width: 500px;
+	margin: 0 auto;
+}
+
+.header {
+	text-align: center;
+}
+
+.counter {
+	font-size: 0.85rem;
+	color: #a5b4fc;
+	font-weight: 600;
+}
+
+.prompt {
+	font-size: 1.3rem;
+	color: #ffffff;
+	margin: 0.2rem 0 0;
+}
+
+.emojiHint {
+	font-size: 1.5rem;
+}
+
+.canvasWrapper {
+	border-radius: 16px;
+	overflow: hidden;
+	box-shadow: 0 4px 24px rgba(0, 0, 0, 0.35);
+	border: 3px solid rgba(255, 255, 255, 0.2);
+	width: 100%;
+	max-width: 400px;
+	aspect-ratio: 1;
+	touch-action: none;
+}
+
+.canvas {
+	display: block;
+	width: 100%;
+	height: 100%;
+	cursor: crosshair;
+	background: #ffffff;
+}
+
+.toolbar {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0.75rem;
+	background: rgba(0, 0, 0, 0.3);
+	border-radius: 12px;
+	padding: 0.6rem 1rem;
+}
+
+.palette {
+	display: flex;
+	gap: 0.35rem;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.colorBtn {
+	width: 28px;
+	height: 28px;
+	border-radius: 50%;
+	border: 2px solid transparent;
+	cursor: pointer;
+	padding: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: transparent;
+	transition: border-color 0.15s;
+}
+
+.colorActive {
+	border-color: #ffffff;
+	transform: scale(1.15);
+}
+
+.colorSwatch {
+	display: block;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.swatch_red { background: #ef4444; }
+.swatch_orange { background: #f97316; }
+.swatch_yellow { background: #eab308; }
+.swatch_green { background: #22c55e; }
+.swatch_blue { background: #3b82f6; }
+.swatch_purple { background: #8b5cf6; }
+.swatch_pink { background: #ec4899; }
+.swatch_dark { background: #1f2937; }
+.swatch_white { background: #ffffff; }
+.swatch_brown { background: #92400e; }
+
+.brushes {
+	display: flex;
+	gap: 0.4rem;
+	align-items: center;
+}
+
+.brushBtn {
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	border: 2px solid transparent;
+	cursor: pointer;
+	background: rgba(255, 255, 255, 0.1);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: border-color 0.15s;
+}
+
+.brushActive {
+	border-color: #a5b4fc;
+}
+
+.brushDot {
+	display: block;
+	border-radius: 50%;
+	background: #ffffff;
+}
+
+.dot_0 { width: 8px; height: 8px; }
+.dot_1 { width: 16px; height: 16px; }
+.dot_2 { width: 28px; height: 28px; }
+
+.actions {
+	display: flex;
+	align-items: center;
+}
+
+.clearBtn {
+	background: rgba(239, 68, 68, 0.25);
+	border: none;
+	color: #fca5a5;
+	border-radius: 8px;
+	padding: 0.3rem 0.5rem;
+	cursor: pointer;
+	font-size: 1.1rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	transition: background 0.15s;
+}
+
+.clearBtn:hover {
+	background: rgba(239, 68, 68, 0.45);
+}
+
+.confirmBtn {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 0.7rem 1.8rem;
+	font-size: 1.1rem;
+	font-weight: 700;
+	border: none;
+	border-radius: 12px;
+	cursor: pointer;
+	background: linear-gradient(135deg, #22c55e, #16a34a);
+	color: #ffffff;
+	transition: opacity 0.2s, transform 0.15s;
+}
+
+.confirmBtn:disabled {
+	opacity: 0.45;
+	cursor: default;
+}
+
+.wordReveal {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+	padding: 1rem 2rem;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 16px;
+	-webkit-backdrop-filter: blur(6px);
+	backdrop-filter: blur(6px);
+}
+
+.revealEmoji {
+	font-size: 2.5rem;
+}
+
+.revealEnglish {
+	font-size: 2rem;
+	font-weight: 800;
+	color: #fbbf24;
+	letter-spacing: 0.08em;
+	text-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);
+}
+
+.nextBtn {
+	display: flex;
+	align-items: center;
+	gap: 0.4rem;
+	margin-top: 0.5rem;
+	padding: 0.6rem 1.5rem;
+	font-size: 1rem;
+	font-weight: 700;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+	color: #ffffff;
+	transition: transform 0.15s;
+}
+
+.nextBtn:hover {
+	transform: scale(1.03);
+}
+
+.doneCard {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.6rem;
+	padding: 2rem;
+	background: rgba(0, 0, 0, 0.45);
+	border-radius: 20px;
+	-webkit-backdrop-filter: blur(8px);
+	backdrop-filter: blur(8px);
+}
+
+.doneEmoji {
+	font-size: 3rem;
+}
+
+.doneTitle {
+	font-size: 1.5rem;
+	color: #fbbf24;
+	margin: 0;
+}
+
+.doneSub {
+	font-size: 1rem;
+	color: #e5e7eb;
+	margin: 0;
+}
