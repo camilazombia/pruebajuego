@@ -3,9 +3,15 @@ import { motion } from 'framer-motion';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 import styles from './SoundButton.module.css';
 
-interface SoundButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+interface SoundButtonProps {
   size?: number;
+  className?: string;
   audioSrc?: string;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  'aria-label'?: string;
+  title?: string;
 }
 
 export const SoundButton: React.FC<SoundButtonProps> = ({
@@ -13,7 +19,10 @@ export const SoundButton: React.FC<SoundButtonProps> = ({
   className,
   audioSrc,
   onClick,
-  ...props
+  disabled,
+  type = 'button',
+  'aria-label': ariaLabel,
+  title,
 }) => {
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
@@ -33,17 +42,18 @@ export const SoundButton: React.FC<SoundButtonProps> = ({
     [audioSrc, onClick],
   );
 
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const motionProps = props as any;
   return (
     <motion.button
-      className={`${styles.soundButton} ${className || ''}`}
+      className={`${styles.soundButton} ${className ?? ''}`}
       style={{ width: size, height: size }}
       whileHover={{ y: -2 }}
       whileTap={{ y: 2 }}
       transition={{ duration: 0.2 }}
       onClick={handleClick}
-      {...motionProps}
+      disabled={disabled}
+      type={type}
+      aria-label={ariaLabel}
+      title={title}
     >
       <div className={styles.innerCircle}>
         <VolumeUpIcon className={styles.icon} />

@@ -3,11 +3,19 @@ import { motion } from 'framer-motion';
 import { cn } from '../../utils/cn';
 import styles from './Button.module.css';
 
-export interface ButtonProps
-  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface ButtonProps {
   text?: string;
-  icon?: string; // Material Symbols icon name
-  showIconCircle?: boolean; // Whether to show the yellow circle background
+  icon?: string;
+  showIconCircle?: boolean;
+  className?: string;
+  children?: React.ReactNode;
+  onClick?: React.MouseEventHandler<HTMLButtonElement>;
+  disabled?: boolean;
+  type?: 'button' | 'submit' | 'reset';
+  'aria-label'?: string;
+  title?: string;
+  id?: string;
+  tabIndex?: number;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -15,17 +23,28 @@ export const Button: React.FC<ButtonProps> = ({
   icon = 'play_arrow',
   showIconCircle = false,
   className,
-  ...props
+  children,
+  onClick,
+  disabled,
+  type = 'button',
+  'aria-label': ariaLabel,
+  title,
+  id,
+  tabIndex,
 }) => {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const motionProps = props as any;
   return (
     <motion.button
       className={cn(styles.button, className)}
       whileHover={{ scale: 1.05 }}
       whileTap={{ scale: 0.95 }}
       transition={{ duration: 0.2 }}
-      {...motionProps}
+      onClick={onClick}
+      disabled={disabled}
+      type={type}
+      aria-label={ariaLabel}
+      title={title}
+      id={id}
+      tabIndex={tabIndex}
     >
       {showIconCircle ? (
         <span className={styles.iconCircle}>
@@ -37,6 +56,7 @@ export const Button: React.FC<ButtonProps> = ({
         </span>
       )}
       {text && <span className={styles.text}>{text}</span>}
+      {children}
     </motion.button>
   );
 };
