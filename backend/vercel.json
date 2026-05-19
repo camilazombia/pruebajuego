@@ -1,0 +1,10 @@
+{
+  "functions": {
+    "app/api/chatbot/route.ts": {
+      "maxDuration": 30
+    },
+    "app/api/certificates/generate/route.ts": {
+      "maxDuration": 60
+    }
+  }
+}
