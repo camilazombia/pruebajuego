@@ -2,13 +2,5 @@
   "framework": "nextjs",
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "installCommand": "npm install",
-  "functions": {
-    "app/api/chatbot/route.ts": {
-      "maxDuration": 30
-    },
-    "app/api/certificates/generate/route.ts": {
-      "maxDuration": 60
-    }
-  }
+  "installCommand": "npm install"
 }
