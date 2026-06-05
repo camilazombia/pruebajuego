@@ -1,11 +1,32 @@
 .container {
 	display: flex;
 	flex-direction: column;
-	align-items: center;
-	gap: 0.75rem;
 	width: 100%;
 	max-width: 500px;
 	margin: 0 auto;
+	/* Ocupa todo el alto disponible para que el botón quede abajo */
+	height: 100%;
+	min-height: 0;
+}
+
+/* Parte superior: canvas + paleta — puede reducirse si la pantalla es pequeña */
+.scrollArea {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.6rem;
+	flex: 1;
+	min-height: 0;
+	overflow-y: auto;
+	padding-bottom: 0.5rem;
+}
+
+/* Botón siempre al fondo, nunca se oculta */
+.buttonArea {
+	flex-shrink: 0;
+	display: flex;
+	justify-content: center;
+	padding: 0.5rem 0 0.25rem;
 }
 
 .header {

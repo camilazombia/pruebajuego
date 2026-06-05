@@ -57,6 +57,11 @@ export const CelebrationModal: React.FC<CelebrationModalProps> = ({
 	}, [isWorldComplete]);
 
 	useEffect(() => {
+		const timer = setTimeout(() => handleClose(), 3500);
+		return () => clearTimeout(timer);
+	}, []);
+
+	useEffect(() => {
 		const handleEsc = (e: KeyboardEvent) => {
 			if (e.key === 'Escape') handleClose();
 		};

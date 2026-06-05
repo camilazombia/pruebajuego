@@ -135,88 +135,94 @@ export const ColorAndLearn: React.FC<ColorAndLearnProps> = ({ words, onComplete 
 
 	return (
 		<div className={styles.container}>
-			<div className={styles.header}>
-				<span className={styles.counter}>{currentIdx + 1} / {words.length}</span>
-				<h3 className={styles.prompt}>
-					Colorea: <span className={styles.emojiHint}>{word.emoji}</span> {word.spanish}
-				</h3>
+			{/* Área scrollable: prompt + canvas + paleta */}
+			<div className={styles.scrollArea}>
+				<div className={styles.header}>
+					<span className={styles.counter}>{currentIdx + 1} / {words.length}</span>
+					<h3 className={styles.prompt}>
+						Colorea: <span className={styles.emojiHint}>{word.emoji}</span> {word.spanish}
+					</h3>
+				</div>
+
+				<div className={styles.canvasWrapper}>
+					<canvas
+						ref={canvasRef}
+						width={400}
+						height={400}
+						className={styles.canvas}
+						onMouseDown={startDraw}
+						onMouseMove={draw}
+						onMouseUp={stopDraw}
+						onMouseLeave={stopDraw}
+						onTouchStart={startDraw}
+						onTouchMove={draw}
+						onTouchEnd={stopDraw}
+					/>
+				</div>
+
+				<div className={styles.toolbar}>
+					<div className={styles.palette}>
+						{PALETTE_ENTRIES.map(entry => (
+							<button
+								key={entry.hex}
+								className={`${styles.colorBtn} ${entry.hex === color ? styles.colorActive : ''}`}
+								onClick={() => setColor(entry.hex)}
+								aria-label={`Color ${entry.cls}`}
+							>
+								<span className={`${styles.colorSwatch} ${styles[`swatch_${entry.cls}`]}`} />
+							</button>
+						))}
+					</div>
+					<div className={styles.brushes}>
+						{BRUSH_SIZES.map((s, i) => (
+							<button
+								key={s}
+								className={`${styles.brushBtn} ${s === brushSize ? styles.brushActive : ''}`}
+								onClick={() => setBrushSize(s)}
+								aria-label={`Pincel ${s}px`}
+							>
+								<span className={`${styles.brushDot} ${styles[`dot_${i}`]}`} />
+							</button>
+						))}
+					</div>
+					<div className={styles.actions}>
+						<button className={styles.clearBtn} onClick={clearCanvas}>
+							<span className="material-symbols-outlined">delete</span>
+						</button>
+					</div>
+				</div>
 			</div>
 
-			<div className={styles.canvasWrapper}>
-				<canvas
-					ref={canvasRef}
-					width={400}
-					height={400}
-					className={styles.canvas}
-					onMouseDown={startDraw}
-					onMouseMove={draw}
-					onMouseUp={stopDraw}
-					onMouseLeave={stopDraw}
-					onTouchStart={startDraw}
-					onTouchMove={draw}
-					onTouchEnd={stopDraw}
-				/>
-			</div>
-
-			<div className={styles.toolbar}>
-				<div className={styles.palette}>
-					{PALETTE_ENTRIES.map(entry => (
-						<button
-							key={entry.hex}
-							className={`${styles.colorBtn} ${entry.hex === color ? styles.colorActive : ''}`}
-							onClick={() => setColor(entry.hex)}
-							aria-label={`Color ${entry.cls}`}
+			{/* Área del botón: siempre visible al fondo */}
+			<div className={styles.buttonArea}>
+				<AnimatePresence>
+					{showWord ? (
+						<motion.div
+							className={styles.wordReveal}
+							initial={{ scale: 0.6, opacity: 0 }}
+							animate={{ scale: 1, opacity: 1 }}
+							exit={{ opacity: 0 }}
 						>
-							<span className={`${styles.colorSwatch} ${styles[`swatch_${entry.cls}`]}`} />
-						</button>
-					))}
-				</div>
-				<div className={styles.brushes}>
-					{BRUSH_SIZES.map((s, i) => (
-						<button
-							key={s}
-							className={`${styles.brushBtn} ${s === brushSize ? styles.brushActive : ''}`}
-							onClick={() => setBrushSize(s)}
-							aria-label={`Pincel ${s}px`}
+							<span className={styles.revealEmoji}>{word.emoji}</span>
+							<span className={styles.revealEnglish}>{word.english.toUpperCase()}</span>
+							<button className={styles.nextBtn} onClick={handleNext}>
+								{currentIdx + 1 >= words.length ? 'Terminar' : 'Siguiente'}
+								<span className="material-symbols-outlined">arrow_forward</span>
+							</button>
+						</motion.div>
+					) : (
+						<motion.button
+							className={styles.confirmBtn}
+							onClick={handleConfirm}
+							disabled={!hasDrawn}
+							whileTap={{ scale: 0.95 }}
 						>
-							<span className={`${styles.brushDot} ${styles[`dot_${i}`]}`} />
-						</button>
-					))}
-				</div>
-				<div className={styles.actions}>
-					<button className={styles.clearBtn} onClick={clearCanvas}>
-						<span className="material-symbols-outlined">delete</span>
-					</button>
-				</div>
+							<span className="material-symbols-outlined">check_circle</span>
+							¡Listo!
+						</motion.button>
+					)}
+				</AnimatePresence>
 			</div>
-
-			<AnimatePresence>
-				{showWord ? (
-					<motion.div
-						className={styles.wordReveal}
-						initial={{ scale: 0.6, opacity: 0 }}
-						animate={{ scale: 1, opacity: 1 }}
-						exit={{ opacity: 0 }}
-					>
-						<span className={styles.revealEmoji}>{word.emoji}</span>
-						<span className={styles.revealEnglish}>{word.english.toUpperCase()}</span>
-						<button className={styles.nextBtn} onClick={handleNext}>
-							{currentIdx + 1 >= words.length ? 'Terminar' : 'Siguiente'}
-							<span className="material-symbols-outlined">arrow_forward</span>
-						</button>
-					</motion.div>
-				) : (
-					<motion.button
-						className={styles.confirmBtn}
-						onClick={handleConfirm}
-						disabled={!hasDrawn}
-						whileTap={{ scale: 0.95 }}
-					>
-						<span className="material-symbols-outlined">check_circle</span>
-						Listo!
-					</motion.button>
-				)}
-			</AnimatePresence>
 		</div>
 	);
 };
