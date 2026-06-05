@@ -79,11 +79,11 @@ const GENERIC_CHAPTER_WORDS: Record<string, MiniGameWord[]> = {
 		{ english: 'night', spanish: 'noche', emoji: '🌙' },
 	],
 	'world_5_chapter_4': [
-		{ english: 'monday', spanish: 'lunes', emoji: '📅' },
-		{ english: 'tuesday', spanish: 'martes', emoji: '📅' },
-		{ english: 'wednesday', spanish: 'miercoles', emoji: '📅' },
-		{ english: 'thursday', spanish: 'jueves', emoji: '📅' },
-		{ english: 'friday', spanish: 'viernes', emoji: '📅' },
+		{ english: 'monday', spanish: 'lunes', emoji: '🌅' },
+		{ english: 'tuesday', spanish: 'martes', emoji: '🌮' },
+		{ english: 'wednesday', spanish: 'miercoles', emoji: '🐫' },
+		{ english: 'thursday', spanish: 'jueves', emoji: '⛈️' },
+		{ english: 'friday', spanish: 'viernes', emoji: '🎉' },
 	],
 	'world_5_chapter_5': [
 		{ english: 'morning', spanish: 'manana', emoji: '🌞' },
@@ -184,7 +184,7 @@ const GENERIC_CHAPTER_WORDS: Record<string, MiniGameWord[]> = {
 	],
 	'world_8_chapter_3': [
 		{ english: 'beach', spanish: 'playa', emoji: '🏖️' },
-		{ english: 'sand', spanish: 'arena', emoji: '🏝️' },
+		{ english: 'sand', spanish: 'arena', emoji: '⏳' },
 		{ english: 'shell', spanish: 'concha', emoji: '🐚' },
 		{ english: 'boat', spanish: 'barco', emoji: '⛵' },
 		{ english: 'island', spanish: 'isla', emoji: '🏝️' },
@@ -200,7 +200,7 @@ const GENERIC_CHAPTER_WORDS: Record<string, MiniGameWord[]> = {
 		{ english: 'swim', spanish: 'nadar', emoji: '🏊' },
 		{ english: 'dive', spanish: 'bucear', emoji: '🤿' },
 		{ english: 'float', spanish: 'flotar', emoji: '🛟' },
-		{ english: 'wave', spanish: 'ola', emoji: '🌊' },
+		{ english: 'wave', spanish: 'ola', emoji: '💦' },
 		{ english: 'ocean', spanish: 'oceano', emoji: '🌊' },
 	],
 
@@ -507,9 +507,9 @@ const LevelPage: React.FC = () => {
 			return {
 				type: 'colorAndLearn',
 				words: [
-					{ english: 'hi', spanish: 'hola', emoji: '👋' },
 					{ english: 'hello', spanish: 'hola', emoji: '👋' },
-					{ english: 'goodbye', spanish: 'adiós', emoji: '👋' },
+					{ english: 'good morning', spanish: 'buenos días', emoji: '☀️' },
+					{ english: 'goodbye', spanish: 'adiós', emoji: '✌️' },
 				] as MiniGameWord[],
 			};
 		}
@@ -591,7 +591,7 @@ const LevelPage: React.FC = () => {
 				type: 'listenAndChoose',
 				words: [
 					{ english: 'ball', spanish: 'pelota', emoji: '⚽' },
-					{ english: 'doll', spanish: 'muñeca', emoji: '🧸' },
+					{ english: 'doll', spanish: 'muñeca', emoji: '🪆' },
 					{ english: 'car', spanish: 'carro', emoji: '🚗' },
 				] as MiniGameWord[],
 				introAudioKey: 'audioMagicToysIntro',
@@ -607,7 +607,7 @@ const LevelPage: React.FC = () => {
 				type: 'dragAndDrop',
 				words: [
 					{ english: 'ball', spanish: 'pelota', emoji: '⚽' },
-					{ english: 'doll', spanish: 'muñeca', emoji: '🧸' },
+					{ english: 'doll', spanish: 'muñeca', emoji: '🪆' },
 					{ english: 'car', spanish: 'carro', emoji: '🚗' },
 					{ english: 'toy', spanish: 'juguete', emoji: '🧩' },
 				] as MiniGameWord[],
@@ -618,7 +618,7 @@ const LevelPage: React.FC = () => {
 				type: 'multipleChoice',
 				words: [
 					{ english: 'ball', spanish: 'pelota', emoji: '⚽' },
-					{ english: 'doll', spanish: 'muñeca', emoji: '🧸' },
+					{ english: 'doll', spanish: 'muñeca', emoji: '🪆' },
 					{ english: 'car', spanish: 'carro', emoji: '🚗' },
 					{ english: 'toy', spanish: 'juguete', emoji: '🧩' },
 					{ english: 'teddy bear', spanish: 'osito', emoji: '🧸' },
@@ -630,7 +630,7 @@ const LevelPage: React.FC = () => {
 				type: 'selectWords',
 				words: [
 					{ english: 'ball', spanish: 'pelota', emoji: '⚽' },
-					{ english: 'doll', spanish: 'muñeca', emoji: '🧸' },
+					{ english: 'doll', spanish: 'muñeca', emoji: '🪆' },
 					{ english: 'car', spanish: 'carro', emoji: '🚗' },
 				] as MiniGameWord[],
 			};
@@ -649,7 +649,7 @@ const LevelPage: React.FC = () => {
 				type: 'colorAndLearn',
 				words: [
 					{ english: 'ball', spanish: 'pelota', emoji: '⚽' },
-					{ english: 'doll', spanish: 'muñeca', emoji: '🧸' },
+					{ english: 'doll', spanish: 'muñeca', emoji: '🪆' },
 					{ english: 'car', spanish: 'carro', emoji: '🚗' },
 				] as MiniGameWord[],
 			};
@@ -804,7 +804,7 @@ const LevelPage: React.FC = () => {
 				type: 'listenAndChoose',
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
-					{ english: 'swing', spanish: 'columpio', emoji: '🛝' },
+					{ english: 'swing', spanish: 'columpio', emoji: '🎠' },
 					{ english: 'slide', spanish: 'tobogán', emoji: '🛝' },
 				] as MiniGameWord[],
 				introAudioKey: 'audioAtTheParkIntro',
@@ -820,7 +820,7 @@ const LevelPage: React.FC = () => {
 				type: 'dragAndDrop',
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
-					{ english: 'swing', spanish: 'columpio', emoji: '🛝' },
+					{ english: 'swing', spanish: 'columpio', emoji: '🎠' },
 					{ english: 'slide', spanish: 'tobogán', emoji: '🛝' },
 					{ english: 'tree', spanish: 'árbol', emoji: '🌳' },
 				] as MiniGameWord[],
@@ -831,7 +831,7 @@ const LevelPage: React.FC = () => {
 				type: 'multipleChoice',
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
-					{ english: 'swing', spanish: 'columpio', emoji: '🛝' },
+					{ english: 'swing', spanish: 'columpio', emoji: '🎠' },
 					{ english: 'slide', spanish: 'tobogán', emoji: '🛝' },
 					{ english: 'tree', spanish: 'árbol', emoji: '🌳' },
 					{ english: 'bench', spanish: 'banco', emoji: '🪑' },
@@ -843,7 +843,7 @@ const LevelPage: React.FC = () => {
 				type: 'selectWords',
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
-					{ english: 'swing', spanish: 'columpio', emoji: '🛝' },
+					{ english: 'swing', spanish: 'columpio', emoji: '🎠' },
 					{ english: 'slide', spanish: 'tobogán', emoji: '🛝' },
 				] as MiniGameWord[],
 			};
@@ -853,7 +853,7 @@ const LevelPage: React.FC = () => {
 				type: 'buildPhrase',
 				phrases: [
 					{ englishWords: ['I', 'play', 'at', 'the', 'park'], spanish: 'Juego en el parque', emoji: '🏞️' },
-					{ englishWords: ['The', 'swing', 'is', 'fun'], spanish: 'El columpio es divertido', emoji: '🛝' },
+					{ englishWords: ['The', 'swing', 'is', 'fun'], spanish: 'El columpio es divertido', emoji: '🎠' },
 				],
 			};
 		}
@@ -862,7 +862,7 @@ const LevelPage: React.FC = () => {
 				type: 'colorAndLearn',
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
-					{ english: 'swing', spanish: 'columpio', emoji: '🛝' },
+					{ english: 'swing', spanish: 'columpio', emoji: '🎠' },
 					{ english: 'slide', spanish: 'tobogán', emoji: '🛝' },
 					{ english: 'tree', spanish: 'árbol', emoji: '🌳' },
 				] as MiniGameWord[],
