@@ -14,6 +14,14 @@ interface Coin {
 	y: number;
 }
 
+const GREETING_WORDS = [
+	{ english: 'Hi!', emoji: '👋' },
+	{ english: 'Hello!', emoji: '😊' },
+	{ english: 'Good morning!', emoji: '☀️' },
+	{ english: 'Good afternoon!', emoji: '🌤️' },
+	{ english: 'Goodbye!', emoji: '👋' },
+];
+
 export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionComplete }) => {
 	const { avatarState } = useAvatar();
 	const [interactionCount, setInteractionCount] = useState(0);
@@ -22,6 +30,7 @@ export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionCom
 	const [coins, setCoins] = useState<Coin[]>([]);
 	const [totalCoins, setTotalCoins] = useState(0);
 	const [levelComplete, setLevelComplete] = useState(false);
+	const [currentGreeting, setCurrentGreeting] = useState<{ english: string; emoji: string } | null>(null);
 	const audioRef = useRef<HTMLAudioElement>(null);
 
 	// Constants for level progression
@@ -71,6 +80,11 @@ export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionCom
 		// Trigger NPC reactions
 		setNpcReactions({ npc1: true, npc2: true, npc3: true });
 
+		// Show greeting word for this interaction
+		const greeting = GREETING_WORDS[(nextCount - 1) % GREETING_WORDS.length];
+		setCurrentGreeting(greeting);
+		setTimeout(() => setCurrentGreeting(null), 1800);
+
 		// Play sound
 		playSound();
 
@@ -107,9 +121,9 @@ export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionCom
 			<div className={styles.uiOverlay}>
 				{/* Progress indicator */}
 				<div className={styles.progressSection}>
-					<div className={styles.progressLabel}>Mundo Despertando</div>
+					<div className={styles.progressLabel}>✨ ¡Aprende a Saludar en inglés! ✨</div>
 					<p className={styles.progressHint}>
-						Toca al personaje 5 veces para despertarlo y encender la plaza.
+						👆 ¡Toca al personaje para despertar el mundo mágico!
 					</p>
 					<div className={styles.progressBar}>
 						{Array.from({ length: MAX_INTERACTIONS }).map((_, i) => (
@@ -206,7 +220,15 @@ export const AwakeningLevel: React.FC<AwakeningLevelProps> = ({ onInteractionCom
 
 					{/* Interaction hint */}
 					{interactionCount === 0 && (
-						<div className={styles.interactionHint}>Tócame</div>
+						<div className={styles.interactionHint}>👆 ¡Tócame!</div>
+					)}
+
+					{/* Greeting word bubble */}
+					{currentGreeting && (
+						<div className={styles.greetingBubble}>
+							<span className={styles.greetingEmoji}>{currentGreeting.emoji}</span>
+							<span className={styles.greetingText}>{currentGreeting.english}</span>
+						</div>
 					)}
 
 					{/* Completion message */}

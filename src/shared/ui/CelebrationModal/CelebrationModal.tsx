@@ -145,18 +145,9 @@ export const CelebrationModal: React.FC<CelebrationModalProps> = ({
 
 						<p className={styles.message}>
 							{isWorldComplete
-								? `${guardianName} recupero todo su poder. El mundo "${worldTitle}" esta a salvo.`
-								: `${guardianName} se siente cada vez mejor. Sigue adelante, pequeno mago.`}
+								? `¡${guardianName} recuperó todo su poder! 🎉`
+								: `¡${guardianName} se siente mejor! 💪`}
 						</p>
-
-						<div className={styles.bookMessage}>
-							<span className={styles.bookIcon}>&#128214;</span>
-							<p className={styles.bookText}>
-								{isWorldComplete
-									? 'Lo logramos! El guardian recupero su poder. Un nuevo mundo nos espera.'
-									: 'Buen trabajo! El guardian esta sanando. Vamos al siguiente capitulo.'}
-							</p>
-						</div>
 
 						<motion.button
 							className={styles.continueButton}

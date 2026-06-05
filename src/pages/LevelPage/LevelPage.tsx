@@ -475,9 +475,9 @@ const LevelPage: React.FC = () => {
 			return {
 				type: 'dragAndDrop',
 				words: [
-					{ english: 'hi', spanish: 'hola', emoji: '👋' },
-					{ english: 'hello', spanish: 'hola', emoji: '👋' },
-					{ english: 'goodbye', spanish: 'adiós', emoji: '👋' },
+					{ english: 'good afternoon', spanish: 'buenas tardes', emoji: '🌤️' },
+					{ english: 'good morning', spanish: 'buenos días', emoji: '☀️' },
+					{ english: 'goodbye', spanish: 'adiós', emoji: '✌️' },
 					{ english: 'good night', spanish: 'buenas noches', emoji: '🌙' },
 				] as MiniGameWord[],
 			};
@@ -496,9 +496,9 @@ const LevelPage: React.FC = () => {
 			return {
 				type: 'multipleChoice',
 				words: [
-					{ english: 'hi', spanish: 'hola', emoji: '👋' },
+					{ english: 'good afternoon', spanish: 'buenas tardes', emoji: '🌤️' },
 					{ english: 'hello', spanish: 'hola', emoji: '👋' },
-					{ english: 'goodbye', spanish: 'adiós', emoji: '👋' },
+					{ english: 'goodbye', spanish: 'adiós', emoji: '✌️' },
 					{ english: 'good night', spanish: 'buenas noches', emoji: '🌙' },
 				] as MiniGameWord[],
 			};
@@ -733,13 +733,13 @@ const LevelPage: React.FC = () => {
 				words: [
 					{ english: 'bed', spanish: 'cama', emoji: '🛏️' },
 					{ english: 'chair', spanish: 'silla', emoji: '🪑' },
-					{ english: 'table', spanish: 'mesa', emoji: '🪑' },
+					{ english: 'sofa', spanish: 'sofá', emoji: '🛋️' },
 				] as MiniGameWord[],
 				introAudioKey: 'audioCozyRoomIntro',
 				wordAudioKeys: {
 					bed: 'audioWordBed',
 					chair: 'audioWordChair',
-					table: 'audioWordTable',
+					sofa: 'audioWordSofa',
 				},
 			};
 		}
@@ -749,7 +749,7 @@ const LevelPage: React.FC = () => {
 				words: [
 					{ english: 'bed', spanish: 'cama', emoji: '🛏️' },
 					{ english: 'chair', spanish: 'silla', emoji: '🪑' },
-					{ english: 'table', spanish: 'mesa', emoji: '🪑' },
+					{ english: 'sofa', spanish: 'sofá', emoji: '🛋️' },
 					{ english: 'lamp', spanish: 'lámpara', emoji: '💡' },
 				] as MiniGameWord[],
 			};
@@ -760,7 +760,7 @@ const LevelPage: React.FC = () => {
 				words: [
 					{ english: 'bed', spanish: 'cama', emoji: '🛏️' },
 					{ english: 'chair', spanish: 'silla', emoji: '🪑' },
-					{ english: 'table', spanish: 'mesa', emoji: '🪑' },
+					{ english: 'sofa', spanish: 'sofá', emoji: '🛋️' },
 					{ english: 'lamp', spanish: 'lámpara', emoji: '💡' },
 					{ english: 'window', spanish: 'ventana', emoji: '🪟' },
 				] as MiniGameWord[],
@@ -772,7 +772,7 @@ const LevelPage: React.FC = () => {
 				words: [
 					{ english: 'bed', spanish: 'cama', emoji: '🛏️' },
 					{ english: 'chair', spanish: 'silla', emoji: '🪑' },
-					{ english: 'table', spanish: 'mesa', emoji: '🪑' },
+					{ english: 'sofa', spanish: 'sofá', emoji: '🛋️' },
 				] as MiniGameWord[],
 			};
 		}
@@ -781,7 +781,7 @@ const LevelPage: React.FC = () => {
 				type: 'buildPhrase',
 				phrases: [
 					{ englishWords: ['My', 'bed', 'is', 'here'], spanish: 'Mi cama está aquí', emoji: '🛏️' },
-					{ englishWords: ['I', 'sit', 'on', 'the', 'chair'], spanish: 'Me siento en la silla', emoji: '🪑' },
+					{ englishWords: ['I', 'sit', 'on', 'the', 'sofa'], spanish: 'Me siento en el sofá', emoji: '🛋️' },
 				],
 			};
 		}
@@ -791,7 +791,7 @@ const LevelPage: React.FC = () => {
 				words: [
 					{ english: 'bed', spanish: 'cama', emoji: '🛏️' },
 					{ english: 'chair', spanish: 'silla', emoji: '🪑' },
-					{ english: 'table', spanish: 'mesa', emoji: '🪑' },
+					{ english: 'sofa', spanish: 'sofá', emoji: '🛋️' },
 					{ english: 'lamp', spanish: 'lámpara', emoji: '💡' },
 				] as MiniGameWord[],
 			};
