@@ -100,15 +100,32 @@ const ChapterMapPage: React.FC = () => {
 		setCelebrationData(null);
 
 		if (guardianCured && state?.nextWorldId) {
+			// Mundo completo → ir al primer nivel del siguiente mundo directamente
+			const nextWorldChapters = getChaptersWithProgress(state.nextWorldId);
+			const firstChapter = nextWorldChapters[0];
+			if (firstChapter) {
+				const firstLevels = getLevelsWithProgress(firstChapter.id);
+				const firstLevel = firstLevels.find((l) => !l.locked);
+				if (firstLevel) {
+					navigate(`/level/${firstLevel.id}`, { replace: true });
+					return;
+				}
+			}
 			navigate(`/chapters/${state.nextWorldId}`, { replace: true, state: {} });
 			return;
 		}
 		if (advanceToChapter && worldId) {
+			// Capítulo completo → ir al primer nivel del siguiente capítulo directamente
+			const nextChapterLevels = getLevelsWithProgress(advanceToChapter);
+			const firstLevel = nextChapterLevels.find((l) => !l.locked);
+			if (firstLevel) {
+				navigate(`/level/${firstLevel.id}`, { replace: true });
+				return;
+			}
+			// Fallback: mostrar el mapa con el capítulo desbloqueado
 			const chs = getChaptersWithProgress(worldId);
 			const nextIdx = chs.findIndex((c) => c.id === advanceToChapter);
-			if (nextIdx >= 0) {
-				setCurrentChapterNumber(nextIdx + 1);
-			}
+			if (nextIdx >= 0) setCurrentChapterNumber(nextIdx + 1);
 			navigate(`/chapters/${worldId}`, { replace: true, state: {} });
 			return;
 		}

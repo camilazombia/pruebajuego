@@ -417,6 +417,7 @@ const LevelPage: React.FC = () => {
 			handleCompleteLevel(levelId, chapter.id, world.id);
 
 			if (isLastLevelInChapter && isLastChapterInWorld) {
+				// Último nivel del último capítulo → celebración del mundo completo
 				const nextWorldIndex = WORLDS.findIndex((w) => w.id === world.id) + 1;
 				const nextWorld = WORLDS[nextWorldIndex];
 				navigate(`/chapters/${world.id}`, {
@@ -428,6 +429,7 @@ const LevelPage: React.FC = () => {
 					},
 				});
 			} else if (isLastLevelInChapter) {
+				// Último nivel del capítulo → celebración del capítulo
 				const nextChapter = world.chapters[chapter.number];
 				navigate(`/chapters/${world.id}`, {
 					state: {
@@ -437,9 +439,15 @@ const LevelPage: React.FC = () => {
 					},
 				});
 			} else {
-				navigate(`/chapters/${world.id}`, {
-					state: { justCompletedLevel: levelId, fromChapterId: chapter.id },
-				});
+				// Nivel normal → ir directamente al siguiente nivel sin pasar por el mapa
+				const nextLevel = chapter.levels[level.number]; // level.number es 1-indexed → siguiente es índice level.number
+				if (nextLevel) {
+					navigate(`/level/${nextLevel.id}`);
+				} else {
+					navigate(`/chapters/${world.id}`, {
+						state: { justCompletedLevel: levelId, fromChapterId: chapter.id },
+					});
+				}
 			}
 		}, 1500);
 	};
