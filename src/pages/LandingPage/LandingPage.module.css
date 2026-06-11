@@ -453,6 +453,113 @@
   }
 }
 
+/* PRICING CTA SECTION */
+.pricingCta {
+  background: #0b0b1a;
+  color: #fff;
+  padding: var(--spacing-3xl) 0;
+}
+.pricingCtaInner {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spacing-2xl);
+}
+.pricingCtaTitle {
+  font-weight: var(--font-heavy);
+  font-size: clamp(28px, 4vw, 52px);
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+.pricingCtaEmph {
+  color: var(--mm-yellow);
+}
+.pricingCtaSub {
+  font-size: 1.1rem;
+  opacity: 0.75;
+  margin-top: calc(var(--spacing-lg) * -1);
+}
+.pricingCards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-lg);
+  width: 100%;
+}
+.pricingCard {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 16px;
+  padding: var(--spacing-xl) var(--spacing-lg);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  position: relative;
+}
+.pricingCardPopular {
+  border-color: var(--mm-yellow);
+  background: rgba(247, 198, 47, 0.08);
+}
+.pricingCardBadge {
+  position: absolute;
+  top: -13px;
+  left: 50%;
+  transform: translateX(-50%);
+  background: var(--mm-yellow);
+  color: #0b0b1a;
+  font-size: 0.7rem;
+  font-weight: 900;
+  padding: 3px 12px;
+  border-radius: 999px;
+  letter-spacing: 0.05em;
+  white-space: nowrap;
+}
+.pricingCardName {
+  font-size: 1rem;
+  font-weight: 700;
+  opacity: 0.85;
+}
+.pricingCardPrice {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--mm-yellow);
+  line-height: 1;
+}
+.pricingCardNote {
+  font-size: 0.82rem;
+  opacity: 0.6;
+}
+.pricingCtaBtn {
+  background: var(--mm-yellow);
+  color: #0b0b1a;
+  font-weight: 900;
+  font-size: 1rem;
+  padding: 1rem 2.5rem;
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  transition: transform 0.15s, background 0.15s;
+}
+.pricingCtaBtn:hover {
+  background: var(--mm-deep-yellow);
+  transform: scale(1.03);
+}
+
+@media (max-width: 768px) {
+  .pricingCards {
+    grid-template-columns: 1fr;
+    max-width: 360px;
+  }
+  .pricingCtaInner {
+    padding: 0 var(--spacing-md);
+  }
+}
+
 /* FOOTER */
 .footer {
   background: var(--mm-blue);

@@ -172,11 +172,52 @@ export const LandingPage: React.FC = () => {
         </div>
       </section>
 
+      {/* PRICING CTA */}
+      <section className={styles.pricingCta}>
+        <div className={styles.pricingCtaInner}>
+          <h2 className={styles.pricingCtaTitle}>
+            COMIENZA HOY<br />
+            <span className={styles.pricingCtaEmph}>SIN COMPLICACIONES</span>
+          </h2>
+          <p className={styles.pricingCtaSub}>
+            Acceso completo a los 12 mundos · Cobros automáticos · Cancela cuando quieras
+          </p>
+
+          <div className={styles.pricingCards}>
+            <div className={styles.pricingCard}>
+              <div className={styles.pricingCardName}>Pago de Contado</div>
+              <div className={styles.pricingCardPrice}>$690.000</div>
+              <div className={styles.pricingCardNote}>COP · pago único</div>
+            </div>
+
+            <div className={`${styles.pricingCard} ${styles.pricingCardPopular}`}>
+              <div className={styles.pricingCardBadge}>MAS POPULAR</div>
+              <div className={styles.pricingCardName}>Plan 6 Meses</div>
+              <div className={styles.pricingCardPrice}>$200.000</div>
+              <div className={styles.pricingCardNote}>COP inicial + 5 cuotas de $130.000</div>
+            </div>
+
+            <div className={styles.pricingCard}>
+              <div className={styles.pricingCardName}>Plan 10 Meses</div>
+              <div className={styles.pricingCardPrice}>$200.000</div>
+              <div className={styles.pricingCardNote}>COP inicial + 9 cuotas de $90.000</div>
+            </div>
+          </div>
+
+          <button
+            className={styles.pricingCtaBtn}
+            onClick={() => navigate('/pricing')}
+          >
+            VER TODOS LOS PLANES
+          </button>
+        </div>
+      </section>
+
       {/* FOOTER */}
       <footer className={styles.footer}>
         <div className={styles.footerInner}>
           <p className={styles.copy}>
-            © 2025 Mundo Mágico Inglés. Todos los derechos reservados.
+            © 2026 Mundo Mágico Inglés. Todos los derechos reservados.
           </p>
 
           <ul className={styles.links}>

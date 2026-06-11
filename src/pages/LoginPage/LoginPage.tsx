@@ -11,17 +11,10 @@ import { Button } from '../../shared/ui/Button/Button';
 
 // Config
 const STORAGE_KEY = 'family_access_code';
-const CODE_MIN = 1;   // ajusta si quieres otra longitud mínima
-const CODE_MAX = 12;  // y máxima
-const pattern = /^[a-zA-Z0-9]+$/; // solo letras/números (cámbialo si quieres solo números)
-
-// Códigos válidos para acceso familiar
-const VALID_CODES = [
-  '1234',        // Código de prueba principal
-  '5678',        // Código de prueba secundario
-  '0000',        // Código de prueba adicional
-  'family2024',  // Código alfanumérico
-];
+const CODE_MIN = 1;
+const CODE_MAX = 12;
+const pattern = /^[a-zA-Z0-9]+$/;
+const API_URL = import.meta.env.VITE_API_URL ?? '';
 
 const ERROR_CODES: Record<string, string> = {
   'invalid_format': 'Código inválido. Solo se permiten letras y números.',
@@ -48,28 +41,31 @@ export default function LoginPage() {
   }, [code]);
 
   const validateCode = async (value: string) => {
-    // Validar formato
     if (!pattern.test(value)) {
       setErr(ERROR_CODES.invalid_format);
       return false;
     }
-
-    // Validar longitud
     if (value.length < CODE_MIN || value.length > CODE_MAX) {
       setErr(ERROR_CODES.invalid_length);
       return false;
     }
 
-    // Simular llamada a API
-    await new Promise((r) => setTimeout(r, 200));
-
-    // Validar código contra lista de códigos válidos
-    if (!VALID_CODES.includes(value)) {
-      setErr(ERROR_CODES.not_found);
+    try {
+      const res = await fetch(`${API_URL}/api/auth/family-code`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ code: value }),
+      });
+      if (res.status === 401) {
+        setErr(ERROR_CODES.not_found);
+        return false;
+      }
+      if (!res.ok) throw new Error('network');
+      return true;
+    } catch {
+      setErr(ERROR_CODES.network_error);
       return false;
     }
-
-    return true;
   };
 
   const submit = async () => {
@@ -114,13 +110,12 @@ export default function LoginPage() {
           transition={{ duration: 0.3 }}
           aria-label="Acceso Familiar"
         >
-          <h1 className={styles.title}>Acceso Familiar</h1>
-          <p className={styles.subtitle}>Código de acceso del padre</p>
+          <h1 className={styles.title}>Ingresar</h1>
 
           <Input
             id="family-code"
-            label="Ingresa el código*"
-            placeholder="Ej: 1234"
+            label="Código de acceso*"
+            placeholder="Ingresa tu código"
             value={code}
             onChange={(e) => {
               setCode(e.target.value);
