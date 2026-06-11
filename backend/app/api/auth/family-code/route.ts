@@ -1,24 +1,40 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { connectDB } from '@/lib/db';
+import { User } from '@/models/User';
 
 export async function POST(req: NextRequest) {
   try {
     const { code } = await req.json();
 
-    if (!code || typeof code !== 'string') {
+    if (!code || typeof code !== 'string' || !code.trim()) {
       return NextResponse.json({ error: 'Código requerido' }, { status: 400 });
     }
 
-    // Los códigos válidos se definen en la variable de entorno FAMILY_CODES
-    // Formato: "codigo1,codigo2,codigo3"
-    const rawCodes = process.env.FAMILY_CODES ?? '';
-    const validCodes = rawCodes.split(',').map((c) => c.trim()).filter(Boolean);
+    await connectDB();
 
-    if (!validCodes.includes(code)) {
+    // Buscar usuario por su número de registro (código familiar)
+    const user = await User.findOne({ registration_number: code.trim() }).select('-password');
+
+    if (!user) {
       return NextResponse.json({ error: 'Código incorrecto' }, { status: 401 });
     }
 
-    return NextResponse.json({ ok: true });
-  } catch {
+    if (user.role === 'blocked' || user.role === 'suspended') {
+      return NextResponse.json({ error: 'Cuenta suspendida. Contacta al administrador.' }, { status: 403 });
+    }
+
+    return NextResponse.json({
+      ok: true,
+      user: {
+        id:    user._id.toString(),
+        name:  user.name,
+        email: user.email,
+        role:  user.role,
+        registration_number: user.registration_number,
+      },
+    });
+  } catch (err) {
+    console.error('[family-code]', err);
     return NextResponse.json({ error: 'Error interno' }, { status: 500 });
   }
 }

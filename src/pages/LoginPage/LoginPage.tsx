@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
 import { motion } from 'framer-motion';
@@ -10,11 +10,11 @@ import { Input } from '../../shared/ui/Input/Input';
 import { Button } from '../../shared/ui/Button/Button';
 
 // Config
-const STORAGE_KEY = 'family_access_code';
-const CODE_MIN = 1;
-const CODE_MAX = 12;
-const pattern = /^[a-zA-Z0-9]+$/;
-const API_URL = import.meta.env.VITE_API_URL ?? '';
+const USER_KEY  = 'family_user';
+const CODE_MIN  = 1;
+const CODE_MAX  = 20;
+const pattern   = /^[a-zA-Z0-9_\-]+$/;
+const API_URL   = import.meta.env.VITE_API_URL ?? '';
 
 const ERROR_CODES: Record<string, string> = {
   'invalid_format': 'Código inválido. Solo se permiten letras y números.',
@@ -29,56 +29,45 @@ export default function LoginPage() {
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState<string | null>(null);
 
-  // Focus en el input al cargar (opcional, ya que Input maneja su propio focus)
-  useEffect(() => {
-    // El Input de shared/ui maneja su propio focus interno
-  }, []);
-
   const isReady = useMemo(() => {
     if (!code) return false;
     if (!pattern.test(code)) return false;
     return code.length >= CODE_MIN && code.length <= CODE_MAX;
   }, [code]);
 
-  const validateCode = async (value: string) => {
-    if (!pattern.test(value)) {
+  const submit = async () => {
+    if (!isReady || loading) return;
+
+    if (!pattern.test(code)) {
       setErr(ERROR_CODES.invalid_format);
-      return false;
+      return;
     }
-    if (value.length < CODE_MIN || value.length > CODE_MAX) {
+    if (code.length < CODE_MIN || code.length > CODE_MAX) {
       setErr(ERROR_CODES.invalid_length);
-      return false;
+      return;
     }
+
+    setLoading(true);
+    setErr(null);
 
     try {
       const res = await fetch(`${API_URL}/api/auth/family-code`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ code: value }),
+        body: JSON.stringify({ code }),
       });
-      if (res.status === 401) {
-        setErr(ERROR_CODES.not_found);
-        return false;
-      }
-      if (!res.ok) throw new Error('network');
-      return true;
-    } catch {
-      setErr(ERROR_CODES.network_error);
-      return false;
-    }
-  };
 
-  const submit = async () => {
-    if (!isReady || loading) return;
-    setLoading(true);
-    setErr(null);
-    try {
-      const ok = await validateCode(code);
-      if (!ok) {
+      if (res.status === 401 || res.status === 403) {
+        const data = await res.json().catch(() => ({}));
+        setErr(data.error ?? ERROR_CODES.not_found);
         setLoading(false);
         return;
       }
-      localStorage.setItem(STORAGE_KEY, code);
+      if (!res.ok) throw new Error('network');
+
+      const { user } = await res.json();
+      // Guardar datos del usuario en localStorage para la sesión
+      localStorage.setItem(USER_KEY, JSON.stringify(user));
       navigate('/family-access', { replace: true });
     } catch {
       setErr(ERROR_CODES.network_error);

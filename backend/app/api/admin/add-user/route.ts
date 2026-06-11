@@ -13,15 +13,20 @@ export async function POST(req: NextRequest) {
 
     if (!mongoPool.isReady()) await mongoPool.initialize();
 
-    const { name, email, password, role } = await req.json();
+    const { name, email, password, role, registration_number } = await req.json();
 
-    if (!name || !email || !password) {
-      return NextResponse.json({ error: 'Campos requeridos' }, { status: 400 });
+    if (!name || !email || !password || !registration_number) {
+      return NextResponse.json({ error: 'Campos requeridos: name, email, password, registration_number' }, { status: 400 });
     }
 
     const existing = await User.findOne({ email: email.toLowerCase() });
     if (existing) {
       return NextResponse.json({ error: 'Email ya registrado' }, { status: 409 });
+    }
+
+    const codeExists = await User.findOne({ registration_number: registration_number.trim() });
+    if (codeExists) {
+      return NextResponse.json({ error: 'Código de acceso ya en uso' }, { status: 409 });
     }
 
     const hashed = await bcrypt.hash(password, 10);
@@ -30,9 +35,13 @@ export async function POST(req: NextRequest) {
       email: email.toLowerCase(),
       password: hashed,
       role: role || 'student',
+      registration_number: registration_number.trim(),
     });
 
-    return NextResponse.json({ message: 'Usuario creado', user: { id: user._id, name: user.name, email: user.email, role: user.role } }, { status: 201 });
+    return NextResponse.json({
+      message: 'Usuario creado',
+      user: { id: user._id, name: user.name, email: user.email, role: user.role, registration_number: user.registration_number },
+    }, { status: 201 });
   } catch (err) {
     return NextResponse.json({ error: 'Error interno' }, { status: 500 });
   }
