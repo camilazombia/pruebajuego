@@ -180,6 +180,21 @@
   line-height: 0;
 }
 
+.ctaSecondary {
+  background: transparent !important;
+  border: 2px solid rgba(255, 255, 255, 0.35) !important;
+  color: #fff !important;
+  font-size: 0.95rem !important;
+  padding: 0.7rem 1.5rem !important;
+  border-radius: 999px !important;
+  transition: background 0.2s, border-color 0.2s !important;
+}
+
+.ctaSecondary:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.6) !important;
+}
+
 /* Responsivo: conejo abajo, texto centrado arriba */
 @media (max-width: 1024px) {
   .heroInner {

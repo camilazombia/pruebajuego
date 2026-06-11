@@ -37,6 +37,7 @@ import {
   FAQPage,
 } from '../../pages/LegalPages';
 import PoliciesPage from '../../pages/LegalPages/PoliciesPage';
+import PricingPage from '../../pages/PricingPage/PricingPage';
 
 export const AppRouter: React.FC = () => {
   const location = useLocation();
@@ -54,6 +55,9 @@ export const AppRouter: React.FC = () => {
 
         {/* Página de Bienvenida */}
         <Route path="/welcome" element={<WelcomePage />} />
+
+        {/* Página de Precios / Planes */}
+        <Route path="/pricing" element={<PricingPage />} />
 
         {/* Rutas internas que usan MainLayout */}
         <Route element={<MainLayout />}>

@@ -60,6 +60,7 @@ const ChapterMapPage: React.FC = () => {
 		guardianName: string;
 		worldTitle: string;
 		isWorldComplete: boolean;
+		nextWorldId?: string;
 	} | null>(null);
 
 	const [showChapterVideo, setShowChapterVideo] = useState(false);
@@ -91,6 +92,7 @@ const ChapterMapPage: React.FC = () => {
 			guardianName: world.guardianName,
 			worldTitle: world.title,
 			isWorldComplete: guardianCured,
+			nextWorldId: state?.nextWorldId,
 		});
 		setShowCelebration(true);
 	}, [worldId, guardianCured, advanceToChapter]);
@@ -99,9 +101,9 @@ const ChapterMapPage: React.FC = () => {
 		setShowCelebration(false);
 		setCelebrationData(null);
 
-		if (guardianCured && state?.nextWorldId) {
+		if (guardianCured && celebrationData?.nextWorldId) {
 			// Mundo completo → ir al primer nivel del siguiente mundo directamente
-			const nextWorldChapters = getChaptersWithProgress(state.nextWorldId);
+			const nextWorldChapters = getChaptersWithProgress(celebrationData.nextWorldId);
 			const firstChapter = nextWorldChapters[0];
 			if (firstChapter) {
 				const firstLevels = getLevelsWithProgress(firstChapter.id);
@@ -111,7 +113,7 @@ const ChapterMapPage: React.FC = () => {
 					return;
 				}
 			}
-			navigate(`/chapters/${state.nextWorldId}`, { replace: true, state: {} });
+			navigate(`/chapters/${celebrationData.nextWorldId}`, { replace: true, state: {} });
 			return;
 		}
 		if (advanceToChapter && worldId) {
@@ -185,7 +187,9 @@ const ChapterMapPage: React.FC = () => {
 			} else {
 				setSequencePhase('done');
 				setAvatarPos(null);
-				navigate(`/chapters/${worldId}`, { replace: true, state: {} });
+				if (!guardianCured) {
+					navigate(`/chapters/${worldId}`, { replace: true, state: {} });
+				}
 			}
 		}, 2400);
 

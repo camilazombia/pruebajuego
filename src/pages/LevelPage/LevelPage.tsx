@@ -230,7 +230,7 @@ const GENERIC_CHAPTER_WORDS: Record<string, MiniGameWord[]> = {
 		{ english: 'tall', spanish: 'alto', emoji: '📏' },
 		{ english: 'short', spanish: 'bajo', emoji: '📐' },
 		{ english: 'big', spanish: 'grande', emoji: '🔍' },
-		{ english: 'small', spanish: 'pequeno', emoji: '🔎' },
+		{ english: 'small', spanish: 'pequeno', emoji: '🐜' },
 		{ english: 'strong', spanish: 'fuerte', emoji: '💪' },
 	],
 	'world_9_chapter_5': [
@@ -298,7 +298,7 @@ const GENERIC_CHAPTER_WORDS: Record<string, MiniGameWord[]> = {
 		{ english: 'right', spanish: 'derecha', emoji: '➡️' },
 		{ english: 'straight', spanish: 'recto', emoji: '⬆️' },
 		{ english: 'near', spanish: 'cerca', emoji: '📌' },
-		{ english: 'far', spanish: 'lejos', emoji: '📍' },
+		{ english: 'far', spanish: 'lejos', emoji: '🔭' },
 	],
 	'world_11_chapter_4': [
 		{ english: 'stop', spanish: 'alto', emoji: '🛑' },
@@ -813,7 +813,7 @@ const LevelPage: React.FC = () => {
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
 					{ english: 'swing', spanish: 'columpio', emoji: '🎠' },
-					{ english: 'slide', spanish: 'tobogán', emoji: '🛝' },
+					{ english: 'slide', spanish: 'tobogán', emoji: '🎿' },
 				] as MiniGameWord[],
 				introAudioKey: 'audioAtTheParkIntro',
 				wordAudioKeys: {
@@ -829,7 +829,7 @@ const LevelPage: React.FC = () => {
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
 					{ english: 'swing', spanish: 'columpio', emoji: '🎠' },
-					{ english: 'slide', spanish: 'tobogán', emoji: '🛝' },
+					{ english: 'slide', spanish: 'tobogán', emoji: '🎿' },
 					{ english: 'tree', spanish: 'árbol', emoji: '🌳' },
 				] as MiniGameWord[],
 			};
@@ -840,7 +840,7 @@ const LevelPage: React.FC = () => {
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
 					{ english: 'swing', spanish: 'columpio', emoji: '🎠' },
-					{ english: 'slide', spanish: 'tobogán', emoji: '🛝' },
+					{ english: 'slide', spanish: 'tobogán', emoji: '🎿' },
 					{ english: 'tree', spanish: 'árbol', emoji: '🌳' },
 					{ english: 'bench', spanish: 'banco', emoji: '🪑' },
 				] as MiniGameWord[],
@@ -852,7 +852,7 @@ const LevelPage: React.FC = () => {
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
 					{ english: 'swing', spanish: 'columpio', emoji: '🎠' },
-					{ english: 'slide', spanish: 'tobogán', emoji: '🛝' },
+					{ english: 'slide', spanish: 'tobogán', emoji: '🎿' },
 				] as MiniGameWord[],
 			};
 		}
@@ -871,7 +871,7 @@ const LevelPage: React.FC = () => {
 				words: [
 					{ english: 'park', spanish: 'parque', emoji: '🏞️' },
 					{ english: 'swing', spanish: 'columpio', emoji: '🎠' },
-					{ english: 'slide', spanish: 'tobogán', emoji: '🛝' },
+					{ english: 'slide', spanish: 'tobogán', emoji: '🎿' },
 					{ english: 'tree', spanish: 'árbol', emoji: '🌳' },
 				] as MiniGameWord[],
 			};

@@ -31,7 +31,7 @@ export const ColorAndLearn: React.FC<ColorAndLearnProps> = ({ words, onComplete 
 	const [color, setColor] = useState(PALETTE_ENTRIES[0].hex);
 	const [brushSize, setBrushSize] = useState(BRUSH_SIZES[1]);
 	const [isDrawing, setIsDrawing] = useState(false);
-	const [hasDrawn, setHasDrawn] = useState(false);
+	const [coveragePercent, setCoveragePercent] = useState(0);
 	const [showWord, setShowWord] = useState(false);
 	const [allDone, setAllDone] = useState(false);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -53,7 +53,7 @@ export const ColorAndLearn: React.FC<ColorAndLearnProps> = ({ words, onComplete 
 		if (!initRef.current) {
 			initRef.current = true;
 		}
-		setHasDrawn(false);
+		setCoveragePercent(0);
 		setShowWord(false);
 		const t = setTimeout(clearCanvas, 50);
 		return () => clearTimeout(t);
@@ -95,13 +95,39 @@ export const ColorAndLearn: React.FC<ColorAndLearnProps> = ({ words, onComplete 
 		ctx.strokeStyle = color;
 		ctx.lineTo(pos.x, pos.y);
 		ctx.stroke();
-		if (!hasDrawn) setHasDrawn(true);
 	};
 
-	const stopDraw = () => setIsDrawing(false);
+	const stopDraw = () => {
+		setIsDrawing(false);
+		calculateCoverage();
+	};
+
+	const calculateCoverage = useCallback(() => {
+		const canvas = canvasRef.current;
+		if (!canvas) return;
+		const ctx = canvas.getContext('2d');
+		if (!ctx) return;
+		const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+		const data = imageData.data;
+		let coloredPixels = 0;
+		const step = 4; // sample every 4th pixel for performance
+		let total = 0;
+		for (let i = 0; i < data.length; i += 4 * step) {
+			const r = data[i], g = data[i + 1], b = data[i + 2];
+			// Count pixels that are NOT near-white (user painted)
+			if (!(r > 225 && g > 225 && b > 225)) {
+				coloredPixels++;
+			}
+			total++;
+		}
+		// Scale: 20% canvas coverage = "full" (roughly 80% of the emoji area)
+		const rawPercent = (coloredPixels / total) * 100;
+		const displayPercent = Math.min(100, Math.round(rawPercent / 20 * 100));
+		setCoveragePercent(displayPercent);
+	}, []);
 
 	const handleConfirm = () => {
-		if (!hasDrawn) return;
+		if (coveragePercent < 80) return;
 		playFeedback('correct');
 		setShowWord(true);
 		setTimeout(() => playWord(word.english), 400);
@@ -160,6 +186,27 @@ export const ColorAndLearn: React.FC<ColorAndLearnProps> = ({ words, onComplete 
 					/>
 				</div>
 
+				{/* Progress bar */}
+				<div style={{ width: '100%', padding: '0 8px', margin: '6px 0' }}>
+					<div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+						<div style={{ flex: 1, height: '12px', background: '#e5e7eb', borderRadius: '6px', overflow: 'hidden' }}>
+							<div style={{
+								height: '100%',
+								width: `${coveragePercent}%`,
+								background: coveragePercent >= 80 ? '#22c55e' : '#f97316',
+								borderRadius: '6px',
+								transition: 'width 0.3s ease',
+							}} />
+						</div>
+						<span style={{ fontSize: '12px', fontWeight: 600, color: coveragePercent >= 80 ? '#16a34a' : '#9a3412', minWidth: '38px' }}>
+							{coveragePercent}%
+						</span>
+					</div>
+					<p style={{ fontSize: '11px', color: '#6b7280', margin: '2px 0 0', textAlign: 'center' }}>
+						{coveragePercent >= 80 ? '¡Listo para continuar! ✅' : `Colorea más: necesitas 80%`}
+					</p>
+				</div>
+
 				<div className={styles.toolbar}>
 					<div className={styles.palette}>
 						{PALETTE_ENTRIES.map(entry => (
@@ -214,7 +261,7 @@ export const ColorAndLearn: React.FC<ColorAndLearnProps> = ({ words, onComplete 
 						<motion.button
 							className={styles.confirmBtn}
 							onClick={handleConfirm}
-							disabled={!hasDrawn}
+							disabled={coveragePercent < 80}
 							whileTap={{ scale: 0.95 }}
 						>
 							<span className="material-symbols-outlined">check_circle</span>

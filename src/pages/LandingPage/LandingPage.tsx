@@ -71,6 +71,13 @@ export const LandingPage: React.FC = () => {
             <span className={styles.bullet}>●</span> COMENZAR
           </Button>
 
+          <Button
+            className={styles.ctaSecondary}
+            onClick={() => navigate('/pricing')}
+          >
+            VER PLANES
+          </Button>
+
           <SoundButton size={70} audioSrc="/assets/audio/voices/landing/landing_hero.mp3" />
         </div>
       </motion.div>

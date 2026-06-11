@@ -145,7 +145,7 @@ export const CelebrationModal: React.FC<CelebrationModalProps> = ({
 						</motion.div>
 
 						<h2 className={styles.title}>
-							{isWorldComplete ? '&#127881; Mundo Completado &#127881;' : '&#9989; Capitulo Completado'}
+							{isWorldComplete ? '🎉 Mundo Completado 🎉' : '✅ Capitulo Completado'}
 						</h2>
 
 						<p className={styles.message}>

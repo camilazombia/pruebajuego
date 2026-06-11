@@ -1,5 +1,5 @@
-import React, { useMemo, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useMemo, useEffect, useState } from 'react';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Button } from '../../shared/ui/Button/Button';
 import { OrientationAlert } from '../../shared/ui/OrientationAlert/OrientationAlert';
@@ -10,13 +10,16 @@ import { useProgressStore } from '../../features/progress/store/progressStore';
 import { useAudio } from '../../app/providers/AudioProvider';
 import { useSettingsStore, useSettingsActions } from '../../app/store/settings.store';
 import { WORLDS } from '../../shared/data/worlds';
+import { BackgroundImage } from '../../shared/ui/BackgroundImage/BackgroundImage';
 import styles from './HomePage.module.css';
 
 export const HomePage: React.FC = () => {
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const [pagoExitoso, setPagoExitoso] = useState(false);
   const { animationSpeed } = useAgeAdaptation();
   const { avatarState } = useAvatar();
-  const { unlockedWorlds, completedWorlds, magicCoins } = useProgressStore();
+  const { unlockedWorlds, completedWorlds, completedLevels, magicCoins } = useProgressStore();
   const { playMusic, stopMusic, playFeedback } = useAudio();
   const { musicEnabled, soundEffectsEnabled } = useSettingsStore();
   const { toggleMusic, toggleSoundEffects } = useSettingsActions();
@@ -30,6 +33,28 @@ export const HomePage: React.FC = () => {
 
   const bgChapterId = `${currentWorld.id}_chapter_1`;
   const worldsCompleted = completedWorlds.length;
+
+  const [showDailyReviewBanner, setShowDailyReviewBanner] = useState(false);
+
+  useEffect(() => {
+    if (searchParams.get('pago') === 'exitoso') {
+      setPagoExitoso(true);
+      // Limpiar el parámetro de la URL sin recargar
+      window.history.replaceState({}, '', '/home');
+      const t = setTimeout(() => setPagoExitoso(false), 6000);
+      return () => clearTimeout(t);
+    }
+  }, [searchParams]);
+
+  const DAILY_REVIEW_KEY = 'mundo_magico_last_visit';
+  useEffect(() => {
+    const today = new Date().toISOString().slice(0, 10);
+    const lastVisit = localStorage.getItem(DAILY_REVIEW_KEY);
+    if (lastVisit !== today && completedWorlds.length > 0) {
+      localStorage.setItem(DAILY_REVIEW_KEY, today);
+      setShowDailyReviewBanner(true);
+    }
+  }, []);
 
   useEffect(() => {
     if (musicEnabled) {
@@ -45,6 +70,20 @@ export const HomePage: React.FC = () => {
     }
   };
 
+  const getNextLevelId = (): string | null => {
+    for (const world of WORLDS) {
+      if (!unlockedWorlds.includes(world.id)) continue;
+      for (const chapter of world.chapters) {
+        for (const level of chapter.levels) {
+          if (!completedLevels.includes(level.id)) {
+            return level.id;
+          }
+        }
+      }
+    }
+    return null;
+  };
+
   const handleToggleSoundEffects = () => {
     toggleSoundEffects();
     if (!soundEffectsEnabled) {
@@ -56,12 +95,20 @@ export const HomePage: React.FC = () => {
     <>
       <OrientationAlert />
       <div className={styles.page}>
-      <img
-        className={styles.backgroundImage}
-        src={`/assets/images/backgrounds/${bgChapterId}.png`}
-        alt=""
-        aria-hidden="true"
-      />
+      <BackgroundImage chapterId={bgChapterId} className={styles.backgroundImage} />
+
+      {/* Banner de pago exitoso */}
+      {pagoExitoso && (
+        <div style={{
+          position: 'fixed', top: 16, left: '50%', transform: 'translateX(-50%)',
+          zIndex: 9999, background: 'linear-gradient(135deg,#22c55e,#16a34a)',
+          color: '#fff', borderRadius: '999px', padding: '0.75rem 1.75rem',
+          fontWeight: 800, fontSize: '0.95rem', boxShadow: '0 8px 30px rgba(0,0,0,0.3)',
+          display: 'flex', alignItems: 'center', gap: '0.5rem',
+        }}>
+          🎉 ¡Pago exitoso! Bienvenido a Mundo Mágico
+        </div>
+      )}
 
       {/* ===== INDICADORES SUPERIORES ===== */}
       <div className={styles.topIndicators}>
@@ -119,7 +166,19 @@ export const HomePage: React.FC = () => {
         </motion.div>
 
         <Button
-          onClick={() => navigate('/worlds')}
+          onClick={() => {
+            if (showDailyReviewBanner) {
+              setShowDailyReviewBanner(false);
+              navigate('/review');
+              return;
+            }
+            const nextLevel = getNextLevelId();
+            if (nextLevel) {
+              navigate(`/level/${nextLevel}`);
+            } else {
+              navigate('/worlds');
+            }
+          }}
           text="JUGAR"
           icon="play_arrow"
           showIconCircle={true}
@@ -147,7 +206,7 @@ export const HomePage: React.FC = () => {
         />
         <Button
           title="Repaso"
-          text=""
+          text={showDailyReviewBanner ? '¡Nuevo!' : ''}
           icon="menu_book"
           className={styles.controlButtonStyle}
           showIconCircle={false}
